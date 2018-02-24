@@ -15,5 +15,7 @@ before_script:
 
 jobs:
   include:
+    - stage: e2e test
+      script: yarn e2e
     - stage: app build
       script: yarn dev-build
