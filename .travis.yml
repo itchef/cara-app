@@ -12,3 +12,20 @@ before_script:
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
     - sleep 3
+
+jobs:
+    include:
+        - stage: dependencies
+        script:
+            - yarn install
+        - stage: lint
+        script:
+            - yarn lint
+        -stage: unit-tests
+        script:
+            - yarn test
+        - stage: end-to-end
+            - yarn e2e
+        stage: build
+        script:
+            - yarn dev-build
