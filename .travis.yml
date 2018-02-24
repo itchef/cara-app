@@ -1,9 +1,6 @@
-dist: precise
-sudo: required
 language: node_js
 node_js:
-  - 9.5.0
-
+  - 8
 addons:
     chrome: stable
 before_script:
