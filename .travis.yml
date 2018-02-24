@@ -16,16 +16,4 @@ before_script:
 jobs:
     include:
         - stage: dependencies
-        script:
-            - yarn install
-        - stage: lint
-        script:
-            - yarn lint
-        -stage: unit-tests
-        script:
-            - yarn test
-        - stage: end-to-end
-            - yarn e2e
-        stage: build
-        script:
-            - yarn dev-build
+        script: yarn install
