@@ -42,6 +42,6 @@ export class SharedModule {
             providers: [
                 MemberService
             ]
-        }
+        };
     }
 }
