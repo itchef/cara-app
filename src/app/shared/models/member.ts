@@ -16,11 +16,15 @@
 //
 // @author Kaustav Chakraborty
 
-import { Component } from '@angular/core';
+export class Member {
+    id: number;
+    name: string;
+    age: number;
+    place: string;
 
-@Component({
-  selector: 'cara-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent {}
+    constructor(name: string, age: number, place: string) {
+        this.name = name;
+        this.age = age;
+        this.place = place;
+    }
+}

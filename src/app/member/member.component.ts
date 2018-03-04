@@ -16,11 +16,26 @@
 //
 // @author Kaustav Chakraborty
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Member } from '../shared/models/model';
+import {MemberService} from '../shared/services/member.service';
 
 @Component({
-  selector: 'cara-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'cara-member',
+    templateUrl: './member.component.html',
+    styleUrls: ['./member.component.scss'],
+    providers: [MemberService]
 })
-export class AppComponent {}
+export class MemberComponent implements OnInit {
+    members: Member[];
+
+    constructor(
+        private _memberService: MemberService
+    ) { }
+
+    ngOnInit() {
+        this._memberService.getMemberList()
+            .subscribe(members => this.members = members);
+    }
+
+}

@@ -16,11 +16,19 @@
 //
 // @author Kaustav Chakraborty
 
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Member} from '../../shared/models/member';
 
 @Component({
-  selector: 'cara-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'cara-cheat-card',
+    templateUrl: './cheat-card.component.html',
+    styleUrls: ['./cheat-card.component.scss']
 })
-export class AppComponent {}
+export class CheatCardComponent implements OnInit {
+    @Input()
+    member: Member;
+    constructor() { }
+
+    ngOnInit() {}
+
+}

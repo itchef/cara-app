@@ -15,12 +15,4 @@
 // along with this program.  If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 //
 // @author Kaustav Chakraborty
-
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'cara-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent {}
+export { Member } from './member';

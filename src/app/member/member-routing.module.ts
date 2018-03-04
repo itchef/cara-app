@@ -16,11 +16,16 @@
 //
 // @author Kaustav Chakraborty
 
-import { Component } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import {MemberComponent} from './member.component';
 
-@Component({
-  selector: 'cara-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+const routes: Routes = [
+    { path: '', component: MemberComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
 })
-export class AppComponent {}
+export class MemberRoutingModule { }

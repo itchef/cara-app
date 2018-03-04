@@ -16,11 +16,25 @@
 //
 // @author Kaustav Chakraborty
 
-import { Component } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
-@Component({
-  selector: 'cara-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+import { MemberRoutingModule } from './member-routing.module';
+import { MemberComponent } from './member.component';
+import { HeaderModule } from '../header/header.module';
+import { CheatCardModule } from './cheat-card/cheat-card.module';
+import { SharedModule } from '../shared/shared.module';
+
+@NgModule({
+    imports: [
+        CommonModule,
+        MemberRoutingModule,
+        HeaderModule,
+        CheatCardModule,
+        FlexLayoutModule,
+        SharedModule
+    ],
+    declarations: [ MemberComponent ]
 })
-export class AppComponent {}
+export class MemberModule { }

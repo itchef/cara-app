@@ -16,11 +16,19 @@
 //
 // @author Kaustav Chakraborty
 
-import { Component } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CheatCardComponent } from './cheat-card.component';
+import { MatCardModule } from '@angular/material/card';
+import {MatIconModule} from '@angular/material';
 
-@Component({
-  selector: 'cara-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+@NgModule({
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatIconModule
+    ],
+    exports: [ CheatCardComponent ],
+    declarations: [CheatCardComponent]
 })
-export class AppComponent {}
+export class CheatCardModule { }

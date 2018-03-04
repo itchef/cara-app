@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import '~@angular/material/theming';
+@import "color";
+
+@include mat-core();
+
+$cara-app-primary:  mat-palette($mat-blue-gray);
+$cara-app-accent:   mat-palette($mat-orange, A200, A100, A400);
+$cara-app-theme:    mat-light-theme($cara-app-primary, $cara-app-accent);

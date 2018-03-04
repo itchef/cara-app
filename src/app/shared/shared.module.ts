@@ -16,11 +16,32 @@
 //
 // @author Kaustav Chakraborty
 
-import { Component } from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
-@Component({
-  selector: 'cara-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+import { HeaderModule } from '../header/header.module';
+import {MemberService} from './services/member.service';
+
+
+@NgModule({
+    imports: [
+        CommonModule,
+        HeaderModule,
+        HttpClientModule
+    ],
+    exports: [
+        HeaderModule
+    ],
+    declarations: []
 })
-export class AppComponent {}
+export class SharedModule {
+    static forRoot(): ModuleWithProviders {
+        return {
+            ngModule: SharedModule,
+            providers: [
+                MemberService
+            ]
+        }
+    }
+}
