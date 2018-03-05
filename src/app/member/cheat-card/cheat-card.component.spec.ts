@@ -28,6 +28,15 @@ describe('CheatCardComponent', () => {
     let component: TestCheatCardComponent;
     let fixture: ComponentFixture<TestCheatCardComponent>;
 
+    @Component({
+        selector: 'cara-cheat-card-test',
+        template: `<cara-cheat-card></cara-cheat-card>`
+    })
+    class TestCheatCardComponent {
+        @ViewChild(CheatCardComponent)
+        public cheatCardComponent: CheatCardComponent;
+    }
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
@@ -58,12 +67,4 @@ describe('CheatCardComponent', () => {
             .toContain('London');
         done();
     });
-    @Component({
-        selector: 'cara-cheat-card-test',
-        template: `<cara-cheat-card></cara-cheat-card>`
-    })
-    class TestCheatCardComponent {
-        @ViewChild(CheatCardComponent)
-        public cheatCardComponent: CheatCardComponent;
-    }
 });

@@ -9,7 +9,8 @@
         "dev-build": "ng build",
         "test": "ng test --watch=false --sourcemaps=false",
         "lint": "ng lint",
-        "e2e": "ng e2e"
+        "e2e": "ng e2e",
+        "build:dev": "yarn lint && yarn test && yarn e2e && yarn dev-build"
     },
     "keywords": [
         "angular",

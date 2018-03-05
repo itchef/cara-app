@@ -17,8 +17,4 @@ jobs:
   include:
     - stage: test
       script:
-        - yarn lint
-        - yarn test
-        - yarn e2e
-    - stage: app build
-      script: yarn dev-build
+        - yarn build:dev
