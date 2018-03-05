@@ -24,6 +24,9 @@ import { MemberComponent } from './member.component';
 import {MemberService} from '../shared/services/member.service';
 import {HttpClient} from '@angular/common/http';
 import {Member} from '../shared/models/member';
+import {HeaderModule} from '../header/header.module';
+import {CheatCardModule} from './cheat-card/cheat-card.module';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('MemberComponent', () => {
     let component: MemberComponent;
@@ -31,6 +34,11 @@ describe('MemberComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
+            imports: [
+                HeaderModule,
+                CheatCardModule,
+                HttpClientTestingModule
+            ],
             declarations: [ MemberComponent ]
         })
             .compileComponents();
@@ -53,6 +61,6 @@ describe('MemberComponent', () => {
         const spy = spyOn(memberService, 'getMemberList').and.returnValue(Observable.of(members));
         component.ngOnInit();
         expect(component.members).toEqual(members);
-        expect(spy.calls.count).toEqual(1);
+        expect(spy.calls.count()).toEqual(1);
     });
 });

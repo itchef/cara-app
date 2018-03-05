@@ -7,7 +7,7 @@
         "start": "ng serve",
         "build": "ng build --prod",
         "dev-build": "ng build",
-        "test": "ng test --watch=false",
+        "test": "ng test --watch=false --sourcemaps=false",
         "lint": "ng lint",
         "e2e": "ng e2e"
     },
@@ -50,6 +50,7 @@
         "jasmine-spec-reporter": "4.2.1",
         "karma": "2.0.0",
         "karma-chrome-launcher": "2.2.0",
+        "puppeteer": "1.1.1",
         "karma-coverage-istanbul-reporter": "1.4.1",
         "karma-jasmine": "1.1.1",
         "karma-jasmine-html-reporter": "0.2.2",
