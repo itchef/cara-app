@@ -20,9 +20,12 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CheatCardComponent } from './cheat-card.component';
 import { Member } from '../../shared/models/member';
-import {MatIconModule} from '@angular/material';
-import {MatCardModule} from '@angular/material/card';
-import {Component, Input, ViewChild} from '@angular/core';
+import { MatDividerModule, MatIconModule } from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { Component, ViewChild } from '@angular/core';
+import { SocialBadgeComponent } from './social-badge/social-badge.component';
+import { Phone } from '../../shared/models/phone';
+import { Contact } from '../../shared/models/contact';
 
 describe('CheatCardComponent', () => {
     let component: TestCheatCardComponent;
@@ -41,11 +44,13 @@ describe('CheatCardComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 MatCardModule,
-                MatIconModule
+                MatIconModule,
+                MatDividerModule
             ],
             declarations: [
                 CheatCardComponent,
-                TestCheatCardComponent
+                TestCheatCardComponent,
+                SocialBadgeComponent
             ]
         })
             .compileComponents();
@@ -58,6 +63,8 @@ describe('CheatCardComponent', () => {
 
     it('should show card for a member', function (done: DoneFn) {
         const member: Member = new Member('Alan', 23, 'London');
+        member.phone_numbers = [ new Phone('1234567890') ];
+        member.contacts = [ new Contact('CaraBook', 'hello.carabook.project') ];
         component.cheatCardComponent.member = member;
         fixture.detectChanges();
         const memberCard = fixture.debugElement.nativeElement;
@@ -65,6 +72,8 @@ describe('CheatCardComponent', () => {
         expect(memberCard.querySelector('mat-card-subtitle').textContent).toContain('23 Years');
         expect(memberCard.querySelector('span').querySelector('span').textContent)
             .toContain('London');
+        expect(memberCard.querySelectorAll('.telephone-container div').length).toBe(1);
+        expect(memberCard.querySelectorAll('cara-social-badge').length).toBe(1);
         done();
     });
 });

@@ -18,28 +18,11 @@
  * @author Kaustav Chakraborty
  */
 
-.card-width {
-    max-width: 400px;
-}
-
-.icon-holder {
-    padding: 0 10px;
-}
-
-.telephone-container {
-    padding: 10px 30px;
+.cara-badge {
     mat-icon {
-        padding-right: 10px;
+        font-size: 20px;
     }
-    div {
-        display: inline-block;
+    button {
+        margin-right: 10px;
     }
-    a {
-        text-decoration: none;
-        color: #000000;
-        display: block;
-    }
-}
-.social-contact-wrapper {
-    padding: 10px 30px;
 }

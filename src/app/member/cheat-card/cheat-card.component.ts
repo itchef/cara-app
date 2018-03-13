@@ -18,11 +18,13 @@
 
 import {Component, Input, OnInit} from '@angular/core';
 import {Member} from '../../shared/models/member';
+import {MatIconRegistry} from '@angular/material';
 
 @Component({
     selector: 'cara-cheat-card',
     templateUrl: './cheat-card.component.html',
-    styleUrls: ['./cheat-card.component.scss']
+    styleUrls: ['./cheat-card.component.scss'],
+    providers: [ MatIconRegistry ]
 })
 export class CheatCardComponent implements OnInit {
     @Input()

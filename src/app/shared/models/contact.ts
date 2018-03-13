@@ -16,22 +16,12 @@
 //
 // @author Kaustav Chakraborty
 
-import {
-    Contact,
-    Phone
-} from './model';
-
-export class Member {
-    id: number;
+export class Contact {
     name: string;
-    age: number;
-    place: string;
-    contacts: Contact[];
-    phone_numbers: Phone[];
+    value: string;
 
-    constructor(name: string, age: number, place: string) {
+    constructor(name: string, value: string) {
         this.name = name;
-        this.age = age;
-        this.place = place;
+        this.value = value;
     }
 }

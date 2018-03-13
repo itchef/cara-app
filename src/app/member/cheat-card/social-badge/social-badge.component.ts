@@ -1,3 +1,4 @@
+///<reference path="../../../../../node_modules/@angular/core/src/metadata/directives.d.ts"/>
 // Cara API is Rest APIs for Cara application which is a face cheat book for organisation
 // Copyright (C) 2018  ITChef
 //
@@ -16,22 +17,25 @@
 //
 // @author Kaustav Chakraborty
 
-import {
-    Contact,
-    Phone
-} from './model';
+import {Component, Input, OnInit} from '@angular/core';
 
-export class Member {
-    id: number;
-    name: string;
-    age: number;
-    place: string;
-    contacts: Contact[];
-    phone_numbers: Phone[];
+@Component({
+    selector: 'cara-social-badge',
+    templateUrl: './social-badge.component.html',
+    styleUrls: ['./social-badge.component.scss']
+})
+export class SocialBadgeComponent implements OnInit {
+    @Input()
+    link: string;
+    @Input()
+    siteName: string;
 
-    constructor(name: string, age: number, place: string) {
-        this.name = name;
-        this.age = age;
-        this.place = place;
+    constructor() { }
+
+    ngOnInit() {
+    }
+
+    navigateToSocial(url: string) {
+        window.open(url, '_blank');
     }
 }

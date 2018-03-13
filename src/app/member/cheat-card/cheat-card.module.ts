@@ -19,16 +19,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CheatCardComponent } from './cheat-card.component';
-import { MatCardModule } from '@angular/material/card';
-import {MatIconModule} from '@angular/material';
+import {
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatDividerModule,
+    MatIconRegistry
+} from '@angular/material';
+import { SocialBadgeComponent } from './social-badge/social-badge.component';
 
 @NgModule({
     imports: [
         CommonModule,
         MatCardModule,
-        MatIconModule
+        MatIconModule,
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatDividerModule
+    ],
+    providers: [
+        MatIconRegistry
     ],
     exports: [ CheatCardComponent ],
-    declarations: [CheatCardComponent]
+    declarations: [CheatCardComponent, SocialBadgeComponent]
 })
-export class CheatCardModule { }
+export class CheatCardModule {
+    constructor(public matIconRegistry: MatIconRegistry) {
+        matIconRegistry.registerFontClassAlias('fontawesome', 'fa');
+    }
+}

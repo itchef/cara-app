@@ -16,22 +16,16 @@
 //
 // @author Kaustav Chakraborty
 
-import {
-    Contact,
-    Phone
-} from './model';
+import {AppPage} from '../app.po';
 
-export class Member {
-    id: number;
-    name: string;
-    age: number;
-    place: string;
-    contacts: Contact[];
-    phone_numbers: Phone[];
+describe('cara app Member Grid View', function () {
+    let app: AppPage;
 
-    constructor(name: string, age: number, place: string) {
-        this.name = name;
-        this.age = age;
-        this.place = place;
-    }
-}
+    beforeEach(() => {
+        app = new AppPage();
+    });
+
+    xit('should display grid view list for members', () => {
+        app.navigateToHome();
+    });
+});

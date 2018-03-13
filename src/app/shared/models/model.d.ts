@@ -16,3 +16,5 @@
 //
 // @author Kaustav Chakraborty
 export { Member } from './member';
+export { Contact } from './contact';
+export { Phone } from './phone';

@@ -25,7 +25,7 @@ describe('cara-app App', () => {
     });
 
     it('should display App name on header', () => {
-        page.navigateTo();
+        page.navigateToHome();
         expect(page.getAppName()).toEqual('Cara');
     });
 });

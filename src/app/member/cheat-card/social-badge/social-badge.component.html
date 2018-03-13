@@ -1,0 +1,6 @@
+<button mat-mini-fab class="cara-badge" (click)="navigateToSocial(link)">
+    <mat-icon *ngIf="siteName.toLowerCase() == 'email'">email</mat-icon>
+    <mat-icon fontSet="fab" fontIcon="fa-facebook-f" *ngIf="siteName.toLowerCase() == 'facebook'"></mat-icon>
+    <mat-icon fontSet="fab" fontIcon="fa-twitter" *ngIf="siteName.toLowerCase() == 'twitter'"></mat-icon>
+    <mat-icon fontSet="fab" fontIcon="fa-linkedin-in" *ngIf="siteName.toLowerCase() == 'linkedin'"></mat-icon>
+</button>

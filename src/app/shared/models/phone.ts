@@ -16,22 +16,9 @@
 //
 // @author Kaustav Chakraborty
 
-import {
-    Contact,
-    Phone
-} from './model';
+import {Contact} from './contact';
 
-export class Member {
-    id: number;
-    name: string;
-    age: number;
-    place: string;
-    contacts: Contact[];
-    phone_numbers: Phone[];
-
-    constructor(name: string, age: number, place: string) {
-        this.name = name;
-        this.age = age;
-        this.place = place;
-    }
-}
+export class Phone extends Contact {
+    constructor(number: string) {
+        super('Phone', number);
+    }}

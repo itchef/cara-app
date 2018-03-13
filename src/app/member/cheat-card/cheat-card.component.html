@@ -10,4 +10,17 @@
         </mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image src="../../../assets/images/cara-logo.png" alt="Cara Logo">
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+        <div class="telephone-container">
+            <mat-icon>phone</mat-icon>
+            <div *ngFor="let number of member.phone_numbers">
+                <a href="tel:{{ number.value }}">{{ number.value }}</a>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="social-contact-wrapper">
+            <cara-social-badge [link]="contact.value" [siteName]="contact.name" *ngFor="let contact of member.contacts"></cara-social-badge>
+        </div>
+    </mat-card-actions>
 </mat-card>
