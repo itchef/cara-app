@@ -29,7 +29,8 @@ import {
     MatButtonModule,
     MatButtonToggleModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
 } from '@angular/material';
 import { FormModule } from '../common/form/form.module';
 
@@ -45,7 +46,8 @@ import { FormModule } from '../common/form/form.module';
         MatButtonToggleModule,
         SharedModule,
         FormModule,
-        MatDialogModule
+        MatDialogModule,
+        MatSnackBarModule
     ],
     declarations: [
         MemberComponent

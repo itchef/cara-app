@@ -92,6 +92,9 @@ export class MemberFormComponent implements OnInit {
                             });
                     }
                 );
-            });
+            },
+                error => {
+                    this._matDialogRef.close(error);
+                });
     }
 }
