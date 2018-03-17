@@ -19,7 +19,7 @@
  */
 
 .card-width {
-    max-width: 400px;
+    max-width: 230px;
 }
 
 .icon-holder {
@@ -42,4 +42,13 @@
 }
 .social-contact-wrapper {
     padding: 10px 30px;
+}
+
+.card-alignment {
+    display: inline-block;
+    float: left;
+}
+
+.card-margin {
+    margin: 0 10px 10px 10px;
 }

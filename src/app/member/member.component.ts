@@ -1,4 +1,4 @@
-// Cara API is Rest APIs for Cara application which is a face cheat book for organisation
+// Cara APP is front end application for Cara application which gets supported by Cara API, which is a face cheat book for organisation.
 // Copyright (C) 2018  ITChef
 //
 // This program is free software: you can redistribute it and/or modify
@@ -16,26 +16,47 @@
 //
 // @author Kaustav Chakraborty
 
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Member } from '../shared/models/model';
 import {MemberService} from '../shared/services/member.service';
+import {MatDialog} from '@angular/material';
+import {MemberFormComponent} from '../common/form/member-form/member-form.component';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
     selector: 'cara-member',
     templateUrl: './member.component.html',
     styleUrls: ['./member.component.scss'],
-    providers: [MemberService]
+    providers: [
+        MemberService
+    ]
 })
-export class MemberComponent implements OnInit {
+export class MemberComponent implements OnInit, OnDestroy {
     members: Member[];
-
+    private _memberEventSubscription: Subscription;
     constructor(
-        private _memberService: MemberService
-    ) { }
+        private _memberService: MemberService,
+        public dialog: MatDialog) { }
 
     ngOnInit() {
         this._memberService.getMemberList()
             .subscribe(members => this.members = members);
     }
 
+    ngOnDestroy() {
+        this._memberEventSubscription.unsubscribe();
+    }
+
+    toggleAddMemberForm() {
+        const dialogRef = this.dialog.open(MemberFormComponent, {
+            width: '50%'
+        });
+
+        dialogRef.afterClosed().subscribe(member => {
+            if (member) {
+                this.members.push(member);
+            }
+            console.log('Member form is closed');
+        });
+    }
 }

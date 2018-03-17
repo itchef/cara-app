@@ -18,50 +18,39 @@
 
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {ContactRequest} from '../requests/contact.request';
 import {Observable} from 'rxjs/Observable';
-import { Member } from '../models/model';
+import {Contact} from '../models/contact';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
-import {MemberRequest} from '../requests/member.request';
 
 @Injectable()
-export class MemberService {
+export class ContactService {
     private URL = {
-        members: 'http://localhost:3002/members'
+        add_contacts: 'http://localhost:3002/contacts/add_contacts'
     };
 
     constructor(
         private _http: HttpClient,
     ) {}
 
-    getMemberList(): Observable<Member[]> {
-        return this._http.get( this.URL.members )
-            .pipe(
-                tap(members => console.log(`members ${members}`)),
-                catchError(this.handleError<any>('Members are not fetched successfully'))
-            );
-    }
-
-    save(data: MemberRequest): Observable<Member> {
+    add_contacts (contactRequests: ContactRequest[], memberId: number): Observable<Contact[]> {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type':  'application/json',
                 'Access-Control-Allow-Origin': '*'
             })
         };
-        return this._http.post<Member>(this.URL.members, { personal: data }, httpOptions)
+        const requestData = {
+            member_id: memberId,
+            contacts: contactRequests
+        };
+        return this._http.post<Contact[]>(this.URL.add_contacts, requestData, httpOptions)
             .pipe(
-                tap(member => console.log(`member ${member}`)),
-                catchError(this.handleError<any>('member is not saved'))
+                tap(contacts => console.log(`contacts ${contacts}`)),
+                catchError(this.handleError<any>('Contacts are not saved'))
             );
-    }
 
-    getMember(memberId: number): Observable<Member> {
-        const url = `${this.URL.members}/${memberId}`;
-        return this._http.get(url).pipe(
-            tap(member => console.log(`member ${member}`)),
-            catchError(this.handleError<any>('Member is not fetched successfully'))
-        );
     }
 
     private handleError<T> (operation, result?: T) {

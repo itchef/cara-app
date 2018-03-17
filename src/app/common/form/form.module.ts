@@ -1,4 +1,4 @@
-// Cara APP is front end application for Cara application which gets supported by Cara API, which is a face cheat book for organisation.
+// Cara APP is front end application for Cara application which gets supported by Cara API, which is a face cheat book for organisation
 // Copyright (C) 2018  ITChef
 //
 // This program is free software: you can redistribute it and/or modify
@@ -15,40 +15,39 @@
 // along with this program.  If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 //
 // @author Kaustav Chakraborty
-
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FlexLayoutModule} from '@angular/flex-layout';
-
-import { MemberRoutingModule } from './member-routing.module';
-import { MemberComponent } from './member.component';
-import { HeaderModule } from '../header/header.module';
-import { CheatCardModule } from './cheat-card/cheat-card.module';
-import { SharedModule } from '../shared/shared.module';
+import { MemberFormComponent } from './member-form/member-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatButtonModule,
-    MatButtonToggleModule,
     MatDialogModule,
-    MatIconModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatStepperModule
 } from '@angular/material';
-import { FormModule } from '../common/form/form.module';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        MemberRoutingModule,
-        HeaderModule,
-        CheatCardModule,
-        FlexLayoutModule,
-        MatIconModule,
-        MatButtonModule,
-        MatButtonToggleModule,
+        MatStepperModule,
+        FormsModule,
         SharedModule,
-        FormModule,
-        MatDialogModule
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDialogModule,
+        MatButtonModule
     ],
     declarations: [
-        MemberComponent
-    ]
+        MemberFormComponent
+    ],
+    entryComponents: [ MemberFormComponent ],
+    exports: [
+        MemberFormComponent
+    ],
+    providers: [],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
-export class MemberModule { }
+export class FormModule { }

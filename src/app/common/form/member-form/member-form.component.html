@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>Add Member</h1>
+<div mat-dialog-content>
+    <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
+        <mat-step [stepControl]="memberFormGroup">
+            <form [formGroup]="memberFormGroup">
+                <ng-template matStepLabel>Personal</ng-template>
+                <mat-form-field class="display-block">
+                    <input matInput placeholder="Name" formControlName="name" required>
+                </mat-form-field>
+                <mat-form-field class="display-block">
+                    <input matInput type="number" placeholder="Age" formControlName="age" required>
+                </mat-form-field>
+                <mat-form-field class="display-block">
+                    <input matInput placeholder="Place" formControlName="place" required>
+                </mat-form-field>
+                <div>
+                    <button mat-raised-button matStepperNext color="primary">Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="memberPrimaryContactInfoFormGroup">
+            <form [formGroup]="memberPrimaryContactInfoFormGroup">
+                <ng-template matStepLabel>Contact</ng-template>
+                <mat-form-field class="display-block" hintLabel="Phone number must be 10 digits only">
+                    <input matInput #input type="number" placeholder="Phone number" formControlName="phone" name="phone" class="no-spin" required>
+                </mat-form-field>
+                <mat-form-field class="display-block">
+                    <input matInput="email" placeholder="Email ID" formControlName="email" name="email" required>
+                    <mat-error *ngIf="memberPrimaryContactInfoFormGroup.controls['email'].invalid">
+                        {{getErrorMessage(memberPrimaryContactInfoFormGroup.controls['email'])}}
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <button mat-raised-button matStepperPrevious color="accent">Back</button>
+                    <button mat-raised-button matStepperNext color="primary">Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="memberSocialContactInfoFormGroup">
+            <form [formGroup]="memberSocialContactInfoFormGroup">
+                <ng-template matStepLabel>Social</ng-template>
+                <mat-form-field class="display-block">
+                    <input matInput placeholder="Facebook ID" formControlName="facebook" name="facebook">
+                </mat-form-field>
+                <mat-form-field class="display-block">
+                    <input matInput placeholder="Twitter ID" formControlName="twitter" name="twitter">
+                </mat-form-field>
+                <mat-form-field class="display-block">
+                    <input matInput placeholder="Github ID" formControlName="github" name="github">
+                </mat-form-field>
+                <mat-form-field class="display-block">
+                    <input matInput placeholder="LinkedIn ID" formControlName="linkedin" name="linkedin">
+                </mat-form-field>
+                <div>
+                    <button mat-raised-button matStepperPrevious color="accent">Back</button>
+                    <button mat-raised-button color="primary" (click)="saveForm()">Save</button>
+                </div>
+            </form>
+        </mat-step>
+    </mat-horizontal-stepper>
+</div>

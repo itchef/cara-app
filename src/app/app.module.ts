@@ -1,4 +1,4 @@
-// Cara API is Rest APIs for Cara application which is a face cheat book for organisation
+// Cara APP is front end application for Cara application which gets supported by Cara API, which is a face cheat book for organisation.
 // Copyright (C) 2018  ITChef
 //
 // This program is free software: you can redistribute it and/or modify
@@ -22,6 +22,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {AppRoutingModule} from './app-routing.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import {AppRoutingModule} from './app-routing.module';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         AppRoutingModule
     ],
     providers: [],

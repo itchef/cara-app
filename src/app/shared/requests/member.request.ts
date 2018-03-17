@@ -1,4 +1,4 @@
-// Cara APP is front end application for Cara application which gets supported by Cara API, which is a face cheat book for organisation.
+// Cara APP is front end application for Cara application which gets supported by Cara API, which is a face cheat book for organisation
 // Copyright (C) 2018  ITChef
 //
 // This program is free software: you can redistribute it and/or modify
@@ -15,15 +15,14 @@
 // along with this program.  If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 //
 // @author Kaustav Chakraborty
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+export class MemberRequest {
+    name: string;
+    age: number;
+    place: string;
 
-const routes: Routes = [
-    { path: '', loadChildren: 'app/member/member.module#MemberModule' }
-];
-
-@NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
-})
-export class AppRoutingModule { }
+    constructor(name: string, age: number, place: string) {
+        this.name = name;
+        this.age = age;
+        this.place = place;
+    }
+}

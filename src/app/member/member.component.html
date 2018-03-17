@@ -1,4 +1,9 @@
 <cara-header></cara-header>
-<div class="content-layout display-board" fxLayout="row" fxLayoutGap="30px">
+<div class="content-layout display-board">
     <cara-cheat-card *ngFor="let member of members" [member]="member"></cara-cheat-card>
+    <div class="floating-bottom-button">
+        <button mat-fab (click)="toggleAddMemberForm()">
+            <mat-icon aria-label="Add a member">add</mat-icon>
+        </button>
+    </div>
 </div>

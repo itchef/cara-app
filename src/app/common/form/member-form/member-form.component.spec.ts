@@ -1,4 +1,4 @@
-// Cara APP is front end application for Cara application which gets supported by Cara API, which is a face cheat book for organisation.
+// Cara APP is front end application for Cara application which gets supported by Cara API, which is a face cheat book for organisation
 // Copyright (C) 2018  ITChef
 //
 // This program is free software: you can redistribute it and/or modify
@@ -15,27 +15,23 @@
 // along with this program.  If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 //
 // @author Kaustav Chakraborty
-
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderComponent } from './header.component';
-import {AppComponent} from '../app.component';
-import {MatToolbarModule} from '@angular/material';
+import { MemberFormComponent } from './member-form.component';
 
-describe('HeaderComponent', () => {
-    let component: HeaderComponent;
-    let fixture: ComponentFixture<HeaderComponent>;
+describe('MemberFormComponent', () => {
+    let component: MemberFormComponent;
+    let fixture: ComponentFixture<MemberFormComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ MatToolbarModule ],
-            declarations: [ HeaderComponent ]
+            declarations: [ MemberFormComponent ]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(HeaderComponent);
+        fixture = TestBed.createComponent(MemberFormComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
@@ -43,13 +39,4 @@ describe('HeaderComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-    it('should render app name in header', async(() => {
-        const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('span').textContent).toContain('Cara');
-    }));
-    it('should render app logo on header', async(() => {
-        const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('img').getAttribute('src'))
-            .toContain('../../assets/images/cara-logo-white.png');
-    }));
 });
