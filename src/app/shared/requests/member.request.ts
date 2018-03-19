@@ -19,10 +19,12 @@ export class MemberRequest {
     name: string;
     age: number;
     place: string;
+    photo_url: string;
 
-    constructor(name: string, age: number, place: string) {
+    constructor(name: string, age: number, place: string, photo_url: string) {
         this.name = name;
         this.age = age;
         this.place = place;
+        this.photo_url = photo_url;
     }
 }

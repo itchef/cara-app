@@ -19,7 +19,7 @@
  */
 
 .card-width {
-    max-width: 230px;
+    width: 230px;
 }
 
 .icon-holder {
@@ -51,4 +51,9 @@
 
 .card-margin {
     margin: 0 10px 10px 10px;
+}
+
+.profile-picture-container {
+    height: 220px;
+    object-fit: cover;
 }

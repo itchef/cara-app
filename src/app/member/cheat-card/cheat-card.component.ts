@@ -29,6 +29,7 @@ import {MatIconRegistry} from '@angular/material';
 export class CheatCardComponent implements OnInit {
     @Input()
     member: Member;
+    defaultCardImageURL = '../../../assets/images/cara-logo.png';
     constructor() { }
 
     ngOnInit() {}

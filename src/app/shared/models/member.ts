@@ -26,6 +26,7 @@ export class Member {
     name: string;
     age: number;
     place: string;
+    photo_url: string;
     contacts: Contact[];
     phone_numbers: Phone[];
 

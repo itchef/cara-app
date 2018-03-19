@@ -47,7 +47,8 @@ export class MemberFormComponent implements OnInit {
         this.memberFormGroup = this._formBuilder.group({
             name: ['', Validators.required],
             age: ['', [Validators.required, CustormFormValidator.ageValidation()]],
-            place: ['', Validators.required]
+            place: ['', Validators.required],
+            photo_url: ['']
         });
         this.memberPrimaryContactInfoFormGroup = this._formBuilder.group({
             phone: ['',  [Validators.required, CustormFormValidator.phoneValidation(10, 10)]],
@@ -71,7 +72,8 @@ export class MemberFormComponent implements OnInit {
         const memberRequest = new MemberRequest(
             this.memberFormGroup.controls['name'].value,
             this.memberFormGroup.controls['age'].value,
-            this.memberFormGroup.controls['place'].value
+            this.memberFormGroup.controls['place'].value,
+            this.memberFormGroup.controls['photo_url'].value
         );
         this._memberService.save(memberRequest)
             .subscribe(member => {

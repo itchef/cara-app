@@ -53,6 +53,21 @@
                 </mat-form-field>
                 <div>
                     <button mat-raised-button matStepperPrevious color="accent">Back</button>
+                    <button mat-raised-button matStepperNext color="primary">Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="memberFormGroup">
+            <form [formGroup]="memberFormGroup">
+                <ng-template matStepLabel>Profile Photo</ng-template>
+                <mat-form-field class="display-block">
+                    <input matInput placeholder="Add URL" formControlName="photo_url" name="linkedin">
+                </mat-form-field>
+                <div class="profile-picture-preview" *ngIf="memberFormGroup.controls['photo_url'].value">
+                    <img mat-card-image src="{{ memberFormGroup.controls['photo_url'].value }}">
+                </div>
+                <div>
+                    <button mat-raised-button matStepperPrevious color="accent">Back</button>
                     <button mat-raised-button color="primary" (click)="saveForm()">Save</button>
                 </div>
             </form>

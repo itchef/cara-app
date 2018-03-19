@@ -21,6 +21,7 @@ import { MemberFormComponent } from './member-form/member-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
     MatButtonModule,
+    MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -38,7 +39,8 @@ import {SharedModule} from '../../shared/shared.module';
         MatFormFieldModule,
         MatInputModule,
         MatDialogModule,
-        MatButtonModule
+        MatButtonModule,
+        MatCardModule
     ],
     declarations: [
         MemberFormComponent
