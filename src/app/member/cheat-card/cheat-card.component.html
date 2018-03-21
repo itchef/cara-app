@@ -1,15 +1,17 @@
 <mat-card class="card-width card-alignment card-margin">
-    <mat-card-header>
-        <mat-card-title>{{member.name}}</mat-card-title>
-        <mat-card-subtitle>
-            {{ member.age }} Years
-            <span class="icon-holder">
+    <div (click)="showMemberProfile()" class="pointer">
+        <mat-card-header>
+            <mat-card-title>{{member.name}}</mat-card-title>
+            <mat-card-subtitle>
+                {{ member.age }} Years
+                <span class="icon-holder">
                 <mat-icon>person_pin</mat-icon>
                 <span>{{member.place}}</span>
             </span>
-        </mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image class="profile-picture-container" src="{{ member.photo_url || defaultCardImageURL }}" alt="{{ member.name }}">
+            </mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image class="profile-picture-container" src="{{ member.photo_url || defaultCardImageURL }}" alt="{{ member.name }}">
+    </div>
     <mat-card-actions>
         <div class="telephone-container">
             <mat-icon>phone</mat-icon>

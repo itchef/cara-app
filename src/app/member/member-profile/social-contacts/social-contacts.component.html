@@ -1,0 +1,25 @@
+<div *ngIf="siteName.toLowerCase() == 'facebook'" class="fa-font-20">
+    <mat-icon fontSet="fab" fontIcon="fa-facebook-f"></mat-icon>
+    &nbsp;
+    <a href="{{ link }}" class="no-decoration" target="_blank">{{ link }}</a>
+</div>
+<div *ngIf="siteName.toLowerCase() == 'twitter'" class="fa-font-20">
+    <mat-icon fontSet="fab" fontIcon="fa-twitter-f"></mat-icon>
+    &nbsp;
+    <a href="{{ link }}" class="no-decoration" target="_blank">{{ link }}</a>
+</div>
+<div *ngIf="siteName.toLowerCase() == 'linkedin'" class="fa-font-20">
+    <mat-icon fontSet="fab" fontIcon="fa-linkedin-in"></mat-icon>
+    &nbsp;
+    <a href="{{ link }}" class="no-decoration" target="_blank">{{ link }}</a>
+</div>
+<div *ngIf="siteName.toLowerCase() == 'github'" class="fa-font-20">
+    <mat-icon fontSet="fab" fontIcon="fa-github-f"></mat-icon>
+    &nbsp;
+    <a href="{{ link }}" class="no-decoration" target="_blank">{{ link }}</a>
+</div>
+<div *ngIf="siteName.toLowerCase() == 'email'">
+    <mat-icon>email</mat-icon>
+    &nbsp;
+    <a href="mailto:{{ link }}" class="no-decoration">{{ link }}</a>
+</div>

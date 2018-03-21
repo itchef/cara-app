@@ -16,32 +16,24 @@
 //
 // @author Kaustav Chakraborty
 
-import {Component, Input, OnInit} from '@angular/core';
-import {Member} from '../../shared/models/member';
-import {MatDialog, MatIconRegistry} from '@angular/material';
-import {MemberProfileComponent} from '../member-profile/member-profile.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MemberProfileComponent } from './member-profile.component';
+import {
+    MatCardModule,
+    MatDividerModule,
+    MatIconModule
+} from '@angular/material';
+import { SocialContactsComponent } from './social-contacts/social-contacts.component';
 
-@Component({
-    selector: 'cara-cheat-card',
-    templateUrl: './cheat-card.component.html',
-    styleUrls: ['./cheat-card.component.scss'],
-    providers: [ MatIconRegistry ]
+@NgModule({
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatIconModule,
+        MatDividerModule
+    ],
+    entryComponents: [ MemberProfileComponent ],
+    declarations: [ MemberProfileComponent, SocialContactsComponent ]
 })
-export class CheatCardComponent implements OnInit {
-    @Input()
-    member: Member;
-    defaultCardImageURL = '../../../assets/images/cara-logo.png';
-    constructor(public dialog: MatDialog) { }
-
-    ngOnInit() {}
-
-    showMemberProfile() {
-        this.dialog.open(MemberProfileComponent, {
-            width: '35%',
-            height: '100%',
-            data: {
-                member: this.member
-            }
-        });
-    }
-}
+export class MemberProfileModule { }

@@ -18,27 +18,8 @@
  * @author Kaustav Chakraborty
  */
 
-.mat-icon {
-    vertical-align: middle;
-}
-
-.no-spin {
-    &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
+.fa-font-20 {
+    mat-icon {
+        font-size: 1.5em;
     }
-    -moz-appearance: textfield;
-}
-
-.cara-text-bold {
-    font-weight: 600;
-}
-
-.no-decoration {
-    text-decoration: none;
-    color: #000000;
-}
-
-.pointer {
-    cursor: pointer;
 }

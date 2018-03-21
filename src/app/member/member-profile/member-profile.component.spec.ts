@@ -16,32 +16,28 @@
 //
 // @author Kaustav Chakraborty
 
-import {Component, Input, OnInit} from '@angular/core';
-import {Member} from '../../shared/models/member';
-import {MatDialog, MatIconRegistry} from '@angular/material';
-import {MemberProfileComponent} from '../member-profile/member-profile.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-@Component({
-    selector: 'cara-cheat-card',
-    templateUrl: './cheat-card.component.html',
-    styleUrls: ['./cheat-card.component.scss'],
-    providers: [ MatIconRegistry ]
-})
-export class CheatCardComponent implements OnInit {
-    @Input()
-    member: Member;
-    defaultCardImageURL = '../../../assets/images/cara-logo.png';
-    constructor(public dialog: MatDialog) { }
+import { MemberProfileComponent } from './member-profile.component';
 
-    ngOnInit() {}
+describe('MemberProfileComponent', () => {
+    let component: MemberProfileComponent;
+    let fixture: ComponentFixture<MemberProfileComponent>;
 
-    showMemberProfile() {
-        this.dialog.open(MemberProfileComponent, {
-            width: '35%',
-            height: '100%',
-            data: {
-                member: this.member
-            }
-        });
-    }
-}
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ MemberProfileComponent ]
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(MemberProfileComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+});

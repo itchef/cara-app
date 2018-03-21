@@ -2,6 +2,7 @@
     <mat-icon fontSet="fab" fontIcon="fa-facebook-f" *ngIf="siteName.toLowerCase() == 'facebook'"></mat-icon>
     <mat-icon fontSet="fab" fontIcon="fa-twitter" *ngIf="siteName.toLowerCase() == 'twitter'"></mat-icon>
     <mat-icon fontSet="fab" fontIcon="fa-linkedin-in" *ngIf="siteName.toLowerCase() == 'linkedin'"></mat-icon>
+    <mat-icon fontSet="fab" fontIcon="fa-github" *ngIf="siteName.toLowerCase() == 'github'"></mat-icon>
 </button>
 
 <button mat-mini-fab class="cara-badge" *ngIf="siteName.toLowerCase() == 'email'" (click)="openMailClient(link)">

@@ -18,27 +18,28 @@
  * @author Kaustav Chakraborty
  */
 
-.mat-icon {
-    vertical-align: middle;
+.profile-title {
+    font-size: 1.5em;
 }
 
-.no-spin {
-    &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
+.profile-subtitle {
+    font-size: 1.1em;
+}
+
+.contacts-container {
+    mat-icon {
+        padding-right: 10px;
     }
-    -moz-appearance: textfield;
+    a {
+        text-decoration: none;
+        color: #000000;
+    }
 }
 
-.cara-text-bold {
-    font-weight: 600;
+.contact-section {
+    padding-bottom: 20px;
 }
 
-.no-decoration {
-    text-decoration: none;
-    color: #000000;
-}
-
-.pointer {
-    cursor: pointer;
+.member-profile-wrapper {
+    overflow-y: scroll;
 }

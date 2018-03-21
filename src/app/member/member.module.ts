@@ -33,6 +33,7 @@ import {
     MatSnackBarModule
 } from '@angular/material';
 import { FormModule } from '../common/form/form.module';
+import {MemberProfileModule} from './member-profile/member-profile.module';
 
 @NgModule({
     imports: [
@@ -47,7 +48,8 @@ import { FormModule } from '../common/form/form.module';
         SharedModule,
         FormModule,
         MatDialogModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MemberProfileModule
     ],
     declarations: [
         MemberComponent

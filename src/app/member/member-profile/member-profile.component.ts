@@ -16,32 +16,27 @@
 //
 // @author Kaustav Chakraborty
 
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MemberFormComponent} from '../../common/form/member-form/member-form.component';
+import {MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import {Member} from '../../shared/models/member';
-import {MatDialog, MatIconRegistry} from '@angular/material';
-import {MemberProfileComponent} from '../member-profile/member-profile.component';
 
 @Component({
-    selector: 'cara-cheat-card',
-    templateUrl: './cheat-card.component.html',
-    styleUrls: ['./cheat-card.component.scss'],
-    providers: [ MatIconRegistry ]
+    selector: 'cara-member-profile',
+    templateUrl: './member-profile.component.html',
+    styleUrls: ['./member-profile.component.scss']
 })
-export class CheatCardComponent implements OnInit {
-    @Input()
+export class MemberProfileComponent implements OnInit {
     member: Member;
-    defaultCardImageURL = '../../../assets/images/cara-logo.png';
-    constructor(public dialog: MatDialog) { }
+    defaultImage: string;
+
+    constructor(
+        private _matDialogRef: MatDialogRef<MemberFormComponent>,
+        @Inject(MAT_DIALOG_DATA) public _matDialogData: any
+    ) {
+        this.member = this._matDialogData.member;
+        this.defaultImage = '../../../assets/images/cara-logo.png';
+    }
 
     ngOnInit() {}
-
-    showMemberProfile() {
-        this.dialog.open(MemberProfileComponent, {
-            width: '35%',
-            height: '100%',
-            data: {
-                member: this.member
-            }
-        });
-    }
 }
