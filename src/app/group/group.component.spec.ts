@@ -16,23 +16,28 @@
 //
 // @author Kaustav Chakraborty
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
-import {
-    MatIconModule,
-    MatToolbarModule
-} from '@angular/material';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-@NgModule({
-    imports: [
-        CommonModule,
-        MatToolbarModule,
-        MatIconModule
-    ],
-    exports: [
-        HeaderComponent
-    ],
-    declarations: [HeaderComponent]
-})
-export class HeaderModule { }
+import { GroupComponent } from './group.component';
+
+describe('GroupComponent', () => {
+    let component: GroupComponent;
+    let fixture: ComponentFixture<GroupComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ GroupComponent ]
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(GroupComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+});

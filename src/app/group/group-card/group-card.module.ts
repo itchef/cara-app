@@ -18,21 +18,19 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
+import { GroupCardComponent } from './group-card.component';
 import {
-    MatIconModule,
-    MatToolbarModule
+    MatCardModule,
+    MatDividerModule
 } from '@angular/material';
 
 @NgModule({
     imports: [
         CommonModule,
-        MatToolbarModule,
-        MatIconModule
+        MatCardModule,
+        MatDividerModule
     ],
-    exports: [
-        HeaderComponent
-    ],
-    declarations: [HeaderComponent]
+    declarations: [GroupCardComponent],
+    exports: [GroupCardComponent]
 })
-export class HeaderModule { }
+export class GroupCardModule { }

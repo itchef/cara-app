@@ -19,7 +19,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-    { path: '', loadChildren: 'app/member/member.module#MemberModule' }
+    { path: '', loadChildren: 'app/member/member.module#MemberModule' },
+    { path: 'groups', loadChildren: 'app/group/group.module#GroupModule' }
 ];
 
 @NgModule({

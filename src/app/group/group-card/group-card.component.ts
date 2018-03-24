@@ -16,23 +16,21 @@
 //
 // @author Kaustav Chakraborty
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
-import {
-    MatIconModule,
-    MatToolbarModule
-} from '@angular/material';
+import {Component, Input, OnInit} from '@angular/core';
+import {Group} from '../../shared/models/group';
 
-@NgModule({
-    imports: [
-        CommonModule,
-        MatToolbarModule,
-        MatIconModule
-    ],
-    exports: [
-        HeaderComponent
-    ],
-    declarations: [HeaderComponent]
+@Component({
+    selector: 'cara-group-card',
+    templateUrl: './group-card.component.html',
+    styleUrls: ['./group-card.component.scss']
 })
-export class HeaderModule { }
+export class GroupCardComponent implements OnInit {
+    @Input()
+    group: Group;
+
+    constructor() { }
+
+    ngOnInit() {
+    }
+
+}

@@ -17,22 +17,15 @@
 // @author Kaustav Chakraborty
 
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
-import {
-    MatIconModule,
-    MatToolbarModule
-} from '@angular/material';
+import { Routes, RouterModule } from '@angular/router';
+import { GroupComponent } from './group.component';
+
+const routes: Routes = [
+    { path: '', component: GroupComponent }
+];
 
 @NgModule({
-    imports: [
-        CommonModule,
-        MatToolbarModule,
-        MatIconModule
-    ],
-    exports: [
-        HeaderComponent
-    ],
-    declarations: [HeaderComponent]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
-export class HeaderModule { }
+export class GroupRoutingModule { }

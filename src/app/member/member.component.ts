@@ -57,8 +57,8 @@ export class MemberComponent implements OnInit, OnDestroy {
         dialogRef.afterClosed().subscribe(member => {
             if (member) {
                 this.members.push(member);
+                this._snackbar.open(`${member.name} got created successfully`, 'dismiss');
             }
-            this._snackbar.open(`${member.name} got created successfully`, 'dismiss');
         });
     }
 }

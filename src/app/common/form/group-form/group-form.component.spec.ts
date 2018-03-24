@@ -16,23 +16,28 @@
 //
 // @author Kaustav Chakraborty
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
-import {
-    MatIconModule,
-    MatToolbarModule
-} from '@angular/material';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-@NgModule({
-    imports: [
-        CommonModule,
-        MatToolbarModule,
-        MatIconModule
-    ],
-    exports: [
-        HeaderComponent
-    ],
-    declarations: [HeaderComponent]
-})
-export class HeaderModule { }
+import { GroupFormComponent } from './group-form.component';
+
+describe('GroupFormComponent', () => {
+  let component: GroupFormComponent;
+  let fixture: ComponentFixture<GroupFormComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ GroupFormComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(GroupFormComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

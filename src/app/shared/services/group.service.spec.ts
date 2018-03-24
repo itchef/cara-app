@@ -16,23 +16,18 @@
 //
 // @author Kaustav Chakraborty
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
-import {
-    MatIconModule,
-    MatToolbarModule
-} from '@angular/material';
+import { TestBed, inject } from '@angular/core/testing';
 
-@NgModule({
-    imports: [
-        CommonModule,
-        MatToolbarModule,
-        MatIconModule
-    ],
-    exports: [
-        HeaderComponent
-    ],
-    declarations: [HeaderComponent]
-})
-export class HeaderModule { }
+import { GroupService } from './group.service';
+
+describe('GroupService', () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [GroupService]
+        });
+    });
+
+    it('should be created', inject([GroupService], (service: GroupService) => {
+        expect(service).toBeTruthy();
+    }));
+});

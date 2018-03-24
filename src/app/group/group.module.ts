@@ -18,21 +18,31 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header.component';
+
+import { GroupRoutingModule } from './group-routing.module';
+import { GroupComponent } from './group.component';
+import { HeaderModule } from '../header/header.module';
 import {
+    MatButtonModule,
+    MatDialogModule,
     MatIconModule,
-    MatToolbarModule
+    MatSnackBarModule
 } from '@angular/material';
+import {FormModule} from '../common/form/form.module';
+import { GroupCardModule } from './group-card/group-card.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        MatToolbarModule,
-        MatIconModule
+        GroupRoutingModule,
+        HeaderModule,
+        MatIconModule,
+        MatDialogModule,
+        MatButtonModule,
+        FormModule,
+        GroupCardModule,
+        MatSnackBarModule
     ],
-    exports: [
-        HeaderComponent
-    ],
-    declarations: [HeaderComponent]
+    declarations: [GroupComponent]
 })
-export class HeaderModule { }
+export class GroupModule { }

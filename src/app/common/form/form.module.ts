@@ -15,6 +15,7 @@
 // along with this program.  If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 //
 // @author Kaustav Chakraborty
+
 import {CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MemberFormComponent } from './member-form/member-form.component';
@@ -28,6 +29,7 @@ import {
     MatStepperModule
 } from '@angular/material';
 import {SharedModule} from '../../shared/shared.module';
+import { GroupFormComponent } from './group-form/group-form.component';
 
 @NgModule({
     imports: [
@@ -43,9 +45,10 @@ import {SharedModule} from '../../shared/shared.module';
         MatCardModule
     ],
     declarations: [
-        MemberFormComponent
+        MemberFormComponent,
+        GroupFormComponent
     ],
-    entryComponents: [ MemberFormComponent ],
+    entryComponents: [ MemberFormComponent, GroupFormComponent ],
     exports: [
         MemberFormComponent
     ],

@@ -24,7 +24,6 @@ import { HeaderModule } from '../header/header.module';
 import {MemberService} from './services/member.service';
 import {ContactService} from './services/contact.service';
 
-
 @NgModule({
     imports: [
         CommonModule,
