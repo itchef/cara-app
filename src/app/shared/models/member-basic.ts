@@ -16,11 +16,8 @@
 //
 // @author Kaustav Chakraborty
 
-import {MemberBasic} from './member-basic';
-
-export class Group {
+export class MemberBasic {
     id: number;
     name: string;
-    description: string;
-    members: MemberBasic[];
+    photo_url: string;
 }

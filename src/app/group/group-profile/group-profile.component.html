@@ -1,0 +1,27 @@
+<div class="group-header-wrapper">
+    <h2 class="group-profile-header">{{ group.name }}</h2>
+    <span class="group-profile-sub-header">{{ group.description }}</span>
+</div>
+<mat-divider></mat-divider>
+<mat-card>
+    <mat-form-field class="full-width">
+        <input matInput tabindex="-1" placeholder="Member" aria-label="Member" [matAutocomplete]="auto" [formControl]="assignMemberControl" (keyup.enter)="addMemberToGroup()" >
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let member of filteredMembers | async" [value]="member.id">
+                <span>{{ member.id }}. </span>
+                <span>{{ member.name }}</span>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</mat-card>
+<div class="group-member-list" *ngIf="isMemberPresent()">
+    <div class="group-header-wrapper">
+        <h3 class="group-profile-header"> Assigned Members </h3>
+    </div>
+    <mat-list class="group-member-list-container">
+        <mat-list-item class="member-list-card" *ngFor="let member of group.members">
+            <span matLine>{{ member.name }}</span>
+            <mat-icon>delete</mat-icon>
+        </mat-list-item>
+    </mat-list>
+</div>

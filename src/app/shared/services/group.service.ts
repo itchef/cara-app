@@ -24,12 +24,16 @@ import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
 import {GroupRequest} from '../requests/group.request';
 import {Member} from '../models/model';
+import {GroupAssignment} from '../models/group-assignment';
+import {AssignGroupRequest} from '../requests/assign-group.request';
+import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 
 @Injectable()
 export class GroupService {
 
     private URL = {
-        groups: 'http://localhost:3002/groups'
+        groups: 'http://localhost:3002/groups',
+        assignMember: 'http://localhost:3002/groups/assign_member'
     };
     constructor(private _http: HttpClient) { }
 
@@ -41,14 +45,6 @@ export class GroupService {
             );
     }
 
-    private handleError<T> (operation, result?: T) {
-        return (error: any): Observable<T> => {
-            console.error(error);
-            console.log(`${operation} failed: ${error.message}`);
-            return of(result as T);
-        };
-    }
-
     save(groupRequest: GroupRequest) {
         const httpOptions = {
             headers: new HttpHeaders({
@@ -56,10 +52,32 @@ export class GroupService {
                 'Access-Control-Allow-Origin': '*'
             })
         };
-        return this._http.post<Member>(this.URL.groups, { group: groupRequest }, httpOptions)
+        return this._http.post<Group>(this.URL.groups, { group: groupRequest }, httpOptions)
             .pipe(
                 tap(group => group),
                 catchError(this.handleError<any>('group is not saved'))
             );
+    }
+
+    assignMember(request: AssignGroupRequest) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
+        return this._http.post<GroupAssignment>(this.URL.assignMember, request, httpOptions)
+            .pipe(
+                tap(groupAssignment => groupAssignment),
+                catchError(this.handleError<any>('Member is not assigned to the group'))
+            );
+    }
+
+    private handleError<T> (operation, result?: T) {
+        return (detailedError: any): Observable<T> => {
+            console.error(detailedError);
+            console.log(`${operation} failed: ${detailedError.message}`);
+            return new ErrorObservable(detailedError.error);
+        };
     }
 }

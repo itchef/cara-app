@@ -16,31 +16,39 @@
 //
 // @author Kaustav Chakraborty
 
-import {Component, Input, OnInit} from '@angular/core';
-import {Group} from '../../shared/models/group';
-import {MatDialog} from '@angular/material';
-import {GroupProfileComponent} from '../group-profile/group-profile.component';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { GroupProfileComponent } from './group-profile.component';
+import {
+    MatAutocompleteModule,
+    MatCardModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatSnackBarModule
+} from '@angular/material';
+import {
+    FormsModule,
+    ReactiveFormsModule
+} from '@angular/forms';
 
-@Component({
-    selector: 'cara-group-card',
-    templateUrl: './group-card.component.html',
-    styleUrls: ['./group-card.component.scss']
+@NgModule({
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatSnackBarModule,
+        MatDividerModule,
+        MatListModule
+    ],
+    entryComponents: [ GroupProfileComponent ],
+    declarations: [ GroupProfileComponent ]
 })
-export class GroupCardComponent implements OnInit {
-    @Input()
-    group: Group;
-
-    constructor(private _dialog: MatDialog) { }
-
-    ngOnInit() {
-    }
-
-    showGroupProfile() {
-        this._dialog.open(GroupProfileComponent, {
-           width: '35%',
-           data: {
-               group: this.group
-           }
-        });
-    }
-}
+export class GroupProfileModule { }

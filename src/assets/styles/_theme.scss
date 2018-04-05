@@ -2,8 +2,16 @@
 @import '~@angular/material/theming';
 @import "color";
 
-@include mat-core();
+$cara-typography: mat-typography-config(
+    $font-family: 'Open Sans, sans-serif'
+);
+
+@include mat-core($cara-typography);
 
 $cara-app-primary:  mat-palette($mat-blue-gray);
 $cara-app-accent:   mat-palette($mat-orange, A200, A100, A400);
 $cara-app-theme:    mat-light-theme($cara-app-primary, $cara-app-accent);
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}

@@ -16,31 +16,28 @@
 //
 // @author Kaustav Chakraborty
 
-import {Component, Input, OnInit} from '@angular/core';
-import {Group} from '../../shared/models/group';
-import {MatDialog} from '@angular/material';
-import {GroupProfileComponent} from '../group-profile/group-profile.component';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-@Component({
-    selector: 'cara-group-card',
-    templateUrl: './group-card.component.html',
-    styleUrls: ['./group-card.component.scss']
-})
-export class GroupCardComponent implements OnInit {
-    @Input()
-    group: Group;
+import { GroupProfileComponent } from './group-profile.component';
 
-    constructor(private _dialog: MatDialog) { }
+describe('GroupProfileComponent', () => {
+    let component: GroupProfileComponent;
+    let fixture: ComponentFixture<GroupProfileComponent>;
 
-    ngOnInit() {
-    }
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ GroupProfileComponent ]
+        })
+            .compileComponents();
+    }));
 
-    showGroupProfile() {
-        this._dialog.open(GroupProfileComponent, {
-           width: '35%',
-           data: {
-               group: this.group
-           }
-        });
-    }
-}
+    beforeEach(() => {
+        fixture = TestBed.createComponent(GroupProfileComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+});

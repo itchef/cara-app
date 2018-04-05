@@ -16,11 +16,10 @@
 //
 // @author Kaustav Chakraborty
 
+import {Group} from './group';
 import {MemberBasic} from './member-basic';
 
-export class Group {
-    id: number;
-    name: string;
-    description: string;
-    members: MemberBasic[];
+export class GroupAssignment {
+    group: Group;
+    member: MemberBasic;
 }

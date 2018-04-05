@@ -42,6 +42,15 @@ export class MemberService {
             );
     }
 
+    getMembersName() {
+        const MEMBERS_NAME_URI = `${this.URL.members}/names`;
+        return this._http.get( MEMBERS_NAME_URI )
+            .pipe(
+                tap(members => console.log(`members ${members}`)),
+                catchError(this.handleError<any>('Members are not fetched successfully'))
+            );
+    }
+
     save(data: MemberRequest): Observable<Member> {
         const httpOptions = {
             headers: new HttpHeaders({
@@ -63,7 +72,6 @@ export class MemberService {
             catchError(this.handleError<any>('Member is not fetched successfully'))
         );
     }
-
     private handleError<T> (operation, result?: T) {
         return (error: any): Observable<T> => {
             console.error(error);

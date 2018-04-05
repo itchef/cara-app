@@ -45,7 +45,9 @@ export class GroupComponent implements OnInit {
 
     toggleAddGroupForm() {
         const dialogRef = this._dialog.open(GroupFormComponent, {
-            width: '50%'
+            width: '50%',
+            height: '80%',
+            autoFocus: false
         });
         dialogRef.afterClosed().subscribe(group => {
             if (group) {

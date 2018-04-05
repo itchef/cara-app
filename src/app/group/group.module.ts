@@ -30,6 +30,7 @@ import {
 } from '@angular/material';
 import {FormModule} from '../common/form/form.module';
 import { GroupCardModule } from './group-card/group-card.module';
+import {GroupProfileModule} from './group-profile/group-profile.module';
 
 @NgModule({
     imports: [
@@ -41,7 +42,8 @@ import { GroupCardModule } from './group-card/group-card.module';
         MatButtonModule,
         FormModule,
         GroupCardModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        GroupProfileModule
     ],
     declarations: [GroupComponent]
 })

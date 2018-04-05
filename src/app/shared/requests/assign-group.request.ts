@@ -16,11 +16,12 @@
 //
 // @author Kaustav Chakraborty
 
-import {MemberBasic} from './member-basic';
+export class AssignGroupRequest {
+    group_id: number;
+    member_id: number;
 
-export class Group {
-    id: number;
-    name: string;
-    description: string;
-    members: MemberBasic[];
+    constructor(group_id: number, member_id: number) {
+        this.group_id = group_id;
+        this.member_id = member_id;
+    }
 }
