@@ -3,6 +3,9 @@
     <span class="group-profile-sub-header">{{ group.description }}</span>
 </div>
 <mat-divider></mat-divider>
+<div class="group-header-wrapper">
+    <h3 class="cara-sub-section-header-font"> Assign Member </h3>
+</div>
 <mat-card>
     <mat-form-field class="full-width">
         <input matInput tabindex="-1" placeholder="Member" aria-label="Member" [matAutocomplete]="auto" [formControl]="assignMemberControl" (keyup.enter)="addMemberToGroup()" >
@@ -16,7 +19,7 @@
 </mat-card>
 <div class="group-member-list" *ngIf="isMemberPresent()">
     <div class="group-header-wrapper">
-        <h3 class="group-profile-header"> Assigned Members </h3>
+        <h3 class="cara-sub-section-header-font"> Assigned Members </h3>
     </div>
     <mat-list class="group-member-list-container">
         <mat-list-item class="member-list-card" *ngFor="let member of group.members">
