@@ -1,7 +1,7 @@
 <div class="member-profile-wrapper">
     <mat-card>
         <img mat-card-image src="{{ member.photo_url || defaultImage }}">
-        <h3>Personal Info</h3>
+        <h3 class="cara-section-header">Personal Info</h3>
         <mat-card-header>
             <mat-card-title class="cara-text-bold">{{ member.name }}</mat-card-title>
             <mat-card-subtitle>
@@ -18,7 +18,7 @@
 
         <mat-card-content class="contacts-container">
             <div class="contact-section">
-                <h3>Contact Info</h3>
+                <h3 class="cara-section-header">Contact Info</h3>
                 <div *ngFor="let number of member.phone_numbers">
                     <mat-icon>phone</mat-icon>&nbsp;
                     <a href="tel:{{ number.value }}">{{ number.value }}</a>
@@ -26,7 +26,7 @@
             </div>
             <mat-divider></mat-divider>
             <div>
-                <h3>Social Info</h3>
+                <h3 class="cara-section-header">Social Info</h3>
                 <div>
                     <cara-social-contacts [link]="contact.value" [siteName]="contact.name" *ngFor="let contact of member.contacts"></cara-social-contacts>
                 </div>
