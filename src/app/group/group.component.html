@@ -1,9 +1,9 @@
 <cara-header></cara-header>
 <div class="content-layout display-board" *ngFor="let group of groups">
     <cara-group-card [group]="group"></cara-group-card>
-    <div class="floating-bottom-button">
-        <button mat-fab (click)="toggleAddGroupForm()">
-            <mat-icon aria-label="Add a member">add</mat-icon>
-        </button>
-    </div>
+</div>
+<div class="floating-bottom-button">
+    <button mat-fab (click)="toggleAddGroupForm()">
+        <mat-icon aria-label="Add a member">add</mat-icon>
+    </button>
 </div>
