@@ -1,4 +1,5 @@
-<h1 mat-dialog-title>Add Member</h1>
+<h1 mat-dialog-title *ngIf="!isUpdateMode()">Add Member</h1>
+<h1 mat-dialog-title *ngIf="isUpdateMode()">Update Member</h1>
 <div mat-dialog-content>
     <mat-horizontal-stepper [linear]="true" #stepper="matHorizontalStepper">
         <mat-step [stepControl]="memberFormGroup">
@@ -68,7 +69,9 @@
                 </div>
                 <div>
                     <button mat-raised-button matStepperPrevious color="accent">Back</button>
-                    <button mat-raised-button color="primary" (click)="saveForm()">Save</button>
+                    <button mat-raised-button color="primary" (click)="saveForm()" *ngIf="!isUpdateMode()">Save</button>
+                    <button mat-raised-button color="primary" (click)="updateForm()" *ngIf="isUpdateMode()">Update
+                    </button>
                 </div>
             </form>
         </mat-step>

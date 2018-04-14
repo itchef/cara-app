@@ -18,7 +18,7 @@
 
 import {Component, Inject, OnInit} from '@angular/core';
 import {MemberFormComponent} from '../../common/form/member-form/member-form.component';
-import {MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {Member} from '../../shared/models/member';
 
 @Component({
@@ -31,12 +31,40 @@ export class MemberProfileComponent implements OnInit {
     defaultImage: string;
 
     constructor(
-        private _matDialogRef: MatDialogRef<MemberFormComponent>,
-        @Inject(MAT_DIALOG_DATA) public _matDialogData: any
+        private _matDialogRef: MatDialogRef<MemberProfileComponent>,
+        @Inject(MAT_DIALOG_DATA) public _matDialogData: any,
+        private _memberDialog: MatDialog
     ) {
         this.member = this._matDialogData.member;
         this.defaultImage = '../../../assets/images/cara-logo.png';
     }
 
     ngOnInit() {}
+
+    closeMemberProfileModal() {
+        this._matDialogRef.close();
+    }
+
+    openEditMemberModal() {
+        this._matDialogRef.close();
+        const _memberFormComponentDialogRef = this._memberDialog.open(MemberFormComponent, {
+            width: '50%',
+            data: {
+                member: this.member
+            }
+        });
+        _memberFormComponentDialogRef.afterClosed().subscribe(member => this.openTHIS(member || this.member));
+    }
+
+    private openTHIS(member) {
+
+        this._memberDialog.open(MemberProfileComponent, {
+            width: '35%',
+            height: '85%',
+            autoFocus: false,
+            data: {
+                member: member
+            }
+        });
+    }
 }

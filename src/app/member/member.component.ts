@@ -51,7 +51,8 @@ export class MemberComponent implements OnInit, OnDestroy {
 
     toggleAddMemberForm() {
         const dialogRef = this.dialog.open(MemberFormComponent, {
-            width: '50%'
+            width: '50%',
+            data: {}
         });
 
         dialogRef.afterClosed().subscribe(member => {

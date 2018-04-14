@@ -34,7 +34,7 @@ export class ContactService {
         private _http: HttpClient,
     ) {}
 
-    add_contacts (contactRequests: ContactRequest[], memberId: number): Observable<Contact[]> {
+    addContacts(contactRequests: ContactRequest[], memberId: number): Observable<Contact[]> {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type':  'application/json',
@@ -50,7 +50,6 @@ export class ContactService {
                 tap(contacts => console.log(`contacts ${contacts}`)),
                 catchError(this.handleError<any>('Contacts are not saved'))
             );
-
     }
 
     private handleError<T> (operation, result?: T) {

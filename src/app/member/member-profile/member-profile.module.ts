@@ -20,7 +20,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MemberProfileComponent } from './member-profile.component';
 import {
+    MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatDividerModule,
     MatIconModule
 } from '@angular/material';
@@ -31,7 +33,9 @@ import { SocialContactsComponent } from './social-contacts/social-contacts.compo
         CommonModule,
         MatCardModule,
         MatIconModule,
-        MatDividerModule
+        MatDividerModule,
+        MatButtonModule,
+        MatDialogModule
     ],
     entryComponents: [ MemberProfileComponent ],
     declarations: [ MemberProfileComponent, SocialContactsComponent ]

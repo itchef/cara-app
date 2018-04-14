@@ -16,14 +16,15 @@
 //
 // @author Kaustav Chakraborty
 
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustormFormValidator} from '../../validator/custorm-form.validator';
 import {MemberRequest} from '../../../shared/requests/member.request';
 import {ContactRequest} from '../../../shared/requests/contact.request';
-import {MatDialogRef} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {MemberService} from '../../../shared/services/member.service';
 import {ContactService} from '../../../shared/services/contact.service';
+import {Contact} from "../../../shared/models/contact";
 
 @Component({
     selector: 'cara-member-form',
@@ -42,24 +43,51 @@ export class MemberFormComponent implements OnInit {
         private _formBuilder: FormBuilder,
         private _memberService: MemberService,
         private _contactService: ContactService,
-        private _matDialogRef: MatDialogRef<MemberFormComponent>) { }
+        private _matDialogRef: MatDialogRef<MemberFormComponent>,
+        @Inject(MAT_DIALOG_DATA) private _matDialogData: any
+    ) { }
 
     ngOnInit() {
-        this.memberFormGroup = this._formBuilder.group({
-            name: ['', Validators.required],
-            age: ['', [Validators.required, CustormFormValidator.ageValidation()]],
-            place: ['', Validators.required],
-            photo_url: ['']
+        this.memberFormGroup = this.getMemberFormGroup();
+        this.memberPrimaryContactInfoFormGroup = this.getMemberPrimaryContactInfoFormGroup();
+        this.memberSocialContactInfoFormGroup = this.getMemberSocialContactInfoFormGroup();
+    }
+
+    private getMemberSocialContactInfoFormGroup() {
+        const socialContactData = {
+            facebook: '',
+            twitter: '',
+            github: '',
+            linkedin: ''
+        };
+        const member = this._matDialogData.member;
+        if (member) {
+            ['facebook', 'twitter', 'gitihub', 'linkedin'].forEach(type => {
+                const contactInfo = this.getContactInfo(member.contacts, type);
+                socialContactData[type] = contactInfo ? contactInfo.value : '';
+            });
+        }
+        return this._formBuilder.group({
+            facebook: [socialContactData.facebook],
+            twitter: [socialContactData.twitter],
+            github: [socialContactData.github],
+            linkedin: [socialContactData.linkedin]
         });
-        this.memberPrimaryContactInfoFormGroup = this._formBuilder.group({
-            phone: ['',  [Validators.required, CustormFormValidator.phoneValidation(10, 10)]],
-            email: ['', [Validators.required, Validators.email]],
-        });
-        this.memberSocialContactInfoFormGroup = this._formBuilder.group({
-            facebook: [''],
-            twitter: [''],
-            github: [''],
-            linkedin: ['']
+    }
+
+    private getMemberPrimaryContactInfoFormGroup() {
+        const primaryContactData = {
+            phone: '',
+            email: ''
+        };
+        const member = this._matDialogData.member;
+        if (member) {
+            primaryContactData.phone = member.phone_numbers[0].value;
+            primaryContactData.email = this.getContactInfo(member.contacts, 'email').value;
+        }
+        return this._formBuilder.group({
+            phone: [primaryContactData.phone, [Validators.required, CustormFormValidator.phoneValidation(10, 10)]],
+            email: [primaryContactData.email, [Validators.required, Validators.email]],
         });
     }
 
@@ -70,24 +98,35 @@ export class MemberFormComponent implements OnInit {
     }
 
     saveForm(): void {
-        const memberRequest = new MemberRequest(
-            this.memberFormGroup.controls['name'].value,
-            this.memberFormGroup.controls['age'].value,
-            this.memberFormGroup.controls['place'].value,
-            this.memberFormGroup.controls['photo_url'].value
-        );
+        const memberRequest = this.getMemberRequest();
+        const contactRequests = this.getContactRequest();
         this._memberService.save(memberRequest)
             .subscribe(member => {
-                const contactRequests = Array<ContactRequest>();
-                const contactControls = this.memberPrimaryContactInfoFormGroup.controls;
-                const socialControls = this.memberSocialContactInfoFormGroup.controls;
-                contactRequests.push(new ContactRequest('phone', contactControls['phone'].value));
-                contactRequests.push(new ContactRequest('email', contactControls['email'].value));
-                contactRequests.push(new ContactRequest('facebook', socialControls['facebook'].value));
-                contactRequests.push(new ContactRequest('twitter', socialControls['twitter'].value));
-                contactRequests.push(new ContactRequest('github', socialControls['github'].value));
-                contactRequests.push(new ContactRequest('linkedin', socialControls['linkedin'].value));
-                this._contactService.add_contacts(contactRequests, member.id).subscribe(
+                    this._contactService.addContacts(contactRequests, member.id).subscribe(
+                        contacts => {
+                            this._memberService.getMember(member.id)
+                                .subscribe(memberObj => {
+                                    this._matDialogRef.close(memberObj);
+                                });
+                        }
+                    );
+                },
+                error => {
+                    this._matDialogRef.close(error);
+                });
+    }
+
+    isUpdateMode() {
+        return this._matDialogData.member !== undefined;
+    }
+
+    updateForm() {
+        const memberRequest = this.getMemberRequest();
+        const contactRequests = this.getContactRequest();
+        const passedMemberData = this._matDialogData.member;
+        this._memberService.update(memberRequest, passedMemberData.id)
+            .subscribe(member => {
+                this._contactService.addContacts(contactRequests, member.id).subscribe(
                     contacts => {
                         this._memberService.getMember(member.id)
                             .subscribe(memberObj => {
@@ -99,5 +138,53 @@ export class MemberFormComponent implements OnInit {
                 error => {
                     this._matDialogRef.close(error);
                 });
+    }
+
+    private getContactRequest() {
+        const contactRequests = Array<ContactRequest>();
+        const contactControls = this.memberPrimaryContactInfoFormGroup.controls;
+        const socialControls = this.memberSocialContactInfoFormGroup.controls;
+        contactRequests.push(new ContactRequest('phone', contactControls['phone'].value));
+        contactRequests.push(new ContactRequest('email', contactControls['email'].value));
+        contactRequests.push(new ContactRequest('facebook', socialControls['facebook'].value));
+        contactRequests.push(new ContactRequest('twitter', socialControls['twitter'].value));
+        contactRequests.push(new ContactRequest('github', socialControls['github'].value));
+        contactRequests.push(new ContactRequest('linkedin', socialControls['linkedin'].value));
+        return contactRequests;
+    }
+
+    private getMemberRequest() {
+        return new MemberRequest(
+            this.memberFormGroup.controls['name'].value,
+            this.memberFormGroup.controls['age'].value,
+            this.memberFormGroup.controls['place'].value,
+            this.memberFormGroup.controls['photo_url'].value
+        );
+    }
+
+    private getMemberFormGroup() {
+        const memberData = {
+            name: '',
+            age: '',
+            place: '',
+            photo_url: ''
+        };
+        const member = this._matDialogData.member;
+        if (member) {
+            memberData.name = member.name;
+            memberData.age = member.age;
+            memberData.place = member.place;
+            memberData.photo_url = member.photo_url;
+        }
+        return this._formBuilder.group({
+            name: [memberData.name, Validators.required],
+            age: [memberData.age, [Validators.required, CustormFormValidator.ageValidation()]],
+            place: [memberData.place, Validators.required],
+            photo_url: [memberData.photo_url]
+        });
+    }
+
+    private getContactInfo(contacts: Contact[], type: string): Contact {
+        return contacts.find(contact => contact.name === type);
     }
 }

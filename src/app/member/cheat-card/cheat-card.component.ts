@@ -38,7 +38,8 @@ export class CheatCardComponent implements OnInit {
     showMemberProfile() {
         this.dialog.open(MemberProfileComponent, {
             width: '35%',
-            height: '100%',
+            height: '85%',
+            autoFocus: false,
             data: {
                 member: this.member
             }

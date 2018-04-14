@@ -1,36 +1,71 @@
-<div class="member-profile-wrapper">
-    <mat-card>
-        <img mat-card-image src="{{ member.photo_url || defaultImage }}">
-        <h3 class="cara-section-header">Personal Info</h3>
-        <mat-card-header>
-            <mat-card-title class="cara-text-bold">{{ member.name }}</mat-card-title>
-            <mat-card-subtitle>
-                <div>
-                    <span class="cara-text-bold">Age:</span>&nbsp;<span>{{ member.age }}</span>
-                </div>
-                <div>
-                    <span class="cara-text-bold">Origin:</span>&nbsp;<span>{{ member.place }}</span>
-                </div>
-            </mat-card-subtitle>
-        </mat-card-header>
+<!--<div class="member-profile-wrapper">-->
+    <!--<mat-card>-->
+        <!--<img mat-card-image src="{{ member.photo_url || defaultImage }}">-->
+        <!--<h3 class="cara-section-header">Personal Info</h3>-->
+        <!--<mat-card-header>-->
+            <!--<mat-card-title class="cara-text-bold">{{ member.name }}</mat-card-title>-->
+            <!--<mat-card-subtitle>-->
+                <!--<div>-->
+                    <!--<span class="cara-text-bold">Age:</span>&nbsp;<span>{{ member.age }}</span>-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<span class="cara-text-bold">Origin:</span>&nbsp;<span>{{ member.place }}</span>-->
+                <!--</div>-->
+            <!--</mat-card-subtitle>-->
+        <!--</mat-card-header>-->
 
+        <!--<mat-divider></mat-divider>-->
+
+        <!--<mat-card-content class="contacts-container">-->
+            <!--<div class="contact-section">-->
+                <!--<h3 class="cara-section-header">Contact Info</h3>-->
+                <!--<div *ngFor="let number of member.phone_numbers">-->
+                    <!--<mat-icon>phone</mat-icon>&nbsp;-->
+                    <!--<a href="tel:{{ number.value }}">{{ number.value }}</a>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<mat-divider></mat-divider>-->
+            <!--<div>-->
+                <!--<h3 class="cara-section-header">Social Info</h3>-->
+                <!--<div>-->
+                    <!--<cara-social-contacts [link]="contact.value" [siteName]="contact.name" *ngFor="let contact of member.contacts"></cara-social-contacts>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</mat-card-content>-->
+    <!--</mat-card>-->
+<!--</div>-->
+<h1 mat-dialog-title>{{ member.name }}</h1>
+
+<div mat-dialog-content>
+    <img mat-card-image src="{{ member.photo_url || defaultImage }}">
+    <mat-card class="member-profile-info-card">
+        <mat-card-title>Personal Info</mat-card-title>
         <mat-divider></mat-divider>
-
-        <mat-card-content class="contacts-container">
-            <div class="contact-section">
-                <h3 class="cara-section-header">Contact Info</h3>
-                <div *ngFor="let number of member.phone_numbers">
-                    <mat-icon>phone</mat-icon>&nbsp;
-                    <a href="tel:{{ number.value }}">{{ number.value }}</a>
-                </div>
-            </div>
-            <mat-divider></mat-divider>
-            <div>
-                <h3 class="cara-section-header">Social Info</h3>
-                <div>
-                    <cara-social-contacts [link]="contact.value" [siteName]="contact.name" *ngFor="let contact of member.contacts"></cara-social-contacts>
-                </div>
+        <mat-card-content class="info-container">
+            <div>Age: {{ member.age }}</div>
+            <div>Place: {{ member.place }}</div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="member-profile-info-card">
+        <mat-card-title>Contact Info</mat-card-title>
+        <mat-divider></mat-divider>
+        <mat-card-content class="info-container">
+            <div *ngFor="let number of member.phone_numbers">
+                <mat-icon>phone</mat-icon>&nbsp;
+                <a href="tel:{{ number.value }}" class="no-decoration">{{ number.value }}</a>
             </div>
         </mat-card-content>
     </mat-card>
+    <mat-card class="member-profile-info-card">
+        <mat-card-title>Social Info</mat-card-title>
+        <mat-divider></mat-divider>
+        <mat-card-content class="info-container">
+            <cara-social-contacts [link]="contact.value" [siteName]="contact.name" *ngFor="let contact of member.contacts"></cara-social-contacts>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="openEditMemberModal()">Edit</button>
+    <button mat-raised-button color="accent" (click)="closeMemberProfileModal()">Close</button>
 </div>

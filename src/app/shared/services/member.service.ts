@@ -79,4 +79,19 @@ export class MemberService {
             return of(result as T);
         };
     }
+
+    update(data: MemberRequest, memberId: number): Observable<Member> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
+        const uri = `${this.URL.members}/${memberId}`;
+        return this._http.put<Member>(uri, { personal: data }, httpOptions)
+            .pipe(
+                tap(member => console.log(`member ${member}`)),
+                catchError(this.handleError<any>('member is not saved'))
+            );
+    }
 }
