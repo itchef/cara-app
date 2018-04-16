@@ -1,4 +1,4 @@
-<mat-card class="card-width card-alignment card-margin">
+<mat-card class="card-width card-alignment card-margin" *ngIf="!isDeleted">
     <div (click)="showMemberProfile()" class="pointer">
         <mat-card-header>
             <mat-card-title>{{member.name}}</mat-card-title>

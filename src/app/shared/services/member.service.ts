@@ -94,4 +94,19 @@ export class MemberService {
                 catchError(this.handleError<any>('member is not saved'))
             );
     }
+
+    delete(memberId: number) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
+        const uri = `${this.URL.members}/${memberId}`;
+        return this._http.delete<Member>(uri, httpOptions)
+            .pipe(
+                tap(member => console.log(`member ${member}`)),
+                catchError(this.handleError<any>('member is not deleted'))
+            );
+    }
 }

@@ -20,11 +20,13 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MemberFormComponent} from '../../common/form/member-form/member-form.component';
 import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {Member} from '../../shared/models/member';
+import {MemberService} from '../../shared/services/member.service';
 
 @Component({
     selector: 'cara-member-profile',
     templateUrl: './member-profile.component.html',
-    styleUrls: ['./member-profile.component.scss']
+    styleUrls: ['./member-profile.component.scss'],
+    providers: [ MemberService ]
 })
 export class MemberProfileComponent implements OnInit {
     member: Member;
@@ -33,7 +35,8 @@ export class MemberProfileComponent implements OnInit {
     constructor(
         private _matDialogRef: MatDialogRef<MemberProfileComponent>,
         @Inject(MAT_DIALOG_DATA) public _matDialogData: any,
-        private _memberDialog: MatDialog
+        private _memberDialog: MatDialog,
+        private _memberService: MemberService
     ) {
         this.member = this._matDialogData.member;
         this.defaultImage = '../../../assets/images/cara-logo.png';
@@ -42,7 +45,12 @@ export class MemberProfileComponent implements OnInit {
     ngOnInit() {}
 
     closeMemberProfileModal() {
-        this._matDialogRef.close();
+        const status = 'DELETED';
+        this._matDialogRef.close(status);
+    }
+
+    deleteMember() {
+        this._memberService.delete(this.member.id).subscribe(member => this.closeMemberProfileModal());
     }
 
     openEditMemberModal() {

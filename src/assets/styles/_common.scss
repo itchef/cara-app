@@ -53,6 +53,11 @@
 
 .cara-spacer {
     flex: 1 1 auto;
+    flex-flow: column;
+}
+
+.cara-position-right {
+    float: right;
 }
 
 .full-width {

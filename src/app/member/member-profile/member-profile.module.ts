@@ -24,7 +24,8 @@ import {
     MatCardModule,
     MatDialogModule,
     MatDividerModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule
 } from '@angular/material';
 import { SocialContactsComponent } from './social-contacts/social-contacts.component';
 
@@ -35,7 +36,8 @@ import { SocialContactsComponent } from './social-contacts/social-contacts.compo
         MatIconModule,
         MatDividerModule,
         MatButtonModule,
-        MatDialogModule
+        MatDialogModule,
+        MatMenuModule
     ],
     entryComponents: [ MemberProfileComponent ],
     declarations: [ MemberProfileComponent, SocialContactsComponent ]

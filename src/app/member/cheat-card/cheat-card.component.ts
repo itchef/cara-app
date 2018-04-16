@@ -31,17 +31,24 @@ export class CheatCardComponent implements OnInit {
     @Input()
     member: Member;
     defaultCardImageURL = '../../../assets/images/cara-logo.png';
+    isDeleted = false;
     constructor(public dialog: MatDialog) { }
 
     ngOnInit() {}
 
     showMemberProfile() {
-        this.dialog.open(MemberProfileComponent, {
+        const memberProfileComponentDialogRef = this.dialog.open(MemberProfileComponent, {
             width: '35%',
             height: '85%',
             autoFocus: false,
             data: {
                 member: this.member
+            }
+        });
+
+        memberProfileComponentDialogRef.afterClosed().subscribe(status => {
+            if (status === 'DELETED') {
+                this.isDeleted = true;
             }
         });
     }

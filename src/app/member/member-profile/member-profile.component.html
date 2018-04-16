@@ -1,41 +1,24 @@
-<!--<div class="member-profile-wrapper">-->
-    <!--<mat-card>-->
-        <!--<img mat-card-image src="{{ member.photo_url || defaultImage }}">-->
-        <!--<h3 class="cara-section-header">Personal Info</h3>-->
-        <!--<mat-card-header>-->
-            <!--<mat-card-title class="cara-text-bold">{{ member.name }}</mat-card-title>-->
-            <!--<mat-card-subtitle>-->
-                <!--<div>-->
-                    <!--<span class="cara-text-bold">Age:</span>&nbsp;<span>{{ member.age }}</span>-->
-                <!--</div>-->
-                <!--<div>-->
-                    <!--<span class="cara-text-bold">Origin:</span>&nbsp;<span>{{ member.place }}</span>-->
-                <!--</div>-->
-            <!--</mat-card-subtitle>-->
-        <!--</mat-card-header>-->
-
-        <!--<mat-divider></mat-divider>-->
-
-        <!--<mat-card-content class="contacts-container">-->
-            <!--<div class="contact-section">-->
-                <!--<h3 class="cara-section-header">Contact Info</h3>-->
-                <!--<div *ngFor="let number of member.phone_numbers">-->
-                    <!--<mat-icon>phone</mat-icon>&nbsp;-->
-                    <!--<a href="tel:{{ number.value }}">{{ number.value }}</a>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<mat-divider></mat-divider>-->
-            <!--<div>-->
-                <!--<h3 class="cara-section-header">Social Info</h3>-->
-                <!--<div>-->
-                    <!--<cara-social-contacts [link]="contact.value" [siteName]="contact.name" *ngFor="let contact of member.contacts"></cara-social-contacts>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</mat-card-content>-->
-    <!--</mat-card>-->
-<!--</div>-->
-<h1 mat-dialog-title>{{ member.name }}</h1>
-
+<div mat-dialog-title>
+    <span>{{ member.name }}</span>
+    <span class="cara-spacer"></span>
+    <button mat-icon-button class="cara-position-right" [matMenuTriggerFor]="memberActionMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #memberActionMenu="matMenu">
+        <button mat-menu-item (click)="openEditMemberModal()">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+        </button>
+        <button mat-menu-item (click)="deleteMember()">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+        </button>
+        <button mat-menu-item (click)="closeMemberProfileModal()">
+            <mat-icon>stop</mat-icon>
+            <span>Close</span>
+        </button>
+    </mat-menu>
+</div>
 <div mat-dialog-content>
     <img mat-card-image src="{{ member.photo_url || defaultImage }}">
     <mat-card class="member-profile-info-card">
@@ -63,9 +46,4 @@
             <cara-social-contacts [link]="contact.value" [siteName]="contact.name" *ngFor="let contact of member.contacts"></cara-social-contacts>
         </mat-card-content>
     </mat-card>
-</div>
-
-<div mat-dialog-actions>
-    <button mat-raised-button color="primary" (click)="openEditMemberModal()">Edit</button>
-    <button mat-raised-button color="accent" (click)="closeMemberProfileModal()">Close</button>
 </div>
