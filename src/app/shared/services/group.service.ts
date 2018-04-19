@@ -21,19 +21,19 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Group} from '../models/group';
 import {catchError, tap} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
 import {GroupRequest} from '../requests/group.request';
-import {Member} from '../models/model';
 import {GroupAssignment} from '../models/group-assignment';
 import {AssignGroupRequest} from '../requests/assign-group.request';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
+import {MemberBasic} from '../models/member-basic';
 
 @Injectable()
 export class GroupService {
 
     private URL = {
         groups: 'http://localhost:3002/groups',
-        assignMember: 'http://localhost:3002/groups/assign_member'
+        assignMember: 'http://localhost:3002/groups/assign_member',
+        unassignedMember: 'unassigned_member'
     };
     constructor(private _http: HttpClient) { }
 
@@ -69,6 +69,21 @@ export class GroupService {
         return this._http.post<GroupAssignment>(this.URL.assignMember, request, httpOptions)
             .pipe(
                 tap(groupAssignment => groupAssignment),
+                catchError(this.handleError<any>('Member is not assigned to the group'))
+            );
+    }
+
+    unassignedMember(request: AssignGroupRequest): Observable<MemberBasic> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
+        const url = `${this.URL.groups}/${request.group_id}/${this.URL.unassignedMember}/${request.member_id}`;
+        return this._http.delete<MemberBasic>(url, httpOptions)
+            .pipe(
+                tap(member => member),
                 catchError(this.handleError<any>('Member is not assigned to the group'))
             );
     }

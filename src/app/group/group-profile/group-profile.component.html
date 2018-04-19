@@ -25,7 +25,7 @@
     <mat-list class="group-member-list-container">
         <mat-list-item class="member-list-card" *ngFor="let member of group.members">
             <span matLine>{{ member.name }}</span>
-            <mat-icon>delete</mat-icon>
+            <mat-icon class="pointer" (click)="unassignMemberFromGroup(member.id)">delete</mat-icon>
         </mat-list-item>
     </mat-list>
 </div>

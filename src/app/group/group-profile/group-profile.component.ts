@@ -27,6 +27,7 @@ import { MemberService } from '../../shared/services/member.service';
 import {GroupService} from '../../shared/services/group.service';
 import {AssignGroupRequest} from '../../shared/requests/assign-group.request';
 import {AlertService} from '../../shared/services/alert.service';
+import {GroupUtils} from '../../shared/utils/group.utils';
 
 @Component({
     selector: 'cara-group-profile',
@@ -44,6 +45,7 @@ export class GroupProfileComponent implements OnInit {
     filteredMembers: Observable<Member[]>;
     private members: Member[];
     private _selectedMember: Member;
+    private _groupUtils: GroupUtils;
 
     constructor(
         private _groupProfileDialogRef: MatDialogRef<GroupProfileComponent>,
@@ -53,6 +55,7 @@ export class GroupProfileComponent implements OnInit {
         private _groupService: GroupService
     ) {
         this.group = this._groupProfileDialogData.group;
+        this._groupUtils = new GroupUtils();
     }
 
     ngOnInit() {
@@ -105,5 +108,17 @@ export class GroupProfileComponent implements OnInit {
 
     isMemberPresent(): boolean {
         return this.group.members.length > 0;
+    }
+
+    unassignMemberFromGroup(memberId: number) {
+        const unassignGroupRequest = new AssignGroupRequest(this.group.id, memberId);
+        this._groupService.unassignedMember(unassignGroupRequest)
+            .subscribe(member => {
+                    this.group.members = this._groupUtils.unassignMember(this.group.members, member);
+                    this._alertService.show(`${member.name} got unassigned from group ${this.group.name}`);
+                },
+            error =>
+                this._alertService.show(error.message)
+            );
     }
 }
