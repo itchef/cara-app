@@ -17,7 +17,7 @@
 // @author Kaustav Chakraborty
 
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Group} from '../../shared/models/group';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
@@ -26,12 +26,17 @@ import {map, startWith} from 'rxjs/operators';
 import { MemberService } from '../../shared/services/member.service';
 import {GroupService} from '../../shared/services/group.service';
 import {AssignGroupRequest} from '../../shared/requests/assign-group.request';
+import {AlertService} from '../../shared/services/alert.service';
 
 @Component({
     selector: 'cara-group-profile',
     templateUrl: './group-profile.component.html',
     styleUrls: ['./group-profile.component.scss'],
-    providers: [ MemberService, GroupService ]
+    providers: [
+        MemberService,
+        GroupService,
+        AlertService
+    ]
 })
 export class GroupProfileComponent implements OnInit {
     group: Group;
@@ -43,7 +48,7 @@ export class GroupProfileComponent implements OnInit {
     constructor(
         private _groupProfileDialogRef: MatDialogRef<GroupProfileComponent>,
         @Inject(MAT_DIALOG_DATA) private _groupProfileDialogData: any,
-        private _snackbar: MatSnackBar,
+        private _alertService: AlertService,
         private _memberService: MemberService,
         private _groupService: GroupService
     ) {
@@ -60,9 +65,9 @@ export class GroupProfileComponent implements OnInit {
                         map(memberName => {
                             let name = memberName;
                             if (typeof memberName === 'number') {
-                               this._selectedMember = this.getMember(this.members, memberName);
-                               name = this._selectedMember.name;
-                               this.assignMemberControl.setValue(name);
+                                this._selectedMember = this.getMember(this.members, memberName);
+                                name = this._selectedMember.name;
+                                this.assignMemberControl.setValue(name);
                             }
                             return name ? this.filterMemberName(name) : this.members.slice();
                         })
@@ -72,20 +77,20 @@ export class GroupProfileComponent implements OnInit {
 
     addMemberToGroup() {
         if (!this._selectedMember) {
-            this._snackbar
-                .open('Please select a valid member', 'Dismiss');
+            this._alertService
+                .show('Please select a valid member');
         }
         const assignGroupRequest = new AssignGroupRequest(this.group.id, this._selectedMember.id);
         this._groupService.assignMember(assignGroupRequest)
             .subscribe(memberAssignment => {
-                this._snackbar
-                    .open(`${memberAssignment.member.name} got successfully assigned to ${memberAssignment.group.name}`, 'Dismiss');
-                this.group.members.unshift(memberAssignment.member);
-                this.assignMemberControl.setValue('');
-            },
+                    this._alertService
+                        .show(`${memberAssignment.member.name} got successfully assigned to ${memberAssignment.group.name}`);
+                    this.group.members.unshift(memberAssignment.member);
+                    this.assignMemberControl.setValue('');
+                },
                 error => {
-                    this._snackbar
-                        .open(`${this._selectedMember.name}: ${error.message}`, 'Dismiss');
+                    this._alertService
+                        .show(`${this._selectedMember.name}: ${error.message}`);
                 });
     }
 

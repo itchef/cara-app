@@ -37,7 +37,7 @@ export class MemberService {
     getMemberList(): Observable<Member[]> {
         return this._http.get( this.URL.members )
             .pipe(
-                tap(members => console.log(`members ${members}`)),
+                tap(members => members),
                 catchError(this.handleError<any>('Members are not fetched successfully'))
             );
     }
@@ -46,7 +46,7 @@ export class MemberService {
         const MEMBERS_NAME_URI = `${this.URL.members}/names`;
         return this._http.get( MEMBERS_NAME_URI )
             .pipe(
-                tap(members => console.log(`members ${members}`)),
+                tap(members => members),
                 catchError(this.handleError<any>('Members are not fetched successfully'))
             );
     }
@@ -68,7 +68,7 @@ export class MemberService {
     getMember(memberId: number): Observable<Member> {
         const url = `${this.URL.members}/${memberId}`;
         return this._http.get(url).pipe(
-            tap(member => console.log(`member ${member}`)),
+            tap(member => member),
             catchError(this.handleError<any>('Member is not fetched successfully'))
         );
     }
@@ -90,7 +90,7 @@ export class MemberService {
         const uri = `${this.URL.members}/${memberId}`;
         return this._http.put<Member>(uri, { personal: data }, httpOptions)
             .pipe(
-                tap(member => console.log(`member ${member}`)),
+                tap(member => member),
                 catchError(this.handleError<any>('member is not saved'))
             );
     }
@@ -105,7 +105,7 @@ export class MemberService {
         const uri = `${this.URL.members}/${memberId}`;
         return this._http.delete<Member>(uri, httpOptions)
             .pipe(
-                tap(member => console.log(`member ${member}`)),
+                tap(member => member),
                 catchError(this.handleError<any>('member is not deleted'))
             );
     }

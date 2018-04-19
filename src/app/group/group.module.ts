@@ -25,12 +25,12 @@ import { HeaderModule } from '../header/header.module';
 import {
     MatButtonModule,
     MatDialogModule,
-    MatIconModule,
-    MatSnackBarModule
+    MatIconModule
 } from '@angular/material';
 import {FormModule} from '../common/form/form.module';
 import { GroupCardModule } from './group-card/group-card.module';
 import {GroupProfileModule} from './group-profile/group-profile.module';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -42,7 +42,7 @@ import {GroupProfileModule} from './group-profile/group-profile.module';
         MatButtonModule,
         FormModule,
         GroupCardModule,
-        MatSnackBarModule,
+        SharedModule,
         GroupProfileModule
     ],
     declarations: [GroupComponent]

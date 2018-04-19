@@ -10,8 +10,9 @@
     <mat-form-field class="full-width">
         <input matInput tabindex="-1" placeholder="Member" aria-label="Member" [matAutocomplete]="auto" [formControl]="assignMemberControl" (keyup.enter)="addMemberToGroup()" >
         <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let member of filteredMembers | async" [value]="member.id">
-                <span>{{ member.id }}. </span>
+            <mat-option *ngFor="let member of filteredMembers | async; index as serialNumber"
+                        [value]="member.id">
+                <span>{{ serialNumber + 1 }}. </span>
                 <span>{{ member.name }}</span>
             </mat-option>
         </mat-autocomplete>

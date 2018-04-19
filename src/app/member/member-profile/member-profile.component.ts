@@ -21,12 +21,16 @@ import {MemberFormComponent} from '../../common/form/member-form/member-form.com
 import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 import {Member} from '../../shared/models/member';
 import {MemberService} from '../../shared/services/member.service';
+import {AlertService} from '../../shared/services/alert.service';
 
 @Component({
     selector: 'cara-member-profile',
     templateUrl: './member-profile.component.html',
     styleUrls: ['./member-profile.component.scss'],
-    providers: [ MemberService ]
+    providers: [
+        MemberService,
+        AlertService
+    ]
 })
 export class MemberProfileComponent implements OnInit {
     member: Member;
@@ -36,6 +40,7 @@ export class MemberProfileComponent implements OnInit {
         private _matDialogRef: MatDialogRef<MemberProfileComponent>,
         @Inject(MAT_DIALOG_DATA) public _matDialogData: any,
         private _memberDialog: MatDialog,
+        private _alertService: AlertService,
         private _memberService: MemberService
     ) {
         this.member = this._matDialogData.member;
@@ -50,7 +55,11 @@ export class MemberProfileComponent implements OnInit {
     }
 
     deleteMember() {
-        this._memberService.delete(this.member.id).subscribe(member => this.closeMemberProfileModal());
+        this._memberService.delete(this.member.id).subscribe(member => {
+            this._alertService.show(`${member.name} is deleted successfully`);
+            this.closeMemberProfileModal();
+        },
+            error => this._alertService.show(`${this.member.name}: ${error.message}`));
     }
 
     openEditMemberModal() {

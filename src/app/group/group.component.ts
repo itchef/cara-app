@@ -17,16 +17,20 @@
 // @author Kaustav Chakraborty
 
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {GroupFormComponent} from '../common/form/group-form/group-form.component';
 import {Group} from '../shared/models/group';
 import {GroupService} from '../shared/services/group.service';
+import {AlertService} from '../shared/services/alert.service';
 
 @Component({
     selector: 'cara-group',
     templateUrl: './group.component.html',
     styleUrls: ['./group.component.scss'],
-    providers: [ GroupService ]
+    providers: [
+        GroupService,
+        AlertService
+    ]
 })
 export class GroupComponent implements OnInit {
 
@@ -35,7 +39,7 @@ export class GroupComponent implements OnInit {
     constructor(
         private _dialog: MatDialog,
         private _groupService: GroupService,
-        private _snackbar: MatSnackBar
+        private _alertService: AlertService
     ) { }
 
     ngOnInit() {
@@ -52,7 +56,7 @@ export class GroupComponent implements OnInit {
         dialogRef.afterClosed().subscribe(group => {
             if (group) {
                 this.groups.push(group);
-                this._snackbar.open(`Group: ${group.name} got created successfully`, 'dismiss');
+                this._alertService.show(`Group: ${group.name} got created successfully`);
             }
         });
     }

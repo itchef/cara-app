@@ -24,7 +24,8 @@ import {ContactRequest} from '../../../shared/requests/contact.request';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {MemberService} from '../../../shared/services/member.service';
 import {ContactService} from '../../../shared/services/contact.service';
-import {Contact} from "../../../shared/models/contact";
+import {Contact} from '../../../shared/models/contact';
+import {AlertService} from '../../../shared/services/alert.service';
 
 @Component({
     selector: 'cara-member-form',
@@ -32,7 +33,8 @@ import {Contact} from "../../../shared/models/contact";
     styleUrls: ['./member-form.component.scss'],
     providers: [
         MemberService,
-        ContactService
+        ContactService,
+        AlertService
     ]
 })
 export class MemberFormComponent implements OnInit {
@@ -43,6 +45,7 @@ export class MemberFormComponent implements OnInit {
         private _formBuilder: FormBuilder,
         private _memberService: MemberService,
         private _contactService: ContactService,
+        private _alertService: AlertService,
         private _matDialogRef: MatDialogRef<MemberFormComponent>,
         @Inject(MAT_DIALOG_DATA) private _matDialogData: any
     ) { }
@@ -106,6 +109,7 @@ export class MemberFormComponent implements OnInit {
                         contacts => {
                             this._memberService.getMember(member.id)
                                 .subscribe(memberObj => {
+                                    this._alertService.show(`${member.name} got created`);
                                     this._matDialogRef.close(memberObj);
                                 });
                         }
@@ -130,6 +134,7 @@ export class MemberFormComponent implements OnInit {
                     contacts => {
                         this._memberService.getMember(member.id)
                             .subscribe(memberObj => {
+                                this._alertService.show(`${member.name}'s profile got updated.`);
                                 this._matDialogRef.close(memberObj);
                             });
                     }

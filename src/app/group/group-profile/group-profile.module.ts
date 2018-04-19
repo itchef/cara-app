@@ -26,13 +26,13 @@ import {
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatListModule,
-    MatSnackBarModule
+    MatListModule
 } from '@angular/material';
 import {
     FormsModule,
     ReactiveFormsModule
 } from '@angular/forms';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -44,9 +44,9 @@ import {
         FormsModule,
         ReactiveFormsModule,
         MatIconModule,
-        MatSnackBarModule,
         MatDividerModule,
-        MatListModule
+        MatListModule,
+        SharedModule
     ],
     entryComponents: [ GroupProfileComponent ],
     declarations: [ GroupProfileComponent ]

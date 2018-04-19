@@ -23,12 +23,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { HeaderModule } from '../header/header.module';
 import {MemberService} from './services/member.service';
 import {ContactService} from './services/contact.service';
+import {MatSnackBarModule} from '@angular/material';
+import {AlertService} from './services/alert.service';
+import {GroupService} from './services/group.service';
 
 @NgModule({
     imports: [
         CommonModule,
         HeaderModule,
-        HttpClientModule
+        HttpClientModule,
+        MatSnackBarModule
     ],
     exports: [
         HeaderModule
@@ -41,7 +45,9 @@ export class SharedModule {
             ngModule: SharedModule,
             providers: [
                 MemberService,
-                ContactService
+                ContactService,
+                AlertService,
+                GroupService
             ]
         };
     }

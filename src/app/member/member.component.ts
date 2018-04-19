@@ -19,7 +19,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Member } from '../shared/models/model';
 import {MemberService} from '../shared/services/member.service';
-import {MatDialog, MatSnackBar} from '@angular/material';
+import {MatDialog} from '@angular/material';
 import {MemberFormComponent} from '../common/form/member-form/member-form.component';
 import {Subscription} from 'rxjs/Subscription';
 
@@ -36,8 +36,7 @@ export class MemberComponent implements OnInit, OnDestroy {
     private _memberEventSubscription: Subscription;
     constructor(
         private _memberService: MemberService,
-        public dialog: MatDialog,
-        private _snackbar: MatSnackBar
+        public dialog: MatDialog
         ) { }
 
     ngOnInit() {
@@ -58,7 +57,6 @@ export class MemberComponent implements OnInit, OnDestroy {
         dialogRef.afterClosed().subscribe(member => {
             if (member) {
                 this.members.push(member);
-                this._snackbar.open(`${member.name} got created successfully`, 'dismiss');
             }
         });
     }
