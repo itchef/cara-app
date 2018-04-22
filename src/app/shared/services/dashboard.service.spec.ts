@@ -15,17 +15,19 @@
 // along with this program.  If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 //
 // @author Kaustav Chakraborty
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [
-    { path: 'members', loadChildren: 'app/member/member.module#MemberModule' },
-    { path: 'groups', loadChildren: 'app/group/group.module#GroupModule' },
-    { path: '', loadChildren: 'app/dashboard/dashboard.module#DashboardModule' }
-];
+import { TestBed, inject } from '@angular/core/testing';
 
-@NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
-})
-export class AppRoutingModule { }
+import { DashboardService } from './dashboard.service';
+
+describe('DashboardService', () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            providers: [DashboardService]
+        });
+    });
+
+    it('should be created', inject([DashboardService], (service: DashboardService) => {
+        expect(service).toBeTruthy();
+    }));
+});

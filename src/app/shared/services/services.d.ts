@@ -17,3 +17,4 @@
 // @author Kaustav Chakraborty
 
 export { MemberService } from './member.service';
+export { DashboardService } from './dashboard.service';

@@ -15,17 +15,17 @@
 // along with this program.  If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 //
 // @author Kaustav Chakraborty
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import {DashboardComponent} from './dashboard.component';
 
 const routes: Routes = [
-    { path: 'members', loadChildren: 'app/member/member.module#MemberModule' },
-    { path: 'groups', loadChildren: 'app/group/group.module#GroupModule' },
-    { path: '', loadChildren: 'app/dashboard/dashboard.module#DashboardModule' }
+    { path: '', component: DashboardComponent }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class DashboardRoutingModule { }

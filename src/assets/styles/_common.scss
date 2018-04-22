@@ -18,6 +18,8 @@
  * @author Kaustav Chakraborty
  */
 
+@import "color";
+
 .mat-icon {
     vertical-align: middle;
 }
@@ -62,4 +64,14 @@
 
 .full-width {
     width: 100%;
+}
+
+.no-content-message {
+    width: 500px;
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 30px;
+    border: 3px dashed $blue-gray-600;
+    color: $blue-gray-600;
+    text-align: center;
 }

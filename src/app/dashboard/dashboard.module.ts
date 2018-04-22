@@ -15,17 +15,34 @@
 // along with this program.  If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 //
 // @author Kaustav Chakraborty
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [
-    { path: 'members', loadChildren: 'app/member/member.module#MemberModule' },
-    { path: 'groups', loadChildren: 'app/group/group.module#GroupModule' },
-    { path: '', loadChildren: 'app/dashboard/dashboard.module#DashboardModule' }
-];
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardComponent } from './dashboard.component';
+import {AlertService} from '../shared/services/alert.service';
+import {DashboardService} from '../shared/services/dashboard.service';
+import {SharedModule} from '../shared/shared.module';
+import {CheatCardModule} from '../member/cheat-card/cheat-card.module';
+import {
+    MatCardModule,
+    MatTabsModule,
+} from '@angular/material';
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    imports: [
+        CommonModule,
+        SharedModule,
+        CheatCardModule,
+        MatCardModule,
+        MatTabsModule,
+        DashboardRoutingModule
+    ],
+    declarations: [DashboardComponent],
+    providers: [
+        DashboardService,
+        AlertService
+    ]
 })
-export class AppRoutingModule { }
+export class DashboardModule { }

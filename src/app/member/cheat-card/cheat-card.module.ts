@@ -25,7 +25,8 @@ import {
     MatButtonModule,
     MatButtonToggleModule,
     MatDividerModule,
-    MatIconRegistry
+    MatIconRegistry,
+    MatDialogModule
 } from '@angular/material';
 import { SocialBadgeComponent } from './social-badge/social-badge.component';
 
@@ -35,6 +36,7 @@ import { SocialBadgeComponent } from './social-badge/social-badge.component';
         MatCardModule,
         MatIconModule,
         MatButtonModule,
+        MatDialogModule,
         MatButtonToggleModule,
         MatDividerModule
     ],

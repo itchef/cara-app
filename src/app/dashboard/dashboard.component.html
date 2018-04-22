@@ -1,0 +1,9 @@
+<cara-header></cara-header>
+<div class="content-layout">
+    <mat-tab-group>
+        <mat-tab label="{{ group.name }}" *ngFor="let group of groups" class="cara-tab-container">
+            <cara-cheat-card *ngFor="let member of group.members" [member]="member"></cara-cheat-card>
+            <div class="no-content-message" *ngIf="!isMemberPresent(group)">No member found</div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

@@ -1,5 +1,5 @@
 /*!
- * Cara API is Rest APIs for Cara application which is a face cheat book for organisation
+ * Cara APP is front end application for Cara application which gets supported by Cara API, which is a face cheat book for organisation
  * Copyright (C) 2018  ITChef
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,8 +18,6 @@
  * @author Kaustav Chakraborty
  */
 
-@import "../../assets/styles/styles.d";
-
-.display-board {
-    padding: 15px 0;
+.cara-tab-container {
+    padding-top: 15px;
 }
