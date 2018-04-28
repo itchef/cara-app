@@ -16,7 +16,6 @@
 //
 // @author Kaustav Chakraborty
 
-// @author Kaustav Chakraborty
 import { browser, by, element } from 'protractor';
 
 export class AppPage {

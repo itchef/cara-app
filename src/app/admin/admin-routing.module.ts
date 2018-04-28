@@ -16,17 +16,16 @@
 //
 // @author Kaustav Chakraborty
 
-import { AppPage } from './app.po';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import {AdminComponent} from './admin.component';
 
-describe('cara-app App', () => {
-    let page: AppPage;
+const routes: Routes = [
+    { path: '', component: AdminComponent }
+];
 
-    beforeEach(() => {
-        page = new AppPage();
-    });
-
-    it('should display App name on header', () => {
-        page.navigateToHome();
-        expect(page.getAppName()).toEqual('Cara');
-    });
-});
+@NgModule({
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
+})
+export class AdminRoutingModule { }

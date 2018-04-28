@@ -16,17 +16,23 @@
 //
 // @author Kaustav Chakraborty
 
-import { AppPage } from './app.po';
+import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 
-describe('cara-app App', () => {
-    let page: AppPage;
+@Injectable()
+export class SessionService {
 
-    beforeEach(() => {
-        page = new AppPage();
-    });
+    private URL = {};
 
-    it('should display App name on header', () => {
-        page.navigateToHome();
-        expect(page.getAppName()).toEqual('Cara');
-    });
-});
+    constructor(private _http: HttpClient) { }
+
+    private handleError<T> (operation, result?: T) {
+        return (detailedError: any): Observable<T> => {
+            console.error(detailedError);
+            console.log(`${operation} failed: ${detailedError.message}`);
+            return new ErrorObservable(detailedError.error);
+        };
+    }
+}

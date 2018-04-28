@@ -18,44 +18,25 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FlexLayoutModule} from '@angular/flex-layout';
 
-import { MemberRoutingModule } from './member-routing.module';
-import { MemberComponent } from './member.component';
-import { HeaderModule } from '../header/header.module';
-import { CheatCardModule } from './cheat-card/cheat-card.module';
-import { SharedModule } from '../shared/shared.module';
-import {
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatDialogModule,
-    MatIconModule,
-    MatSnackBarModule
-} from '@angular/material';
-import { FormModule } from '../common/form/form.module';
-import {MemberProfileModule} from './member-profile/member-profile.module';
+import { AdminRoutingModule } from './admin-routing.module';
+import { AdminComponent } from './admin.component';
+import {HeaderModule} from '../header/header.module';
+import {MatTabsModule} from '@angular/material';
+import { UserModule } from './user/user.module';
+import {MemberModule} from '../member/member.module';
+import {GroupModule} from '../group/group.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        MemberRoutingModule,
+        AdminRoutingModule,
         HeaderModule,
-        CheatCardModule,
-        FlexLayoutModule,
-        MatIconModule,
-        MatButtonModule,
-        MatButtonToggleModule,
-        SharedModule,
-        FormModule,
-        MatDialogModule,
-        MatSnackBarModule,
-        MemberProfileModule
+        MatTabsModule,
+        UserModule,
+        MemberModule,
+        GroupModule
     ],
-    declarations: [
-        MemberComponent
-    ],
-    exports: [
-        MemberComponent
-    ]
+    declarations: [AdminComponent]
 })
-export class MemberModule { }
+export class AdminModule { }

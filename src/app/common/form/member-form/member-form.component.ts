@@ -18,7 +18,7 @@
 
 import {Component, Inject, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CustormFormValidator} from '../../validator/custorm-form.validator';
+import {CustomFormValidator} from '../../validator/custom-form.validator';
 import {MemberRequest} from '../../../shared/requests/member.request';
 import {ContactRequest} from '../../../shared/requests/contact.request';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
@@ -89,7 +89,7 @@ export class MemberFormComponent implements OnInit {
             primaryContactData.email = this.getContactInfo(member.contacts, 'email').value;
         }
         return this._formBuilder.group({
-            phone: [primaryContactData.phone, [Validators.required, CustormFormValidator.phoneValidation(10, 10)]],
+            phone: [primaryContactData.phone, [Validators.required, CustomFormValidator.inputLengthValidation(10, 10)]],
             email: [primaryContactData.email, [Validators.required, Validators.email]],
         });
     }
@@ -183,7 +183,7 @@ export class MemberFormComponent implements OnInit {
         }
         return this._formBuilder.group({
             name: [memberData.name, Validators.required],
-            age: [memberData.age, [Validators.required, CustormFormValidator.ageValidation()]],
+            age: [memberData.age, [Validators.required, CustomFormValidator.ageValidation()]],
             place: [memberData.place, Validators.required],
             photo_url: [memberData.photo_url]
         });

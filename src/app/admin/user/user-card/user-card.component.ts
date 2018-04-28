@@ -16,17 +16,21 @@
 //
 // @author Kaustav Chakraborty
 
-import { AppPage } from './app.po';
+import {Component, Input, OnInit} from '@angular/core';
+import {User} from '../../../shared/models/user';
 
-describe('cara-app App', () => {
-    let page: AppPage;
+@Component({
+    selector: 'cara-user-card',
+    templateUrl: './user-card.component.html',
+    styleUrls: ['./user-card.component.scss']
+})
+export class UserCardComponent implements OnInit {
+    @Input()
+    user: User;
 
-    beforeEach(() => {
-        page = new AppPage();
-    });
+    constructor() { }
 
-    it('should display App name on header', () => {
-        page.navigateToHome();
-        expect(page.getAppName()).toEqual('Cara');
-    });
-});
+    ngOnInit() {
+    }
+
+}

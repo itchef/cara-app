@@ -1,4 +1,4 @@
-// Cara APP is front end application for Cara application which gets supported by Cara API, which is a face cheat book for organisation.
+// Cara APP is front end application for Cara application which gets supported by Cara API, which is a face cheat book for organisation
 // Copyright (C) 2018  ITChef
 //
 // This program is free software: you can redistribute it and/or modify
@@ -16,17 +16,28 @@
 //
 // @author Kaustav Chakraborty
 
-import { AppPage } from './app.po';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-describe('cara-app App', () => {
-    let page: AppPage;
+import { UserFormComponent } from './user-form.component';
+
+describe('UserFormComponent', () => {
+    let component: UserFormComponent;
+    let fixture: ComponentFixture<UserFormComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ UserFormComponent ]
+        })
+            .compileComponents();
+    }));
 
     beforeEach(() => {
-        page = new AppPage();
+        fixture = TestBed.createComponent(UserFormComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
     });
 
-    it('should display App name on header', () => {
-        page.navigateToHome();
-        expect(page.getAppName()).toEqual('Cara');
+    it('should create', () => {
+        expect(component).toBeTruthy();
     });
 });

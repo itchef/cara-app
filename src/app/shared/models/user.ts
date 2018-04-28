@@ -16,17 +16,9 @@
 //
 // @author Kaustav Chakraborty
 
-import { AppPage } from './app.po';
-
-describe('cara-app App', () => {
-    let page: AppPage;
-
-    beforeEach(() => {
-        page = new AppPage();
-    });
-
-    it('should display App name on header', () => {
-        page.navigateToHome();
-        expect(page.getAppName()).toEqual('Cara');
-    });
-});
+export class User {
+    id: number;
+    first_name: string;
+    last_name: string;
+    username: string;
+}

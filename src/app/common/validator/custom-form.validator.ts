@@ -17,9 +17,10 @@
 // @author Kaustav Chakraborty
 
 import {AbstractControl, ValidatorFn} from '@angular/forms';
+import {CollectionUtils} from "../../shared/utils/collection.utils";
 
-export class CustormFormValidator {
-    static phoneValidation(min: number, max: number): ValidatorFn {
+export class CustomFormValidator {
+    static inputLengthValidation(min: number, max: number): ValidatorFn {
         return (input: AbstractControl): { [key: string]: boolean } | null => {
             const lengthOfInput = (input.value) ? input.value.toString().length : 0;
             if (lengthOfInput < min || lengthOfInput > max) {
@@ -33,6 +34,15 @@ export class CustormFormValidator {
         return (input: AbstractControl): { [key: string]: boolean } | null => {
             if (isNaN(input.value)) {
                 return { 'notANumber': true };
+            }
+            return null;
+        };
+    }
+
+    static isUniqueUsername(usernames: string[]): ValidatorFn {
+        return (input: AbstractControl): { [key: string]: boolean } | null => {
+            if (!CollectionUtils.isUniqueValue(usernames, input.value)) {
+                return { 'valid': false };
             }
             return null;
         };

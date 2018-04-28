@@ -1,0 +1,8 @@
+<div *ngFor="let user of users">
+    <cara-user-card [user]="user"></cara-user-card>
+</div>
+<div class="floating-bottom-button">
+    <button mat-fab (click)="toggleUserForm()">
+        <mat-icon aria-label="Add a member">add</mat-icon>
+    </button>
+</div>

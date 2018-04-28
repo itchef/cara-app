@@ -16,17 +16,18 @@
 //
 // @author Kaustav Chakraborty
 
-import { AppPage } from './app.po';
+export class NewUserRequest {
+    first_name: string;
+    last_name: string;
+    username: string;
+    password: string;
+    password_confirmation: string;
 
-describe('cara-app App', () => {
-    let page: AppPage;
-
-    beforeEach(() => {
-        page = new AppPage();
-    });
-
-    it('should display App name on header', () => {
-        page.navigateToHome();
-        expect(page.getAppName()).toEqual('Cara');
-    });
-});
+    constructor(first_name: string, last_name: string, username: string, password: string, password_confirmation: string) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.username = username;
+        this.password = password;
+        this.password_confirmation = password_confirmation;
+    }
+}

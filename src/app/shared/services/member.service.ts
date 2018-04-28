@@ -72,14 +72,6 @@ export class MemberService {
             catchError(this.handleError<any>('Member is not fetched successfully'))
         );
     }
-    private handleError<T> (operation, result?: T) {
-        return (error: any): Observable<T> => {
-            console.error(error);
-            console.log(`${operation} failed: ${error.message}`);
-            return of(result as T);
-        };
-    }
-
     update(data: MemberRequest, memberId: number): Observable<Member> {
         const httpOptions = {
             headers: new HttpHeaders({
@@ -108,5 +100,13 @@ export class MemberService {
                 tap(member => member),
                 catchError(this.handleError<any>('member is not deleted'))
             );
+    }
+
+    private handleError<T> (operation, result?: T) {
+        return (error: any): Observable<T> => {
+            console.error(error);
+            console.log(`${operation} failed: ${error.message}`);
+            return of(result as T);
+        };
     }
 }

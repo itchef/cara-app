@@ -16,17 +16,28 @@
 //
 // @author Kaustav Chakraborty
 
-import { AppPage } from './app.po';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-describe('cara-app App', () => {
-    let page: AppPage;
+import { UserComponent } from './user.component';
+
+describe('UserComponent', () => {
+    let component: UserComponent;
+    let fixture: ComponentFixture<UserComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ UserComponent ]
+        })
+            .compileComponents();
+    }));
 
     beforeEach(() => {
-        page = new AppPage();
+        fixture = TestBed.createComponent(UserComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
     });
 
-    it('should display App name on header', () => {
-        page.navigateToHome();
-        expect(page.getAppName()).toEqual('Cara');
+    it('should create', () => {
+        expect(component).toBeTruthy();
     });
 });

@@ -16,17 +16,18 @@
 //
 // @author Kaustav Chakraborty
 
-import { AppPage } from './app.po';
+import { Component, OnInit } from '@angular/core';
 
-describe('cara-app App', () => {
-    let page: AppPage;
+@Component({
+    selector: 'cara-admin',
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.scss']
+})
+export class AdminComponent implements OnInit {
 
-    beforeEach(() => {
-        page = new AppPage();
-    });
+    constructor() { }
 
-    it('should display App name on header', () => {
-        page.navigateToHome();
-        expect(page.getAppName()).toEqual('Cara');
-    });
-});
+    ngOnInit() {
+    }
+
+}

@@ -16,17 +16,12 @@
 //
 // @author Kaustav Chakraborty
 
-import { AppPage } from './app.po';
+export class CollectionUtils {
+    static getValues(collection: any[], key: string) {
+        return collection.map(item => item[key]);
+    }
 
-describe('cara-app App', () => {
-    let page: AppPage;
-
-    beforeEach(() => {
-        page = new AppPage();
-    });
-
-    it('should display App name on header', () => {
-        page.navigateToHome();
-        expect(page.getAppName()).toEqual('Cara');
-    });
-});
+    static isUniqueValue(usernames: string[], searchFor: string) {
+        return usernames.indexOf(searchFor) < 0;
+    }
+}

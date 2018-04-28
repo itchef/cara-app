@@ -18,44 +18,31 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FlexLayoutModule} from '@angular/flex-layout';
-
-import { MemberRoutingModule } from './member-routing.module';
-import { MemberComponent } from './member.component';
-import { HeaderModule } from '../header/header.module';
-import { CheatCardModule } from './cheat-card/cheat-card.module';
-import { SharedModule } from '../shared/shared.module';
+import { UserComponent } from './user.component';
 import {
     MatButtonModule,
-    MatButtonToggleModule,
     MatDialogModule,
-    MatIconModule,
-    MatSnackBarModule
+    MatIconModule
 } from '@angular/material';
-import { FormModule } from '../common/form/form.module';
-import {MemberProfileModule} from './member-profile/member-profile.module';
+import {FormModule} from '../../common/form/form.module';
+import { UserService } from '../../shared/services/user.service';
+import {AlertService} from '../../shared/services/alert.service';
+import {UserCardModule} from './user-card/user-card.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        MemberRoutingModule,
-        HeaderModule,
-        CheatCardModule,
-        FlexLayoutModule,
-        MatIconModule,
         MatButtonModule,
-        MatButtonToggleModule,
-        SharedModule,
-        FormModule,
+        MatIconModule,
         MatDialogModule,
-        MatSnackBarModule,
-        MemberProfileModule
+        FormModule,
+        UserCardModule
     ],
-    declarations: [
-        MemberComponent
+    declarations: [UserComponent],
+    providers: [
+        UserService,
+        AlertService
     ],
-    exports: [
-        MemberComponent
-    ]
+    exports: [UserComponent]
 })
-export class MemberModule { }
+export class UserModule { }

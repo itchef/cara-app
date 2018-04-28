@@ -18,44 +18,19 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {FlexLayoutModule} from '@angular/flex-layout';
-
-import { MemberRoutingModule } from './member-routing.module';
-import { MemberComponent } from './member.component';
-import { HeaderModule } from '../header/header.module';
-import { CheatCardModule } from './cheat-card/cheat-card.module';
-import { SharedModule } from '../shared/shared.module';
+import { UserCardComponent } from './user-card.component';
 import {
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatDialogModule,
-    MatIconModule,
-    MatSnackBarModule
+    MatCardModule,
+    MatDividerModule
 } from '@angular/material';
-import { FormModule } from '../common/form/form.module';
-import {MemberProfileModule} from './member-profile/member-profile.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        MemberRoutingModule,
-        HeaderModule,
-        CheatCardModule,
-        FlexLayoutModule,
-        MatIconModule,
-        MatButtonModule,
-        MatButtonToggleModule,
-        SharedModule,
-        FormModule,
-        MatDialogModule,
-        MatSnackBarModule,
-        MemberProfileModule
+        MatCardModule,
+        MatDividerModule
     ],
-    declarations: [
-        MemberComponent
-    ],
-    exports: [
-        MemberComponent
-    ]
+    declarations: [UserCardComponent],
+    exports: [UserCardComponent]
 })
-export class MemberModule { }
+export class UserCardModule { }

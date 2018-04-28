@@ -30,6 +30,8 @@ import {
 } from '@angular/material';
 import {SharedModule} from '../../shared/shared.module';
 import { GroupFormComponent } from './group-form/group-form.component';
+import { UserFormComponent } from './user-form/user-form.component';
+import { SessionService } from '../../shared/services/session.service';
 
 @NgModule({
     imports: [
@@ -46,13 +48,22 @@ import { GroupFormComponent } from './group-form/group-form.component';
     ],
     declarations: [
         MemberFormComponent,
-        GroupFormComponent
+        GroupFormComponent,
+        UserFormComponent
     ],
-    entryComponents: [ MemberFormComponent, GroupFormComponent ],
+    entryComponents: [
+        MemberFormComponent,
+        GroupFormComponent,
+        UserFormComponent
+    ],
     exports: [
-        MemberFormComponent
+        MemberFormComponent,
+        GroupFormComponent,
+        UserFormComponent
     ],
-    providers: [],
+    providers: [
+        SessionService
+    ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })
 export class FormModule { }

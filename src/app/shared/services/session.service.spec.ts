@@ -16,17 +16,18 @@
 //
 // @author Kaustav Chakraborty
 
-import { AppPage } from './app.po';
+import { TestBed, inject } from '@angular/core/testing';
 
-describe('cara-app App', () => {
-    let page: AppPage;
+import { SessionService } from './session.service';
 
+describe('SessionService', () => {
     beforeEach(() => {
-        page = new AppPage();
+        TestBed.configureTestingModule({
+            providers: [SessionService]
+        });
     });
 
-    it('should display App name on header', () => {
-        page.navigateToHome();
-        expect(page.getAppName()).toEqual('Cara');
-    });
+    it('should be created', inject([SessionService], (service: SessionService) => {
+        expect(service).toBeTruthy();
+    }));
 });

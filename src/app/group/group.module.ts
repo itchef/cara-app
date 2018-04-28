@@ -45,6 +45,7 @@ import {SharedModule} from '../shared/shared.module';
         SharedModule,
         GroupProfileModule
     ],
-    declarations: [GroupComponent]
+    declarations: [GroupComponent],
+    exports: [GroupComponent]
 })
 export class GroupModule { }
