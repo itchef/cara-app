@@ -18,6 +18,8 @@
 
 import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../shared/models/user';
+import { MatDialog } from '@angular/material';
+import {ChangePasswordComponent} from '../../../common/modal/change-password/change-password.component';
 
 @Component({
     selector: 'cara-user-card',
@@ -28,9 +30,17 @@ export class UserCardComponent implements OnInit {
     @Input()
     user: User;
 
-    constructor() { }
+    constructor(private _matDialog: MatDialog) { }
 
     ngOnInit() {
     }
 
+    showChangePasswordModal() {
+        this._matDialog.open(ChangePasswordComponent, {
+            width: '35%',
+            data: {
+                user: this.user
+            }
+        });
+    }
 }

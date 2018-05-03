@@ -16,31 +16,12 @@
 //
 // @author Kaustav Chakraborty
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UserCardComponent } from './user-card.component';
-import {
-    MatButtonModule,
-    MatCardModule,
-    MatDialogModule,
-    MatDividerModule,
-    MatIconModule,
-    MatMenuModule
-} from '@angular/material';
-import {ModalModule} from '../../../common/modal/modal.module';
+export class UpdatePasswordRequest {
+    password: string;
+    password_confirmation: string;
 
-@NgModule({
-    imports: [
-        CommonModule,
-        MatCardModule,
-        MatDividerModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
-        MatDialogModule,
-        ModalModule
-    ],
-    declarations: [UserCardComponent],
-    exports: [UserCardComponent]
-})
-export class UserCardModule { }
+    constructor(password: string, password_confirmation: string) {
+        this.password = password;
+        this.password_confirmation = password_confirmation;
+    }
+}

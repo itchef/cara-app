@@ -23,6 +23,7 @@ import {Observable} from 'rxjs/Observable';
 import {User} from '../models/user';
 import {of} from 'rxjs/observable/of';
 import {NewUserRequest} from '../requests/new-user.request';
+import {UpdatePasswordRequest} from '../requests/update-password.request';
 
 @Injectable()
 export class UserService {
@@ -51,6 +52,22 @@ export class UserService {
         };
 
         return this._http.post<User>(this.URL.users, request, httpOptions)
+            .pipe(
+                tap(user => user),
+                catchError(this.handleError<any>('User is not created'))
+            );
+    }
+
+    updatePassword(request: UpdatePasswordRequest, userId: number): Observable<User> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
+
+        const url = `${this.URL.users}/${userId}/update_password`;
+        return this._http.put<User>(url, request, httpOptions)
             .pipe(
                 tap(user => user),
                 catchError(this.handleError<any>('User is not created'))

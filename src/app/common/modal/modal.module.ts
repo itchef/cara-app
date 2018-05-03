@@ -18,29 +18,35 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserCardComponent } from './user-card.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import {
     MatButtonModule,
-    MatCardModule,
     MatDialogModule,
-    MatDividerModule,
-    MatIconModule,
-    MatMenuModule
+    MatFormFieldModule,
+    MatInputModule
 } from '@angular/material';
-import {ModalModule} from '../../../common/modal/modal.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        MatCardModule,
-        MatDividerModule,
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
+        FormsModule,
+        SharedModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
         MatDialogModule,
-        ModalModule
+        MatButtonModule
     ],
-    declarations: [UserCardComponent],
-    exports: [UserCardComponent]
+    declarations: [
+        ChangePasswordComponent
+    ],
+    exports: [
+        ChangePasswordComponent
+    ],
+    entryComponents: [
+        ChangePasswordComponent
+    ]
 })
-export class UserCardModule { }
+export class ModalModule { }
