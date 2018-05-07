@@ -82,10 +82,25 @@ export class UserService {
             })
         };
         const url = `${this.URL.users}/${userId}/unsubscribe`;
-        return this._http.delete<User>(url, httpOptions)
+        return this._http.get<User>(url, httpOptions)
             .pipe(
                 tap(user => user),
                 catchError(this.handleError<any>('User is not unsubscribed'))
+            );
+    }
+
+    subscribe(userId: number) {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
+        const url = `${this.URL.users}/${userId}/subscribe`;
+        return this._http.get<User>(url, httpOptions)
+            .pipe(
+                tap(user => user),
+                catchError(this.handleError<any>('User is not subscribed'))
             );
     }
 

@@ -11,6 +11,10 @@
             <mat-icon>block</mat-icon>
             <span>Unsubscribe</span>
         </button>
+        <button mat-menu-item (click)="subscribe()" *ngIf="user.unsubscribed">
+            <mat-icon>turned_in</mat-icon>
+            <span>Subscribe</span>
+        </button>
     </mat-menu>
 
     <mat-card-header class="user-container-padding cara-text-bold">

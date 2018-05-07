@@ -62,7 +62,20 @@ export class UserCardComponent implements OnInit {
                 this.user = userResponse;
             },
             (error) => {
-                this._alertService.show(`@${this.user.username}: ${error.message}`);
+                this._alertService.show(error.message);
+            }
+        );
+    }
+
+    subscribe() {
+        this._userService.subscribe(this.user.id)
+            .subscribe(
+            (userResponse) => {
+                this._alertService.show(`${userResponse.username} got subscribed successfully`);
+                this.user = userResponse;
+            },
+            (error) => {
+                this._alertService.show(error.message);
             }
         );
     }
