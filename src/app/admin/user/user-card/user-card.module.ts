@@ -22,12 +22,15 @@ import { UserCardComponent } from './user-card.component';
 import {
     MatButtonModule,
     MatCardModule,
+    MatChipsModule,
     MatDialogModule,
     MatDividerModule,
     MatIconModule,
     MatMenuModule
 } from '@angular/material';
 import {ModalModule} from '../../../common/modal/modal.module';
+import {UserService} from '../../../shared/services/user.service';
+import {AlertService} from '../../../shared/services/alert.service';
 
 @NgModule({
     imports: [
@@ -38,9 +41,14 @@ import {ModalModule} from '../../../common/modal/modal.module';
         MatMenuModule,
         MatIconModule,
         MatDialogModule,
+        MatChipsModule,
         ModalModule
     ],
     declarations: [UserCardComponent],
+    providers: [
+        UserService,
+        AlertService
+    ],
     exports: [UserCardComponent]
 })
 export class UserCardModule { }

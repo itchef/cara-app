@@ -7,10 +7,22 @@
             <mat-icon>vpn_key</mat-icon>
             <span>Change Password</span>
         </button>
+        <button mat-menu-item (click)="unsubscribe()" *ngIf="!user.unsubscribed">
+            <mat-icon>block</mat-icon>
+            <span>Unsubscribe</span>
+        </button>
     </mat-menu>
 
     <mat-card-header class="user-container-padding cara-text-bold">
         {{ user.first_name }} {{ user.last_name }}
     </mat-card-header>
     <mat-card-subtitle class="username-container cara-text-italic">@{{ user.username }}</mat-card-subtitle>
+    <mat-card-actions class="user-action-section">
+        <mat-chip-list *ngIf="user.unsubscribed">
+            <mat-chip class="cara-error">Unsubscribed</mat-chip>
+        </mat-chip-list>
+        <mat-chip-list *ngIf="!user.unsubscribed">
+            <mat-chip class="cara-success">Subscribed</mat-chip>
+        </mat-chip-list>
+    </mat-card-actions>
 </mat-card>

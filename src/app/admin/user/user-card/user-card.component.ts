@@ -20,17 +20,27 @@ import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../../shared/models/user';
 import { MatDialog } from '@angular/material';
 import {ChangePasswordComponent} from '../../../common/modal/change-password/change-password.component';
+import { UserService } from '../../../shared/services/user.service';
+import {AlertService} from '../../../shared/services/alert.service';
 
 @Component({
     selector: 'cara-user-card',
     templateUrl: './user-card.component.html',
-    styleUrls: ['./user-card.component.scss']
+    styleUrls: ['./user-card.component.scss'],
+    providers: [
+        UserService,
+        AlertService
+    ]
 })
 export class UserCardComponent implements OnInit {
     @Input()
     user: User;
 
-    constructor(private _matDialog: MatDialog) { }
+    constructor(
+        private _matDialog: MatDialog,
+        private _userService: UserService,
+        private _alertService: AlertService
+    ) { }
 
     ngOnInit() {
     }
@@ -42,5 +52,18 @@ export class UserCardComponent implements OnInit {
                 user: this.user
             }
         });
+    }
+
+    unsubscribe() {
+        this._userService.unsubscribe(this.user.id)
+            .subscribe(
+            (userResponse) => {
+                this._alertService.show(`${userResponse.username} got unsubscribed successfully`);
+                this.user = userResponse;
+            },
+            (error) => {
+                this._alertService.show(`@${this.user.username}: ${error.message}`);
+            }
+        );
     }
 }

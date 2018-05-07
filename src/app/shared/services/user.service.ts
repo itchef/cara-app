@@ -21,9 +21,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../models/user';
-import {of} from 'rxjs/observable/of';
 import {NewUserRequest} from '../requests/new-user.request';
 import {UpdatePasswordRequest} from '../requests/update-password.request';
+import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class UserService {
@@ -35,10 +35,10 @@ export class UserService {
     constructor(private _http: HttpClient) { }
 
     getAll(): Observable<User[]> {
-        return this._http.get( this.URL.users )
+        return this._http.get<User[]>( this.URL.users )
             .pipe(
                 tap(members => members),
-                catchError(this.handleError<any>('Users are not fetched successfully'))
+                catchError(this.handleError<User[]>('Users are not fetched successfully'))
             );
 
     }
@@ -74,11 +74,26 @@ export class UserService {
             );
     }
 
+    unsubscribe(userId: number): Observable<User> {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
+        const url = `${this.URL.users}/${userId}/unsubscribe`;
+        return this._http.delete<User>(url, httpOptions)
+            .pipe(
+                tap(user => user),
+                catchError(this.handleError<any>('User is not unsubscribed'))
+            );
+    }
+
     private handleError<T> (operation, result?: T) {
-        return (error: any): Observable<T> => {
-            console.error(error);
-            console.log(`${operation} failed: ${error.message}`);
-            return of(result as T);
+        return (operationError: any): Observable<T> => {
+            console.error(operationError);
+            console.log(`${operation} failed: ${operationError.message}`);
+            throw new Error(operationError.error.message);
         };
     }
 }

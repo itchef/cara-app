@@ -79,3 +79,14 @@
 .cara-tab-container {
     padding-top: 15px;
 }
+
+// Status
+.cara-error {
+    background-color: $red-300 !important;
+    color: $white !important;
+}
+
+.cara-success {
+    background-color: $teal-400 !important;
+    color: $white !important;
+}
