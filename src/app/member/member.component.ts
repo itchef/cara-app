@@ -45,7 +45,9 @@ export class MemberComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this._memberEventSubscription.unsubscribe();
+        if (this._memberEventSubscription) {
+            this._memberEventSubscription.unsubscribe();
+        }
     }
 
     toggleAddMemberForm() {

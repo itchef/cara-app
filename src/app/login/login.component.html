@@ -1,0 +1,27 @@
+<div class="cara-primary-background">
+    <mat-card class="login-container">
+        <mat-card-content>
+            <div class="inline login-logo-container">
+                <img src="../../assets/images/cara-login-logo.png" alt="Cara logo" class="login-logo">
+            </div>
+            <div class="login-form-container inline">
+                <mat-card-title>Login</mat-card-title>
+                <form [formGroup]="loginForm">
+                    <div>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Username" formControlName="username" required>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field class="full-width">
+                            <input type="password" matInput placeholder="Password" formControlName="password" required>
+                        </mat-form-field>
+                    </div>
+                </form>
+                <div mat-dialog-actions>
+                    <button mat-raised-button color="primary" (click)="login()" [disabled]="!loginForm.valid">Login</button>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

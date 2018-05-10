@@ -19,19 +19,28 @@
  * @author Kaustav Chakraborty
  */
 
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './shared/guard/auth.guard';
-import {LoginGuard} from './shared/guard/login.guard';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-const routes: Routes = [
-    { path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [ AuthGuard ] },
-    { path: '', loadChildren: 'app/dashboard/dashboard.module#DashboardModule', canActivate: [ AuthGuard ] },
-    { path: 'login', loadChildren: 'app/login/login.module#LoginModule', canActivate: [ LoginGuard ] }
-];
+import { LoginComponent } from './login.component';
 
-@NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
-})
-export class AppRoutingModule { }
+describe('LoginComponent', () => {
+    let component: LoginComponent;
+    let fixture: ComponentFixture<LoginComponent>;
+
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [ LoginComponent ]
+        })
+            .compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(LoginComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+});

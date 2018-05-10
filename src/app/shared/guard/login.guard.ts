@@ -19,19 +19,30 @@
  * @author Kaustav Chakraborty
  */
 
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './shared/guard/auth.guard';
-import {LoginGuard} from './shared/guard/login.guard';
+import { Injectable } from '@angular/core';
+import {
+    CanActivate,
+    ActivatedRouteSnapshot,
+    RouterStateSnapshot,
+    Router
+} from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
-const routes: Routes = [
-    { path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [ AuthGuard ] },
-    { path: '', loadChildren: 'app/dashboard/dashboard.module#DashboardModule', canActivate: [ AuthGuard ] },
-    { path: 'login', loadChildren: 'app/login/login.module#LoginModule', canActivate: [ LoginGuard ] }
-];
+@Injectable()
+export class LoginGuard implements CanActivate {
 
-@NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
-})
-export class AppRoutingModule { }
+    constructor(
+        private _router: Router
+    ) {
+    }
+
+    canActivate(
+        next: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        if (!localStorage.getItem('authToken')) {
+            return true;
+        }
+        this._router.navigate([state.url]);
+        return false;
+    }
+}

@@ -23,6 +23,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AuthGuard} from './shared/guard/auth.guard';
+import {LoginGuard} from './shared/guard/login.guard';
 
 
 @NgModule({
@@ -34,7 +36,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
         BrowserAnimationsModule,
         AppRoutingModule
     ],
-    providers: [],
+    providers: [
+        AuthGuard,
+        LoginGuard
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

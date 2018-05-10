@@ -9,5 +9,12 @@
         <a href="/admin" class="no-decoration nav-link">
             <mat-icon>person</mat-icon>
         </a>
+        <button mat-button [matMenuTriggerFor]="headerMenu">@{{ loggedInUser }}</button>
+        <mat-menu #headerMenu="matMenu">
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>block</mat-icon>
+                Logout
+            </button>
+        </mat-menu>
     </mat-toolbar-row>
 </mat-toolbar>

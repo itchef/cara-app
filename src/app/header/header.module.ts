@@ -20,15 +20,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header.component';
 import {
+    MatButtonModule,
     MatIconModule,
+    MatMenuModule,
     MatToolbarModule
 } from '@angular/material';
+import { SessionService } from '../shared/services/session.service';
+import { AlertService } from '../shared/services/alert.service';
 
 @NgModule({
     imports: [
         CommonModule,
         MatToolbarModule,
-        MatIconModule
+        MatIconModule,
+        MatMenuModule,
+        MatButtonModule
+    ],
+    providers: [
+        SessionService,
+        AlertService
     ],
     exports: [
         HeaderComponent

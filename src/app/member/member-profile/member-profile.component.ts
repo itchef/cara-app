@@ -49,8 +49,7 @@ export class MemberProfileComponent implements OnInit {
 
     ngOnInit() {}
 
-    closeMemberProfileModal() {
-        const status = 'DELETED';
+    closeMemberProfileModal(status: string = 'CLOSED') {
         this._matDialogRef.close(status);
     }
 
@@ -63,7 +62,7 @@ export class MemberProfileComponent implements OnInit {
     }
 
     openEditMemberModal() {
-        this._matDialogRef.close();
+        this._matDialogRef.close('DELETED');
         const _memberFormComponentDialogRef = this._memberDialog.open(MemberFormComponent, {
             width: '50%',
             data: {

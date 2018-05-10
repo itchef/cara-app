@@ -19,3 +19,4 @@ export { Member } from './member';
 export { Contact } from './contact';
 export { Phone } from './phone';
 export { Group } from './group';
+export { AccessToken } from './access-token';

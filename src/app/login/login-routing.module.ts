@@ -21,17 +21,14 @@
 
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './shared/guard/auth.guard';
-import {LoginGuard} from './shared/guard/login.guard';
+import {LoginComponent} from './login.component';
 
 const routes: Routes = [
-    { path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [ AuthGuard ] },
-    { path: '', loadChildren: 'app/dashboard/dashboard.module#DashboardModule', canActivate: [ AuthGuard ] },
-    { path: 'login', loadChildren: 'app/login/login.module#LoginModule', canActivate: [ LoginGuard ] }
+    { path: '', component: LoginComponent }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forChild(routes)],
     exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class LoginRoutingModule { }

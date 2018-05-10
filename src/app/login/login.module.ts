@@ -20,18 +20,37 @@
  */
 
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './shared/guard/auth.guard';
-import {LoginGuard} from './shared/guard/login.guard';
+import { CommonModule } from '@angular/common';
 
-const routes: Routes = [
-    { path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [ AuthGuard ] },
-    { path: '', loadChildren: 'app/dashboard/dashboard.module#DashboardModule', canActivate: [ AuthGuard ] },
-    { path: 'login', loadChildren: 'app/login/login.module#LoginModule', canActivate: [ LoginGuard ] }
-];
+import { LoginRoutingModule } from './login-routing.module';
+import { LoginComponent } from './login.component';
+import {
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule
+} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SharedModule} from '../shared/shared.module';
+import {SessionService} from '../shared/services/session.service';
+import {AlertService} from '../shared/services/alert.service';
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    imports: [
+        CommonModule,
+        MatCardModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        SharedModule,
+        LoginRoutingModule
+    ],
+    declarations: [ LoginComponent ],
+    providers: [
+        SessionService,
+        AlertService
+    ]
 })
-export class AppRoutingModule { }
+export class LoginModule { }

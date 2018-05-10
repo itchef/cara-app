@@ -29,6 +29,7 @@ import {
     MatDialogModule
 } from '@angular/material';
 import { SocialBadgeComponent } from './social-badge/social-badge.component';
+import {MemberProfileModule} from '../member-profile/member-profile.module';
 
 @NgModule({
     imports: [
@@ -38,7 +39,8 @@ import { SocialBadgeComponent } from './social-badge/social-badge.component';
         MatButtonModule,
         MatDialogModule,
         MatButtonToggleModule,
-        MatDividerModule
+        MatDividerModule,
+        MemberProfileModule
     ],
     providers: [
         MatIconRegistry

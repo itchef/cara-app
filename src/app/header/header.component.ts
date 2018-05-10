@@ -17,17 +17,42 @@
 // @author Kaustav Chakraborty
 
 import { Component, OnInit } from '@angular/core';
+import { SessionService } from '../shared/services/session.service';
+import { AlertService } from '../shared/services/alert.service';
+import {LogoutRequest} from '../shared/requests/logout.request';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'cara-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'cara-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    providers: [
+        SessionService,
+        AlertService
+    ]
 })
 export class HeaderComponent implements OnInit {
+    loggedInUser: string;
 
-  constructor() { }
+    constructor(
+        private _sessionService: SessionService,
+        private _alertService: AlertService,
+        private _router: Router
+    ) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.loggedInUser = localStorage.getItem('username');
+    }
 
+    logout() {
+        const logoutRequest = new LogoutRequest(localStorage.getItem('authToken'));
+        this._sessionService.logout(logoutRequest)
+            .subscribe(
+                () => {
+                    this._alertService.show('Thank you for using Cara. See you soon');
+                    this._router.navigate(['/login']);
+                },
+                error => this._alertService.show(error.message)
+            );
+    }
 }

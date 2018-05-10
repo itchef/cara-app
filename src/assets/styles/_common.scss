@@ -90,3 +90,12 @@
     background-color: $teal-400 !important;
     color: $white !important;
 }
+
+.cara-primary-background {
+    background-color: $blue-gray-600;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
