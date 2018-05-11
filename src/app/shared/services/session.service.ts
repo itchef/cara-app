@@ -20,13 +20,14 @@
  */
 
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 import {LoginRequest} from '../requests/login.request';
 import {catchError, tap} from 'rxjs/operators';
 import {AccessToken} from '../models/access-token';
 import {LogoutRequest} from '../requests/logout.request';
+import {HeadersUtils} from '../utils/headers.utils';
 
 @Injectable()
 export class SessionService {
@@ -36,18 +37,14 @@ export class SessionService {
         revoke: 'http://localhost:3002/revoke'
     };
 
-    constructor(private _http: HttpClient) { }
+    constructor(private _http: HttpClient) {}
 
     login(request: LoginRequest): Observable<boolean> {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
-        };
-        return this._http.post<AccessToken>(this.URL.token, request, httpOptions)
+        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
+        return this._http.post<AccessToken>(this.URL.token, request, headers)
             .pipe(
-                tap(token => {
+                tap(response => {
+                    const token = response as AccessToken;
                     if (token) {
                         localStorage.setItem('authToken', token.access_token);
                         localStorage.setItem('username', request.username);
@@ -60,13 +57,8 @@ export class SessionService {
     }
 
     logout(request: LogoutRequest) {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
-        };
-        return this._http.post(this.URL.revoke, request, httpOptions)
+        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
+        return this._http.post(this.URL.revoke, request, headers)
             .pipe(
                 tap(response => {
                     localStorage.removeItem('authToken');

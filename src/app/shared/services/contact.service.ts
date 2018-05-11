@@ -17,12 +17,13 @@
 // @author Kaustav Chakraborty
 
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {ContactRequest} from '../requests/contact.request';
 import {Observable} from 'rxjs/Observable';
 import {Contact} from '../models/contact';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
+import {HeadersUtils} from '../utils/headers.utils';
 
 @Injectable()
 export class ContactService {
@@ -35,17 +36,12 @@ export class ContactService {
     ) {}
 
     addContacts(contactRequests: ContactRequest[], memberId: number): Observable<Contact[]> {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
-        };
+        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
         const requestData = {
             member_id: memberId,
             contacts: contactRequests
         };
-        return this._http.post<Contact[]>(this.URL.add_contacts, requestData, httpOptions)
+        return this._http.post<Contact[]>(this.URL.add_contacts, requestData, headers)
             .pipe(
                 tap(contacts => console.log(`contacts ${contacts}`)),
                 catchError(this.handleError<any>('Contacts are not saved'))

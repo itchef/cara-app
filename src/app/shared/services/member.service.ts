@@ -17,12 +17,13 @@
 // @author Kaustav Chakraborty
 
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import { Member } from '../models/model';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
 import {MemberRequest} from '../requests/member.request';
+import {HeadersUtils} from '../utils/headers.utils';
 
 @Injectable()
 export class MemberService {
@@ -35,7 +36,8 @@ export class MemberService {
     ) {}
 
     getMemberList(): Observable<Member[]> {
-        return this._http.get( this.URL.members )
+        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
+        return this._http.get( this.URL.members, headers)
             .pipe(
                 tap(members => members),
                 catchError(this.handleError<any>('Members are not fetched successfully'))
@@ -43,8 +45,9 @@ export class MemberService {
     }
 
     getMembersName() {
+        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
         const MEMBERS_NAME_URI = `${this.URL.members}/names`;
-        return this._http.get( MEMBERS_NAME_URI )
+        return this._http.get( MEMBERS_NAME_URI, headers)
             .pipe(
                 tap(members => members),
                 catchError(this.handleError<any>('Members are not fetched successfully'))
@@ -52,13 +55,8 @@ export class MemberService {
     }
 
     save(data: MemberRequest): Observable<Member> {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
-        };
-        return this._http.post<Member>(this.URL.members, { personal: data }, httpOptions)
+        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
+        return this._http.post<Member>(this.URL.members, { personal: data }, headers)
             .pipe(
                 tap(member => console.log(`member ${member}`)),
                 catchError(this.handleError<any>('member is not saved'))
@@ -66,21 +64,17 @@ export class MemberService {
     }
 
     getMember(memberId: number): Observable<Member> {
+        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
         const url = `${this.URL.members}/${memberId}`;
-        return this._http.get(url).pipe(
+        return this._http.get(url, headers).pipe(
             tap(member => member),
             catchError(this.handleError<any>('Member is not fetched successfully'))
         );
     }
     update(data: MemberRequest, memberId: number): Observable<Member> {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
-        };
+        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
         const uri = `${this.URL.members}/${memberId}`;
-        return this._http.put<Member>(uri, { personal: data }, httpOptions)
+        return this._http.put<Member>(uri, { personal: data }, headers)
             .pipe(
                 tap(member => member),
                 catchError(this.handleError<any>('member is not saved'))
@@ -88,14 +82,9 @@ export class MemberService {
     }
 
     delete(memberId: number) {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
-        };
+        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
         const uri = `${this.URL.members}/${memberId}`;
-        return this._http.delete<Member>(uri, httpOptions)
+        return this._http.delete<Member>(uri, headers)
             .pipe(
                 tap(member => member),
                 catchError(this.handleError<any>('member is not deleted'))
