@@ -17,13 +17,13 @@
 // @author Kaustav Chakraborty
 
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError, tap} from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 import {User} from '../models/user';
 import {NewUserRequest} from '../requests/new-user.request';
 import {UpdatePasswordRequest} from '../requests/update-password.request';
-import {HeadersUtils} from '../utils/headers.utils';
+import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class UserService {
@@ -32,21 +32,26 @@ export class UserService {
         users: 'http://localhost:3002/users'
     };
 
-    constructor(private _http: HttpClient) {}
+    constructor(private _http: HttpClient) { }
 
     getAll(): Observable<User[]> {
-        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
-        return this._http.get<User[]>( this.URL.users, headers)
+        return this._http.get<User[]>( this.URL.users )
             .pipe(
-                tap(users => users),
+                tap(members => members),
                 catchError(this.handleError<User[]>('Users are not fetched successfully'))
             );
 
     }
 
     addUser(request: NewUserRequest): Observable<User> {
-        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
-        return this._http.post<User>(this.URL.users, request, headers)
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
+
+        return this._http.post<User>(this.URL.users, request, httpOptions)
             .pipe(
                 tap(user => user),
                 catchError(this.handleError<any>('User is not created'))
@@ -54,9 +59,15 @@ export class UserService {
     }
 
     updatePassword(request: UpdatePasswordRequest, userId: number): Observable<User> {
-        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
+
         const url = `${this.URL.users}/${userId}/update_password`;
-        return this._http.put<User>(url, request, headers)
+        return this._http.put<User>(url, request, httpOptions)
             .pipe(
                 tap(user => user),
                 catchError(this.handleError<any>('User is not created'))
@@ -64,9 +75,14 @@ export class UserService {
     }
 
     unsubscribe(userId: number): Observable<User> {
-        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
         const url = `${this.URL.users}/${userId}/unsubscribe`;
-        return this._http.get<User>(url, headers)
+        return this._http.get<User>(url, httpOptions)
             .pipe(
                 tap(user => user),
                 catchError(this.handleError<any>('User is not unsubscribed'))
@@ -74,9 +90,14 @@ export class UserService {
     }
 
     subscribe(userId: number) {
-        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
         const url = `${this.URL.users}/${userId}/subscribe`;
-        return this._http.get<User>(url, headers)
+        return this._http.get<User>(url, httpOptions)
             .pipe(
                 tap(user => user),
                 catchError(this.handleError<any>('User is not subscribed'))

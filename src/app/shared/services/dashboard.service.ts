@@ -22,7 +22,6 @@ import {Observable} from 'rxjs/Observable';
 import {DashboardGroup} from '../models/dashboard-group';
 import {catchError, tap} from 'rxjs/operators';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
-import {HeadersUtils} from '../utils/headers.utils';
 
 @Injectable()
 export class DashboardService {
@@ -30,11 +29,10 @@ export class DashboardService {
         dashboard: 'http://localhost:3002/dashboard'
     };
 
-    constructor(private _http: HttpClient) {}
+    constructor(private _http: HttpClient) { }
 
     getGroups(): Observable<DashboardGroup[]> {
-        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
-        return this._http.get(this.URL.dashboard, headers)
+        return this._http.get(this.URL.dashboard)
             .pipe(
                 tap(groups => groups),
                 catchError(this.handleError<any>('Groups are unable to fetch'))

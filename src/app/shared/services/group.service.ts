@@ -17,7 +17,7 @@
 // @author Kaustav Chakraborty
 
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Group} from '../models/group';
 import {catchError, tap} from 'rxjs/operators';
@@ -26,7 +26,6 @@ import {GroupAssignment} from '../models/group-assignment';
 import {AssignGroupRequest} from '../requests/assign-group.request';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 import {MemberBasic} from '../models/member-basic';
-import {HeadersUtils} from '../utils/headers.utils';
 
 @Injectable()
 export class GroupService {
@@ -36,12 +35,10 @@ export class GroupService {
         assignMember: 'http://localhost:3002/groups/assign_member',
         unassignedMember: 'unassigned_member'
     };
-
-    constructor(private _http: HttpClient) {}
+    constructor(private _http: HttpClient) { }
 
     getGroupList(): Observable<Group[]> {
-        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
-        return this._http.get( this.URL.groups, headers)
+        return this._http.get( this.URL.groups )
             .pipe(
                 tap(groups => groups),
                 catchError(this.handleError<any>('Groups are not fetched successfully'))
@@ -49,8 +46,13 @@ export class GroupService {
     }
 
     save(groupRequest: GroupRequest) {
-        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
-        return this._http.post<Group>(this.URL.groups, { group: groupRequest }, headers)
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
+        return this._http.post<Group>(this.URL.groups, { group: groupRequest }, httpOptions)
             .pipe(
                 tap(group => group),
                 catchError(this.handleError<any>('group is not saved'))
@@ -58,8 +60,13 @@ export class GroupService {
     }
 
     assignMember(request: AssignGroupRequest) {
-        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
-        return this._http.post<GroupAssignment>(this.URL.assignMember, request, headers)
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
+        return this._http.post<GroupAssignment>(this.URL.assignMember, request, httpOptions)
             .pipe(
                 tap(groupAssignment => groupAssignment),
                 catchError(this.handleError<any>('Member is not assigned to the group'))
@@ -67,9 +74,14 @@ export class GroupService {
     }
 
     unassignedMember(request: AssignGroupRequest): Observable<MemberBasic> {
-        const headers = new HeadersUtils(localStorage.getItem('authToken')).default().getHeaders();
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Access-Control-Allow-Origin': '*'
+            })
+        };
         const url = `${this.URL.groups}/${request.group_id}/${this.URL.unassignedMember}/${request.member_id}`;
-        return this._http.delete<MemberBasic>(url, headers)
+        return this._http.delete<MemberBasic>(url, httpOptions)
             .pipe(
                 tap(member => member),
                 catchError(this.handleError<any>('Member is not assigned to the group'))
