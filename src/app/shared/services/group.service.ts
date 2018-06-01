@@ -26,6 +26,7 @@ import {GroupAssignment} from '../models/group-assignment';
 import {AssignGroupRequest} from '../requests/assign-group.request';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 import {MemberBasic} from '../models/member-basic';
+import {HttpUtils} from '../utils/http.utils';
 
 @Injectable()
 export class GroupService {
@@ -35,10 +36,17 @@ export class GroupService {
         assignMember: 'http://localhost:3002/groups/assign_member',
         unassignedMember: 'unassigned_member'
     };
-    constructor(private _http: HttpClient) { }
+    private _httpUtils: HttpUtils;
+
+    constructor(private _http: HttpClient) {
+        this._httpUtils = new HttpUtils();
+    }
 
     getGroupList(): Observable<Group[]> {
-        return this._http.get( this.URL.groups )
+        const httpOptions = {
+            headers: new HttpHeaders(this._httpUtils.getHeader())
+        };
+        return this._http.get( this.URL.groups, httpOptions )
             .pipe(
                 tap(groups => groups),
                 catchError(this.handleError<any>('Groups are not fetched successfully'))
@@ -47,10 +55,7 @@ export class GroupService {
 
     save(groupRequest: GroupRequest) {
         const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
+            headers: new HttpHeaders(this._httpUtils.getHeader())
         };
         return this._http.post<Group>(this.URL.groups, { group: groupRequest }, httpOptions)
             .pipe(
@@ -61,10 +66,7 @@ export class GroupService {
 
     assignMember(request: AssignGroupRequest) {
         const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
+            headers: new HttpHeaders(this._httpUtils.getHeader())
         };
         return this._http.post<GroupAssignment>(this.URL.assignMember, request, httpOptions)
             .pipe(
@@ -75,10 +77,7 @@ export class GroupService {
 
     unassignedMember(request: AssignGroupRequest): Observable<MemberBasic> {
         const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
+            headers: new HttpHeaders(this._httpUtils.getHeader())
         };
         const url = `${this.URL.groups}/${request.group_id}/${this.URL.unassignedMember}/${request.member_id}`;
         return this._http.delete<MemberBasic>(url, httpOptions)

@@ -23,6 +23,7 @@ import {Observable} from 'rxjs/Observable';
 import {Contact} from '../models/contact';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
+import {HttpUtils} from '../utils/http.utils';
 
 @Injectable()
 export class ContactService {
@@ -30,16 +31,17 @@ export class ContactService {
         add_contacts: 'http://localhost:3002/contacts/add_contacts'
     };
 
+    private _httpUtils: HttpUtils;
+
     constructor(
         private _http: HttpClient,
-    ) {}
+    ) {
+        this._httpUtils = new HttpUtils();
+    }
 
     addContacts(contactRequests: ContactRequest[], memberId: number): Observable<Contact[]> {
         const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
+            headers: new HttpHeaders(this._httpUtils.getHeader())
         };
         const requestData = {
             member_id: memberId,

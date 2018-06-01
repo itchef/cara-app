@@ -62,7 +62,7 @@ export class MemberProfileComponent implements OnInit {
     }
 
     openEditMemberModal() {
-        this._matDialogRef.close('DELETED');
+        this._matDialogRef.close('EDIT');
         const _memberFormComponentDialogRef = this._memberDialog.open(MemberFormComponent, {
             width: '50%',
             data: {

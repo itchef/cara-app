@@ -23,19 +23,26 @@ import { Member } from '../models/model';
 import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
 import {MemberRequest} from '../requests/member.request';
+import {HttpUtils} from '../utils/http.utils';
 
 @Injectable()
 export class MemberService {
     private URL = {
         members: 'http://localhost:3002/members'
     };
+    private _httpUtils: HttpUtils;
 
     constructor(
         private _http: HttpClient,
-    ) {}
+    ) {
+        this._httpUtils = new HttpUtils();
+    }
 
     getMemberList(): Observable<Member[]> {
-        return this._http.get( this.URL.members )
+        const httpOptions = {
+            headers: new HttpHeaders(this._httpUtils.getHeader())
+        };
+        return this._http.get( this.URL.members, httpOptions )
             .pipe(
                 tap(members => members),
                 catchError(this.handleError<any>('Members are not fetched successfully'))
@@ -43,8 +50,11 @@ export class MemberService {
     }
 
     getMembersName() {
+        const httpOptions = {
+            headers: new HttpHeaders(this._httpUtils.getHeader())
+        };
         const MEMBERS_NAME_URI = `${this.URL.members}/names`;
-        return this._http.get( MEMBERS_NAME_URI )
+        return this._http.get( MEMBERS_NAME_URI, httpOptions )
             .pipe(
                 tap(members => members),
                 catchError(this.handleError<any>('Members are not fetched successfully'))
@@ -53,10 +63,7 @@ export class MemberService {
 
     save(data: MemberRequest): Observable<Member> {
         const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
+            headers: new HttpHeaders(this._httpUtils.getHeader())
         };
         return this._http.post<Member>(this.URL.members, { personal: data }, httpOptions)
             .pipe(
@@ -66,18 +73,19 @@ export class MemberService {
     }
 
     getMember(memberId: number): Observable<Member> {
+        const httpOptions = {
+            headers: new HttpHeaders(this._httpUtils.getHeader())
+        };
         const url = `${this.URL.members}/${memberId}`;
-        return this._http.get(url).pipe(
+        return this._http.get( url, httpOptions ).pipe(
             tap(member => member),
             catchError(this.handleError<any>('Member is not fetched successfully'))
         );
     }
+
     update(data: MemberRequest, memberId: number): Observable<Member> {
         const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
+            headers: new HttpHeaders(this._httpUtils.getHeader())
         };
         const uri = `${this.URL.members}/${memberId}`;
         return this._http.put<Member>(uri, { personal: data }, httpOptions)
@@ -89,10 +97,7 @@ export class MemberService {
 
     delete(memberId: number) {
         const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
+            headers: new HttpHeaders(this._httpUtils.getHeader())
         };
         const uri = `${this.URL.members}/${memberId}`;
         return this._http.delete<Member>(uri, httpOptions)

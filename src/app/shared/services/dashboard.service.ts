@@ -17,22 +17,29 @@
 // @author Kaustav Chakraborty
 
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {DashboardGroup} from '../models/dashboard-group';
 import {catchError, tap} from 'rxjs/operators';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
+import {HttpUtils} from '../utils/http.utils';
 
 @Injectable()
 export class DashboardService {
     private URL = {
         dashboard: 'http://localhost:3002/dashboard'
     };
+    private _httpUtils: HttpUtils;
 
-    constructor(private _http: HttpClient) { }
+    constructor(private _http: HttpClient) {
+        this._httpUtils = new HttpUtils();
+    }
 
     getGroups(): Observable<DashboardGroup[]> {
-        return this._http.get(this.URL.dashboard)
+        const httpOptions = {
+            headers: new HttpHeaders(this._httpUtils.getHeader())
+        };
+        return this._http.get(this.URL.dashboard, httpOptions)
             .pipe(
                 tap(groups => groups),
                 catchError(this.handleError<any>('Groups are unable to fetch'))

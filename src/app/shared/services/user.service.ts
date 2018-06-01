@@ -23,7 +23,7 @@ import {Observable} from 'rxjs/Observable';
 import {User} from '../models/user';
 import {NewUserRequest} from '../requests/new-user.request';
 import {UpdatePasswordRequest} from '../requests/update-password.request';
-import {of} from 'rxjs/observable/of';
+import {HttpUtils} from '../utils/http.utils';
 
 @Injectable()
 export class UserService {
@@ -31,11 +31,20 @@ export class UserService {
     private URL = {
         users: 'http://localhost:3002/users'
     };
+    private _httpUtils: HttpUtils;
 
-    constructor(private _http: HttpClient) { }
+    constructor(
+        private _http: HttpClient
+    ) {
+        this._httpUtils = new HttpUtils();
+    }
 
     getAll(): Observable<User[]> {
-        return this._http.get<User[]>( this.URL.users )
+        const httpOptions = {
+            headers: new HttpHeaders(this._httpUtils.getHeader())
+        };
+
+        return this._http.get<User[]>( this.URL.users, httpOptions )
             .pipe(
                 tap(members => members),
                 catchError(this.handleError<User[]>('Users are not fetched successfully'))
@@ -45,10 +54,7 @@ export class UserService {
 
     addUser(request: NewUserRequest): Observable<User> {
         const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
+            headers: new HttpHeaders(this._httpUtils.getHeader())
         };
 
         return this._http.post<User>(this.URL.users, request, httpOptions)
@@ -60,10 +66,7 @@ export class UserService {
 
     updatePassword(request: UpdatePasswordRequest, userId: number): Observable<User> {
         const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
+            headers: new HttpHeaders(this._httpUtils.getHeader())
         };
 
         const url = `${this.URL.users}/${userId}/update_password`;
@@ -76,10 +79,7 @@ export class UserService {
 
     unsubscribe(userId: number): Observable<User> {
         const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
+            headers: new HttpHeaders(this._httpUtils.getHeader())
         };
         const url = `${this.URL.users}/${userId}/unsubscribe`;
         return this._http.get<User>(url, httpOptions)
@@ -91,10 +91,7 @@ export class UserService {
 
     subscribe(userId: number) {
         const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-                'Access-Control-Allow-Origin': '*'
-            })
+            headers: new HttpHeaders(this._httpUtils.getHeader())
         };
         const url = `${this.URL.users}/${userId}/subscribe`;
         return this._http.get<User>(url, httpOptions)

@@ -74,9 +74,9 @@ export class LoginComponent implements OnInit {
     }
 
     private showErrorMessage(response) {
-        if (response.error === 'invalid_grant') {
+        if (response.error === 'invalid_grant' || response.error === 'unauthorised') {
             const MESSAGE = 'Username / password is invalid';
-            this._alertService.show(MESSAGE);
+            this._alertService.show(response.message || MESSAGE);
         }
     }
 
