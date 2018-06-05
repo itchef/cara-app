@@ -20,7 +20,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GroupFormComponent } from './group-form.component';
 
-describe('GroupFormComponent', () => {
+xdescribe('GroupFormComponent', () => {
   let component: GroupFormComponent;
   let fixture: ComponentFixture<GroupFormComponent>;
 

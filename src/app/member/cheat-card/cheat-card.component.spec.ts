@@ -27,7 +27,7 @@ import { SocialBadgeComponent } from './social-badge/social-badge.component';
 import { Phone } from '../../shared/models/phone';
 import { Contact } from '../../shared/models/contact';
 
-describe('CheatCardComponent', () => {
+xdescribe('CheatCardComponent', () => {
     let component: TestCheatCardComponent;
     let fixture: ComponentFixture<TestCheatCardComponent>;
 

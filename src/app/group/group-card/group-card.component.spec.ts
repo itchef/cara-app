@@ -20,7 +20,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GroupCardComponent } from './group-card.component';
 
-describe('GroupCardComponent', () => {
+xdescribe('GroupCardComponent', () => {
     let component: GroupCardComponent;
     let fixture: ComponentFixture<GroupCardComponent>;
 

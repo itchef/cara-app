@@ -22,7 +22,7 @@ import { HeaderComponent } from './header.component';
 import {AppComponent} from '../app.component';
 import {MatToolbarModule} from '@angular/material';
 
-describe('HeaderComponent', () => {
+xdescribe('HeaderComponent', () => {
     let component: HeaderComponent;
     let fixture: ComponentFixture<HeaderComponent>;
 
