@@ -18,10 +18,16 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { ContactService } from './contact.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {HttpClient} from '@angular/common/http';
+import {ContactRequest} from '../requests/contact.request';
+import {Contact} from '../models/contact';
+import {Observable} from 'rxjs/Observable';
 
-xdescribe('ContactService', () => {
+describe('ContactService', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
+            imports: [HttpClientTestingModule],
             providers: [ContactService]
         });
     });
@@ -29,4 +35,56 @@ xdescribe('ContactService', () => {
     it('should be created', inject([ContactService], (service: ContactService) => {
         expect(service).toBeTruthy();
     }));
+
+    it('should add contacts successfully', function () {
+        const http = TestBed.get(HttpClient);
+        const contactRequests = [
+            new ContactRequest('email', 'example@email.com'),
+            new ContactRequest('phone', '1234567890')
+        ];
+        const contacts = [
+            new Contact('email', 'example@email.com'),
+            new Contact('phone', '1234567890')
+        ];
+        const response = new Observable(observer => {
+            observer.next(contacts);
+            observer.complete();
+        });
+        spyOn(http, 'post').and.returnValue(response);
+        const contactService = new ContactService(http);
+        contactService.addContacts(contactRequests, 1).subscribe(responseContacts => {
+            expect(responseContacts.length).toBe(2);
+            expect(http.post).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    it('should throw error on unsuccessful addition of contact', function () {
+        const http = TestBed.get(HttpClient);
+        const contactRequests = [
+            new ContactRequest('email', 'example@email.com'),
+            new ContactRequest('phone', '1234567890')
+        ];
+        const response = new Observable(observer => {
+            const message = 'Unable to add contact';
+            observer.error({
+                message: message,
+                error: message
+            });
+        });
+        spyOn(http, 'post').and.returnValue(response);
+        spyOn(console, 'error');
+        const contactService = new ContactService(http);
+        contactService.addContacts(contactRequests, 1).subscribe(results => {
+                expect(results).toBeUndefined();
+            }, error => {
+                expect(console.error).toHaveBeenCalledWith(
+                    {
+                        message: 'Unable to add contact',
+                        error: 'Unable to add contact'
+                    }
+                );
+                expect(error.message).toBe('Unable to add contact');
+            }
+        );
+    });
 });

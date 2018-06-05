@@ -19,18 +19,32 @@
  * @author Kaustav Chakraborty
  */
 
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
 import { AuthGuard } from './auth.guard';
+import {RouterTestingModule} from '@angular/router/testing';
+import {Router, RouterStateSnapshot} from '@angular/router';
 
-xdescribe('AuthGuard', () => {
+describe('AuthGuard', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
+            imports: [RouterTestingModule],
             providers: [AuthGuard]
         });
     });
 
-    it('should ...', inject([AuthGuard], (guard: AuthGuard) => {
-        expect(guard).toBeTruthy();
+    it('should not redirect to login page when auth token is preset', inject([AuthGuard], (guard: AuthGuard) => {
+        localStorage.setItem('authToken', 'SomeToken');
+        expect(guard.canActivate(null, null)).toBeTruthy();
+        localStorage.removeItem('authToken');
     }));
+
+    it('should redirect to login page when auth token is not present', function () {
+        const mockRouter = TestBed.get(Router);
+        spyOn(mockRouter, 'navigate').and.returnValue(null);
+        localStorage.removeItem('authToken');
+        const authGuard = new AuthGuard(mockRouter);
+        const state = { url: 'someUrl' } as RouterStateSnapshot;
+        expect(authGuard.canActivate(null, state)).toBeFalsy();
+    });
 });
