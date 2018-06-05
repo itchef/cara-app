@@ -18,7 +18,7 @@
 
 import { AppPage } from './app.po';
 
-describe('cara-app App', () => {
+xdescribe('cara-app App', () => {
     let page: AppPage;
 
     beforeEach(() => {

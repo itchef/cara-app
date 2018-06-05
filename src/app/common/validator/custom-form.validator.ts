@@ -17,7 +17,7 @@
 // @author Kaustav Chakraborty
 
 import {AbstractControl, ValidatorFn} from '@angular/forms';
-import {CollectionUtils} from "../../shared/utils/collection.utils";
+import {CollectionUtils} from '../../shared/utils/collection.utils';
 
 export class CustomFormValidator {
     static inputLengthValidation(min: number, max: number): ValidatorFn {
