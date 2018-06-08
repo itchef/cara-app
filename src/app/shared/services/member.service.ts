@@ -24,9 +24,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import { Member } from '../models/model';
 import {catchError, tap} from 'rxjs/operators';
-import {of} from 'rxjs/observable/of';
 import {MemberRequest} from '../requests/member.request';
 import {HttpUtils} from '../utils/http.utils';
+import {of} from 'rxjs/observable/of';
 
 @Injectable()
 export class MemberService {

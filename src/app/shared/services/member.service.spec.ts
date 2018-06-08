@@ -19,27 +19,146 @@
  * @author Kaustav Chakraborty
  */
 
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed} from '@angular/core/testing';
 
 import { MemberService } from './member.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {HttpBackend, HttpRequest} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import {ModelGenerator} from '../../../spec-utils/model-generator';
+import {HttpUtils} from "../utils/http.utils";
 
-// TODO: Add test cases for Member service
-xdescribe('MemberService', () => {
-    // let memberService: MemberService;
-    // let backend: HttpBackend;
-
+describe('MemberService', () => {
+    let http: HttpClient;
+    let _modelGenerator: ModelGenerator;
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 HttpClientTestingModule
             ],
             providers: [
-                MemberService,
-                HttpBackend,
-                HttpRequest
+                MemberService
             ]
+        });
+    });
+
+    describe('get member list', () => {
+        beforeEach(() => {
+           http = TestBed.get(HttpClient);
+           _modelGenerator = new ModelGenerator();
+        });
+
+        it('should get all members list successfully', function () {
+            const response = new Observable(observer => {
+                observer.next(_modelGenerator.generate('member', 3));
+                observer.complete();
+            });
+            spyOn(http, 'get').and.returnValue(response);
+            const memberService = new MemberService(http);
+            memberService.getMemberList().subscribe(members => {
+               expect(members.length).toBe(3);
+            });
+        });
+        it('should throw error if http request is unsuccessful', function () {
+            const unableToGetAllMembers = 'Unable to get all members';
+            const response = new Observable(observer => {
+                observer.error({
+                    error: unableToGetAllMembers,
+                    message: unableToGetAllMembers
+                });
+            });
+            spyOn(http, 'get').and.returnValue(response);
+            const memberService = new MemberService(http);
+            spyOn(console, 'error');
+            memberService.getMemberList().subscribe(members => {
+                expect(members).toBeUndefined();
+            }, error => {
+                expect(console.error).toHaveBeenCalledWith({
+                    error: unableToGetAllMembers,
+                    message: unableToGetAllMembers
+                });
+                expect(error.message).toBe('Unable to get all members');
+            });
+        });
+    });
+
+    describe('save', () => {
+        beforeEach(() => {
+            http = TestBed.get(HttpClient);
+            _modelGenerator = new ModelGenerator();
+        });
+        it('should save member successfully', function () {
+            const member = _modelGenerator.generate('member', 1);
+            const response = new Observable(observer => {
+                observer.next(member);
+                observer.complete();
+            });
+            spyOn(http, 'post').and.returnValue(response);
+            const memberService = new MemberService(http);
+            memberService.save(member).subscribe(responseMember => {
+                expect(responseMember.name).toBe(member.name);
+                expect(responseMember.age).toBe(member.age);
+            });
+        });
+        it('should throw error on unsuccessful save', function () {
+            const unableToSaveUserMessage = 'Unable to save user';
+            const response = new Observable(observer => {
+                observer.error({
+                    error: unableToSaveUserMessage,
+                    message: unableToSaveUserMessage
+                });
+            });
+            spyOn(http, 'post').and.returnValue(response);
+            const memberService = new MemberService(http);
+            spyOn(console, 'error');
+            memberService.getMemberList().subscribe(members => {
+                expect(members).toBeUndefined();
+            }, error => {
+                expect(console.error).toHaveBeenCalledWith({
+                    error: unableToSaveUserMessage,
+                    message: unableToSaveUserMessage
+                });
+                expect(error.message).toBe('Unable to save user');
+            });
+        });
+    });
+    describe('get member', () => {
+        beforeEach(() => {
+            http = TestBed.get(HttpClient);
+            _modelGenerator = new ModelGenerator();
+        });
+        it('should fetch member successfully', function () {
+            const member = _modelGenerator.generate('member', 1);
+            const response = new Observable(observer => {
+                observer.next(member);
+                observer.complete();
+            });
+            spyOn(http, 'get').and.returnValue(response);
+            const memberService = new MemberService(http);
+            memberService.getMember(1).subscribe(responseMember => {
+                expect(responseMember.name).toBe(member.name);
+                expect(responseMember.age).toBe(member.age);
+            });
+        });
+        it('should throw error on unsuccessful fetch member', function () {
+            const unableToSaveUserMessage = 'Unable to fetch member';
+            const response = new Observable(observer => {
+                observer.error({
+                    error: unableToSaveUserMessage,
+                    message: unableToSaveUserMessage
+                });
+            });
+            spyOn(http, 'get').and.returnValue(response);
+            const memberService = new MemberService(http);
+            spyOn(console, 'error');
+            memberService.getMemberList().subscribe(members => {
+                expect(members).toBeUndefined();
+            }, error => {
+                expect(console.error).toHaveBeenCalledWith({
+                    error: unableToSaveUserMessage,
+                    message: unableToSaveUserMessage
+                });
+            });
         });
     });
 });
