@@ -23,10 +23,9 @@ import { TestBed} from '@angular/core/testing';
 
 import { MemberService } from './member.service';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {ModelGenerator} from '../../../spec-utils/model-generator';
-import {HttpUtils} from "../utils/http.utils";
 
 describe('MemberService', () => {
     let http: HttpClient;
