@@ -38,6 +38,7 @@ import {AlertService} from '../../shared/services/alert.service';
 export class MemberProfileComponent implements OnInit {
     member: Member;
     defaultImage: string;
+    isAdmin: boolean;
 
     constructor(
         private _matDialogRef: MatDialogRef<MemberProfileComponent>,
@@ -50,7 +51,9 @@ export class MemberProfileComponent implements OnInit {
         this.defaultImage = '../../../assets/images/cara-logo.png';
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.isAdmin = localStorage.getItem('admin') === 'true';
+    }
 
     closeMemberProfileModal(status: string = 'CLOSED') {
         this._matDialogRef.close(status);

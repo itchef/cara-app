@@ -34,6 +34,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../shared/shared.module';
 import {SessionService} from '../shared/services/session.service';
 import {AlertService} from '../shared/services/alert.service';
+import {UserService} from '../shared/services/user.service';
 
 @NgModule({
     imports: [
@@ -50,7 +51,8 @@ import {AlertService} from '../shared/services/alert.service';
     declarations: [ LoginComponent ],
     providers: [
         SessionService,
-        AlertService
+        AlertService,
+        UserService
     ]
 })
 export class LoginModule { }

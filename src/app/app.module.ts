@@ -28,6 +28,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AuthGuard} from './shared/guard/auth.guard';
 import {LoginGuard} from './shared/guard/login.guard';
+import {AdminGuard} from './shared/guard/admin.guard';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import {LoginGuard} from './shared/guard/login.guard';
     ],
     providers: [
         AuthGuard,
-        LoginGuard
+        LoginGuard,
+        AdminGuard
     ],
     bootstrap: [AppComponent]
 })

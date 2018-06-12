@@ -27,6 +27,7 @@ import {User} from '../models/user';
 import {NewUserRequest} from '../requests/new-user.request';
 import {UpdatePasswordRequest} from '../requests/update-password.request';
 import {HttpUtils} from '../utils/http.utils';
+import {CurrentUser} from "../models/current-user";
 
 @Injectable()
 export class UserService {
@@ -104,6 +105,19 @@ export class UserService {
             );
     }
 
+    getCurrentUser(): Observable<CurrentUser> {
+        const httpOptions = {
+            headers: new HttpHeaders(this._httpUtils.getHeader())
+        };
+        const url = `${this.URL.users}/recent`;
+        return this._http.get<CurrentUser>(url, httpOptions).pipe(
+            tap(currentUser => {
+                localStorage.setItem('username', currentUser.username);
+                localStorage.setItem('admin', currentUser.admin.toString());
+            }),
+            catchError(this.handleError<any>('User is not subscribed'))
+        );
+    }
     private handleError<T> (operation, result?: T) {
         return (operationError: any): Observable<T> => {
             console.error(operationError);

@@ -35,7 +35,7 @@ import {Router} from '@angular/router';
     ]
 })
 export class HeaderComponent implements OnInit {
-    loggedInUser: string;
+    loggedInUser: any;
 
     constructor(
         private _sessionService: SessionService,
@@ -44,7 +44,10 @@ export class HeaderComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.loggedInUser = localStorage.getItem('username');
+        this.loggedInUser = {
+            username: localStorage.getItem('username'),
+            admin: (localStorage.getItem('admin') === 'true')
+        };
     }
 
     logout() {

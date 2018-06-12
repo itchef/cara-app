@@ -19,20 +19,20 @@
  * @author Kaustav Chakraborty
  */
 
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './shared/guard/auth.guard';
-import {LoginGuard} from './shared/guard/login.guard';
-import {AdminGuard} from './shared/guard/admin.guard';
+import { TestBed, async, inject } from '@angular/core/testing';
 
-const routes: Routes = [
-    { path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule', canActivate: [ AuthGuard, AdminGuard ] },
-    { path: '', loadChildren: 'app/dashboard/dashboard.module#DashboardModule', canActivate: [ AuthGuard ] },
-    { path: 'login', loadChildren: 'app/login/login.module#LoginModule', canActivate: [ LoginGuard ] }
-];
+import { AdminGuard } from './admin.guard';
+import {RouterTestingModule} from '@angular/router/testing';
 
-@NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
-})
-export class AppRoutingModule { }
+describe('AdminGuard', () => {
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [RouterTestingModule],
+            providers: [AdminGuard]
+        });
+    });
+
+    it('should ...', inject([AdminGuard], (guard: AdminGuard) => {
+        expect(guard).toBeTruthy();
+    }));
+});

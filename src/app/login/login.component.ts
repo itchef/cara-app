@@ -26,6 +26,7 @@ import {SessionService} from '../shared/services/session.service';
 import {LoginRequest} from '../shared/requests/login.request';
 import {AlertService} from '../shared/services/alert.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {UserService} from '../shared/services/user.service';
 
 @Component({
     selector: 'cara-login',
@@ -33,7 +34,8 @@ import {ActivatedRoute, Router} from '@angular/router';
     styleUrls: ['./login.component.scss'],
     providers: [
         SessionService,
-        AlertService
+        AlertService,
+        UserService
     ]
 })
 export class LoginComponent implements OnInit {
@@ -44,6 +46,7 @@ export class LoginComponent implements OnInit {
         private _formBuilder: FormBuilder,
         private _sessionService: SessionService,
         private _alertService: AlertService,
+        private _userService: UserService,
         private _router: Router,
         private _route: ActivatedRoute
     ) {
@@ -68,8 +71,12 @@ export class LoginComponent implements OnInit {
         if (!isTokenPresent) {
             this._alertService.show('Unable to login. Please try again later');
         } else {
-            this._alertService.show('Welcome to Cara');
-            this._router.navigate([this.returnTo]);
+            this._userService.getCurrentUser().subscribe(
+                user => {
+                    this._alertService.show('Welcome to Cara');
+                    this._router.navigate([this.returnTo]);
+                }
+            );
         }
     }
 

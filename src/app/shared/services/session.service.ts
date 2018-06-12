@@ -32,7 +32,7 @@ import {LogoutRequest} from '../requests/logout.request';
 export class SessionService {
 
     private URL = {
-        token: 'http://localhost:3002/token',
+        token: 'http://localhost:3002/access-token',
         revoke: 'http://localhost:3002/revoke'
     };
 
@@ -50,7 +50,6 @@ export class SessionService {
                 tap(token => {
                     if (token) {
                         localStorage.setItem('authToken', token.access_token);
-                        localStorage.setItem('username', request.username);
                         return true;
                     }
                     return false;
@@ -71,6 +70,7 @@ export class SessionService {
                 tap(response => {
                     localStorage.removeItem('authToken');
                     localStorage.removeItem('username');
+                    localStorage.removeItem('admin');
                 }),
                 catchError(this.handleError<any>('Unable to perform logout operation'))
             );

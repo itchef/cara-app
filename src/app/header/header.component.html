@@ -3,13 +3,13 @@
         <img src="../../assets/images/cara-logo-white.png" alt="Cara" class="logo">
         <span>Cara</span>
         <span class="cara-spacer"></span>
-        <a href="/" class="no-decoration nav-link">
+        <a href="/" class="no-decoration nav-link" *ngIf="loggedInUser.admin">
             <mat-icon>home</mat-icon>
         </a>
-        <a href="/admin" class="no-decoration nav-link">
+        <a href="/admin" class="no-decoration nav-link" *ngIf="loggedInUser.admin">
             <mat-icon>person</mat-icon>
         </a>
-        <button mat-button [matMenuTriggerFor]="headerMenu">@{{ loggedInUser }}</button>
+        <button mat-button [matMenuTriggerFor]="headerMenu">@{{ loggedInUser.username }}</button>
         <mat-menu #headerMenu="matMenu">
             <button mat-menu-item (click)="logout()">
                 <mat-icon>block</mat-icon>

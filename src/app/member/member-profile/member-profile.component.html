@@ -5,11 +5,11 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #memberActionMenu="matMenu">
-        <button mat-menu-item (click)="openEditMemberModal()">
+        <button mat-menu-item (click)="openEditMemberModal()" *ngIf="isAdmin">
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
         </button>
-        <button mat-menu-item (click)="deleteMember()">
+        <button mat-menu-item (click)="deleteMember()" *ngIf="isAdmin">
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
         </button>
