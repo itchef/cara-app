@@ -27,7 +27,7 @@ import {User} from '../models/user';
 import {NewUserRequest} from '../requests/new-user.request';
 import {UpdatePasswordRequest} from '../requests/update-password.request';
 import {HttpUtils} from '../utils/http.utils';
-import {CurrentUser} from "../models/current-user";
+import {CurrentUser} from '../models/current-user';
 
 @Injectable()
 export class UserService {
