@@ -25,6 +25,7 @@ import { MatDialog } from '@angular/material';
 import {ChangePasswordComponent} from '../../../common/modal/change-password/change-password.component';
 import { UserService } from '../../../shared/services/user.service';
 import {AlertService} from '../../../shared/services/alert.service';
+import {AdminStatusRequest} from '../../../shared/requests/admin-status.request';
 
 @Component({
     selector: 'cara-user-card',
@@ -60,26 +61,38 @@ export class UserCardComponent implements OnInit {
     unsubscribe() {
         this._userService.unsubscribe(this.user.id)
             .subscribe(
-            (userResponse) => {
-                this._alertService.show(`${userResponse.username} got unsubscribed successfully`);
-                this.user = userResponse;
-            },
-            (error) => {
-                this._alertService.show(error.message);
-            }
-        );
+                (userResponse) => {
+                    this._alertService.show(`${userResponse.username} got unsubscribed successfully`);
+                    this.user = userResponse;
+                },
+                (error) => {
+                    this._alertService.show(error.message);
+                }
+            );
+    }
+
+    assignAdminStatus(adminStatus: boolean) {
+        this._userService.assignAdminStatus(new AdminStatusRequest(adminStatus), this.user.id)
+            .subscribe(userResponse => {
+                    this._alertService.show(`${userResponse.username} is ${ userResponse.admin ? 'an admin' : 'non' +
+                        ' admin' }`);
+                    this.user = userResponse;
+                },
+                error => {
+                    this._alertService.show(error.message);
+                });
     }
 
     subscribe() {
         this._userService.subscribe(this.user.id)
             .subscribe(
-            (userResponse) => {
-                this._alertService.show(`${userResponse.username} got subscribed successfully`);
-                this.user = userResponse;
-            },
-            (error) => {
-                this._alertService.show(error.message);
-            }
-        );
+                (userResponse) => {
+                    this._alertService.show(`${userResponse.username} got subscribed successfully`);
+                    this.user = userResponse;
+                },
+                (error) => {
+                    this._alertService.show(error.message);
+                }
+            );
     }
 }

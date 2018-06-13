@@ -15,6 +15,11 @@
             <mat-icon>turned_in</mat-icon>
             <span>Subscribe</span>
         </button>
+        <button mat-menu-item (click)="assignAdminStatus(!user.admin)">
+            <mat-icon>supervised_user_circle</mat-icon>
+            <span *ngIf="user.admin">Mark as non-admin</span>
+            <span *ngIf="!user.admin">Mark as admin</span>
+        </button>
     </mat-menu>
 
     <mat-card-header class="user-container-padding cara-text-bold">

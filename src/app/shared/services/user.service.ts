@@ -28,6 +28,7 @@ import {NewUserRequest} from '../requests/new-user.request';
 import {UpdatePasswordRequest} from '../requests/update-password.request';
 import {HttpUtils} from '../utils/http.utils';
 import {CurrentUser} from '../models/current-user';
+import {AdminStatusRequest} from '../requests/admin-status.request';
 
 @Injectable()
 export class UserService {
@@ -118,6 +119,18 @@ export class UserService {
             catchError(this.handleError<any>('User is not subscribed'))
         );
     }
+
+    assignAdminStatus(adminStatusRequest: AdminStatusRequest, userId: number) {
+        const httpOptions = {
+            headers: new HttpHeaders(this._httpUtils.getHeader())
+        };
+        const url = `${this.URL.users}/${userId}/admin_status`;
+        return this._http.put(url, adminStatusRequest, httpOptions).pipe(
+            tap(user => user),
+            catchError(this.handleError<any>('Unable to change admin status'))
+        );
+    }
+
     private handleError<T> (operation, result?: T) {
         return (operationError: any): Observable<T> => {
             console.error(operationError);
