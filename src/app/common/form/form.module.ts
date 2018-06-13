@@ -28,7 +28,7 @@ import {
     MatCardModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule,
+    MatInputModule, MatSlideToggleModule,
     MatStepperModule
 } from '@angular/material';
 import {SharedModule} from '../../shared/shared.module';
@@ -47,7 +47,8 @@ import { SessionService } from '../../shared/services/session.service';
         MatInputModule,
         MatDialogModule,
         MatButtonModule,
-        MatCardModule
+        MatCardModule,
+        MatSlideToggleModule
     ],
     declarations: [
         MemberFormComponent,

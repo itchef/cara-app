@@ -38,6 +38,7 @@ import {AlertService} from '../../../shared/services/alert.service';
 })
 export class UserFormComponent implements OnInit {
     newUserForm: FormGroup;
+    isAdmin = false;
 
     constructor(
         private _formBuilder: FormBuilder,
@@ -58,7 +59,8 @@ export class UserFormComponent implements OnInit {
             this.newUserForm.controls['last_name'].value.trim(),
             this.newUserForm.controls['username'].value.trim(),
             this.newUserForm.controls['password'].value,
-            this.newUserForm.controls['password_confirmation'].value
+            this.newUserForm.controls['password_confirmation'].value,
+            this.isAdmin
         );
 
         this._userService.addUser(userRequest).subscribe(user => {
@@ -78,6 +80,10 @@ export class UserFormComponent implements OnInit {
 
     isUsernameValid() {
         return this.newUserForm.get('username').valid;
+    }
+
+    toggleChangeHandler() {
+        this.isAdmin = !this.isAdmin;
     }
 
     private getNewUserForm() {

@@ -32,6 +32,9 @@
                 </mat-error>
             </mat-form-field>
         </div>
+        <div class="full-width">
+            Admin? <mat-slide-toggle [checked]="is_admin" (change)="toggleChangeHandler()"></mat-slide-toggle>
+        </div>
     </form>
 </div>
 <div mat-dialog-actions>

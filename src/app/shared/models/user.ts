@@ -25,4 +25,5 @@ export class User {
     last_name: string;
     username: string;
     unsubscribed: boolean;
+    admin: boolean;
 }
