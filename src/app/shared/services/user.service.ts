@@ -131,6 +131,17 @@ export class UserService {
         );
     }
 
+    archive(userId: number) {
+        const httpOptions = {
+            headers: new HttpHeaders(this._httpUtils.getHeader())
+        };
+        const url = `${this.URL.users}/${userId}/archive`;
+        return this._http.delete(url, httpOptions).pipe(
+            tap(user => user),
+            catchError(this.handleError<any>('Unable to archive the user'))
+        );
+    }
+
     private handleError<T> (operation, result?: T) {
         return (operationError: any): Observable<T> => {
             console.error(operationError);

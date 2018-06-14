@@ -95,4 +95,16 @@ export class UserCardComponent implements OnInit {
                 }
             );
     }
+
+    archive() {
+        this._userService.archive(this.user.id)
+            .subscribe(userResponse => {
+                    this._alertService.show(`${userResponse.username} got archived successfully`);
+                    this.user = userResponse;
+                },
+                error => {
+                    this._alertService.show(error.message);
+                }
+            );
+    }
 }
