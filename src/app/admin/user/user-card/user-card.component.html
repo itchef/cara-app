@@ -1,4 +1,4 @@
-<mat-card class="user-card-width inline user-card-margin pointer user-card" *ngIf="!user.archived">
+<mat-card class="user-card-width inline user-card-margin pointer user-card" *ngIf="!isArchived">
     <button mat-icon-button class="cara-position-right user-menu" [matMenuTriggerFor]="userActionMenu">
         <mat-icon>more_vert</mat-icon>
     </button>
@@ -20,9 +20,9 @@
             <span *ngIf="user.admin">Mark as non-admin</span>
             <span *ngIf="!user.admin">Mark as admin</span>
         </button>
-        <button mat-menu-item (click)="archive()">
+        <button mat-menu-item (click)="archive()" *ngIf="!isArchived">
             <mat-icon>archive</mat-icon>
-            <span *ngIf="!user.archived">Archive</span>
+            <span>Archive</span>
         </button>
     </mat-menu>
 

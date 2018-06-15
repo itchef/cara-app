@@ -26,5 +26,4 @@ export class User {
     username: string;
     unsubscribed: boolean;
     admin: boolean;
-    archived: boolean;
 }

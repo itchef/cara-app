@@ -40,6 +40,8 @@ export class UserCardComponent implements OnInit {
     @Input()
     user: User;
 
+    isArchived = false;
+
     constructor(
         private _matDialog: MatDialog,
         private _userService: UserService,
@@ -100,7 +102,7 @@ export class UserCardComponent implements OnInit {
         this._userService.archive(this.user.id)
             .subscribe(userResponse => {
                     this._alertService.show(`${userResponse.username} got archived successfully`);
-                    this.user = userResponse;
+                    this.isArchived = true;
                 },
                 error => {
                     this._alertService.show(error.message);
