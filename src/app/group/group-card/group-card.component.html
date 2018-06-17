@@ -1,5 +1,18 @@
-<mat-card class="group-card-width inline group-card-margin pointer" (click)="showGroupProfile()">
-    <mat-card-header class="group-container-padding cara-text-bold">{{ group.name }}</mat-card-header>
-    <mat-divider></mat-divider>
-    <mat-card-content class="group-container-padding cara-text-italic">{{ group.description }}</mat-card-content>
+<mat-card class="group-card-width group-card inline group-card-margin pointer" *ngIf="!isDeleted">
+    <button mat-icon-button class="cara-position-right group-menu" [matMenuTriggerFor]="groupActionMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #groupActionMenu="matMenu">
+        <button mat-menu-item (click)="removeGroup()">
+            <mat-icon>delete</mat-icon>
+            <span>Remove</span>
+        </button>
+    </mat-menu>
+
+    <div (click)="showGroupProfile()">
+        <mat-card-header class="group-container-padding cara-text-bold">{{ group.name }}</mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content class="group-container-padding cara-text-italic">{{ group.description }}</mat-card-content>
+    </div>
+
 </mat-card>

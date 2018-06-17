@@ -23,27 +23,48 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Group} from '../../shared/models/group';
 import {MatDialog} from '@angular/material';
 import {GroupProfileComponent} from '../group-profile/group-profile.component';
+import {GroupService} from '../../shared/services/group.service';
+import {AlertService} from '../../shared/services/alert.service';
 
 @Component({
     selector: 'cara-group-card',
     templateUrl: './group-card.component.html',
-    styleUrls: ['./group-card.component.scss']
+    styleUrls: ['./group-card.component.scss'],
+    providers: [
+        GroupService,
+        AlertService
+    ]
 })
 export class GroupCardComponent implements OnInit {
     @Input()
     group: Group;
+    isDeleted = false;
 
-    constructor(private _dialog: MatDialog) { }
+    constructor(
+        private _dialog: MatDialog,
+        private _groupService: GroupService,
+        private _alertService: AlertService
+    ) { }
 
     ngOnInit() {
     }
 
     showGroupProfile() {
         this._dialog.open(GroupProfileComponent, {
-           width: '35%',
-           data: {
-               group: this.group
-           }
+            width: '35%',
+            data: {
+                group: this.group
+            }
         });
+    }
+
+    removeGroup() {
+        this._groupService.delete(this.group.id).subscribe(
+            group => {
+                this.isDeleted = true;
+                this._alertService.show(`${group.name} is successfully deleted`);
+            },
+            error => { this._alertService.show(error.message); }
+        );
     }
 }

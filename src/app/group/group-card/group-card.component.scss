@@ -29,3 +29,15 @@
 .group-container-padding {
     padding: 10px 0;
 }
+
+.group-card {
+    .group-menu {
+        visibility: hidden;
+    }
+
+    &:hover {
+        .group-menu {
+            visibility: visible;
+        }
+    }
+}

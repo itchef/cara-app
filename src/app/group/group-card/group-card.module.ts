@@ -23,17 +23,29 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GroupCardComponent } from './group-card.component';
 import {
+    MatButtonModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    MatIconModule,
+    MatMenuModule
 } from '@angular/material';
+import {GroupService} from '../../shared/services/group.service';
+import {AlertService} from '../../shared/services/alert.service';
 
 @NgModule({
     imports: [
         CommonModule,
         MatCardModule,
-        MatDividerModule
+        MatDividerModule,
+        MatMenuModule,
+        MatIconModule,
+        MatButtonModule
     ],
     declarations: [GroupCardComponent],
+    providers: [
+        GroupService,
+        AlertService
+    ],
     exports: [GroupCardComponent]
 })
 export class GroupCardModule { }

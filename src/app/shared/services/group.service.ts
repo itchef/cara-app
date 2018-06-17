@@ -90,6 +90,18 @@ export class GroupService {
             );
     }
 
+    delete(groupID: number): Observable<Group> {
+        const httpOptions = {
+            headers: new HttpHeaders(this._httpUtils.getHeader())
+        };
+        const url = `${this.URL.groups}/${groupID}`;
+        return this._http.delete<Group>(url, httpOptions)
+            .pipe(
+                tap(group => group),
+                catchError(this.handleError<any>('Unable to delete the group'))
+            );
+    }
+
     private handleError<T> (operation, result?: T) {
         return (detailedError: any): Observable<T> => {
             console.error(detailedError);
