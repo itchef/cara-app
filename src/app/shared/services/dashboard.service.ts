@@ -26,11 +26,13 @@ import {DashboardGroup} from '../models/dashboard-group';
 import {catchError, tap} from 'rxjs/operators';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 import {HttpUtils} from '../utils/http.utils';
+import * as config from '../../../config/config.json';
 
 @Injectable()
 export class DashboardService {
+    private _apiURL = (<any>config).apiURL;
     private URL = {
-        dashboard: 'http://localhost:3002/dashboard'
+        dashboard: `${this._apiURL}/dashboard`
     };
     private _httpUtils: HttpUtils;
 

@@ -30,13 +30,15 @@ import {AssignGroupRequest} from '../requests/assign-group.request';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
 import {MemberBasic} from '../models/member-basic';
 import {HttpUtils} from '../utils/http.utils';
+import * as config from '../../../config/config.json';
 
 @Injectable()
 export class GroupService {
 
+    private _apiURL = (<any>config).apiURL;
     private URL = {
-        groups: 'http://localhost:3002/groups',
-        assignMember: 'http://localhost:3002/groups/assign_member',
+        groups: `${this._apiURL}/groups`,
+        assignMember: `${this._apiURL}/groups/assign_member`,
         unassignedMember: 'unassigned_member'
     };
     private _httpUtils: HttpUtils;

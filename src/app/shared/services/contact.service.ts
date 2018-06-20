@@ -28,11 +28,13 @@ import {catchError, tap} from 'rxjs/operators';
 import {of} from 'rxjs/observable/of';
 import {HttpUtils} from '../utils/http.utils';
 import {ErrorObservable} from 'rxjs/observable/ErrorObservable';
+import * as config from '../../../config/config.json';
 
 @Injectable()
 export class ContactService {
+    private _apiURL = (<any>config).apiURL;
     private URL = {
-        add_contacts: 'http://localhost:3002/contacts/add_contacts'
+        add_contacts: `${this._apiURL}/contacts/add_contacts`
     };
 
     private _httpUtils: HttpUtils;

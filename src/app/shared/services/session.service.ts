@@ -27,13 +27,14 @@ import {LoginRequest} from '../requests/login.request';
 import {catchError, tap} from 'rxjs/operators';
 import {AccessToken} from '../models/access-token';
 import {LogoutRequest} from '../requests/logout.request';
+import * as config from '../../../config/config.json';
 
 @Injectable()
 export class SessionService {
-
+    private _apiURL = (<any>config).apiURL;
     private URL = {
-        token: 'http://localhost:3002/access-token',
-        revoke: 'http://localhost:3002/revoke'
+        token: `${this._apiURL}/access-token`,
+        revoke: `${this._apiURL}/revoke`
     };
 
     constructor(private _http: HttpClient) { }

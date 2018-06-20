@@ -27,11 +27,13 @@ import {catchError, tap} from 'rxjs/operators';
 import {MemberRequest} from '../requests/member.request';
 import {HttpUtils} from '../utils/http.utils';
 import {of} from 'rxjs/observable/of';
+import * as config from '../../../config/config.json';
 
 @Injectable()
 export class MemberService {
+    private _apiURL = (<any>config).apiURL;
     private URL = {
-        members: 'http://localhost:3002/members'
+        members: `${this._apiURL}/members`
     };
     private _httpUtils: HttpUtils;
 

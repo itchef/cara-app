@@ -29,12 +29,14 @@ import {UpdatePasswordRequest} from '../requests/update-password.request';
 import {HttpUtils} from '../utils/http.utils';
 import {CurrentUser} from '../models/current-user';
 import {AdminStatusRequest} from '../requests/admin-status.request';
+import * as config from '../../../config/config.json';
+
 
 @Injectable()
 export class UserService {
-
+    private _apiURL = (<any>config).apiURL;
     private URL = {
-        users: 'http://localhost:3002/users'
+        users: `${this._apiURL}/users`
     };
     private _httpUtils: HttpUtils;
 
