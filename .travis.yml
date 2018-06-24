@@ -29,6 +29,7 @@ before_deploy:
     - wget https://github.com/itchef/app-runner/archive/master.zip -O installer.zip
     - unzip installer.zip -d installer
     - cd installer
+    - git init
     - cp -r $PROJECT_DIR/dist .
 
 deploy:
