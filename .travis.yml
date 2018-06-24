@@ -30,7 +30,7 @@ before_deploy:
     - cd installer
     - cp -r $PROJECT_DIR/dist .
     - git add .
-    - git commit -m "Added build package of cara app from $TRAVIS_BUILD_NUMBER"
+    - git commit -m "Added build package of cara app from $TRAVIS_BUILD_NUMBER [$TRAVIS_JOB_NUMBER]"
 
 deploy:
   provider: heroku
