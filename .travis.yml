@@ -24,7 +24,7 @@ jobs:
         - yarn build:prod
 
 before_deploy:
-    - export PROJECT_DIR=pwd
+    - export PROJECT_DIR=`pwd`
     - cd /tmp
     - wget https://github.com/itchef/app-runner/archive/master.zip -O installer.zip
     - unzip installer.zip -d installer
