@@ -26,10 +26,9 @@ jobs:
 before_deploy:
     - export PROJECT_DIR=`pwd`
     - cd /tmp
-    - wget https://github.com/itchef/app-runner/archive/master.zip -O installer.zip
-    - unzip installer.zip -d installer
+    - git clone https://github.com/itchef/app-runner.git installer
     - cd installer
-    - git init
+    - ls -al
     - cp -r $PROJECT_DIR/dist .
 
 deploy:
