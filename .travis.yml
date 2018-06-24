@@ -29,6 +29,8 @@ before_deploy:
     - git clone https://github.com/itchef/app-runner.git installer
     - cd installer
     - cp -r $PROJECT_DIR/dist .
+    - node configModifier.js
+    - cat dist/config/config.json
     - git add .
     - git commit -m "Added build package of cara app from $TRAVIS_BUILD_NUMBER [$TRAVIS_JOB_NUMBER]"
 
