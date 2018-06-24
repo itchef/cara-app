@@ -46,6 +46,7 @@ export class SessionService {
                 'Access-Control-Allow-Origin': '*'
             })
         };
+        console.log(this._apiURL);
         return this._http.post<AccessToken>(this.URL.token, request, httpOptions)
             .pipe(
                 tap(token => {
