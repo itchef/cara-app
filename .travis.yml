@@ -28,8 +28,8 @@ before_deploy:
     - cd /tmp
     - git clone https://github.com/itchef/app-runner.git installer
     - cd installer
-    - ls -al
     - cp -r $PROJECT_DIR/dist .
+    - git add .
 
 deploy:
   provider: heroku
