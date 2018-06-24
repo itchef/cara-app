@@ -11,7 +11,8 @@
         "lint": "ng lint",
         "e2e": "ng e2e",
         "build:dev": "yarn lint && yarn test && yarn e2e && yarn dev-build",
-        "build:prod": "yarn lint && yarn test && yarn e2e && yarn build",
+        "build:prod": "yarn lint && yarn test && yarn e2e && yarn config:update && yarn build",
+        "config:update": "node config.update.js",
         "precommit": "yarn lint && yarn test"
     },
     "keywords": [
