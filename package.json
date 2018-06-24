@@ -5,12 +5,13 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "ng build --prod",
+        "build": "ng build --aot -prod",
         "dev-build": "ng build",
         "test": "ng test --watch=false --sourcemaps=false --code-coverage",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "build:dev": "yarn lint && yarn test && yarn e2e && yarn dev-build",
+        "build:prod": "yarn lint && yarn test && yarn e2e && yarn build",
         "precommit": "yarn lint && yarn test"
     },
     "keywords": [
