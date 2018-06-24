@@ -4,6 +4,10 @@ node_js:
   - 8
 addons:
     chrome: stable
+
+before_install:
+    - sudo apt-get update
+    - sudo apt-get install unzip
 before_script:
     - set -e
     - sudo chown root /opt/google/chrome/chrome-sandbox
@@ -17,4 +21,19 @@ jobs:
   include:
     - stage: test
       script:
-        - yarn build:dev
+        - yarn build:prod
+
+before_deploy:
+    - export PROJECT_DIR=pwd
+    - cd /tmp
+    - wget https://github.com/itchef/app-runner/archive/master.zip -O installer.zip
+    - unzip installer.zip -d installer
+    - cd installer
+    - cp -r $PROJECT_DIR/dist .
+
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  app: cara-staging-app
+  on:
+    branch: staging
