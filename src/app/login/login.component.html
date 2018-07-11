@@ -9,17 +9,21 @@
                 <form [formGroup]="loginForm">
                     <div>
                         <mat-form-field class="full-width">
-                            <input matInput placeholder="Username" formControlName="username" required>
+                            <input id="login-username" matInput placeholder="Username" formControlName="username"
+                                   required>
                         </mat-form-field>
                     </div>
                     <div>
                         <mat-form-field class="full-width">
-                            <input type="password" matInput placeholder="Password" formControlName="password" required>
+                            <input id="login-password" type="password" matInput placeholder="Password"
+                                   formControlName="password" required>
                         </mat-form-field>
                     </div>
                 </form>
                 <div mat-dialog-actions>
-                    <button mat-raised-button color="primary" (click)="login()" [disabled]="!loginForm.valid">Login</button>
+                    <button id="login-button" mat-raised-button color="primary" (click)="login()"
+                            [disabled]="!loginForm.valid">Login
+                    </button>
                 </div>
             </div>
         </mat-card-content>
